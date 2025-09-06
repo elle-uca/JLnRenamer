@@ -1,0 +1,26 @@
+package org.ln.java.renamer;
+
+public class Costants {
+
+	public static final String DOT = ".";
+	
+	
+	public enum ModeCase {
+		UPPER ("TUTTO MAIUSCOLO"),         
+		LOWER ("tutto minuscolo"),         
+		TITLE_CASE ("Tutte le iniziali maiuscole"),    
+		CAPITALIZE_FIRST ("Iniziale maiuscola prima parola"), 
+		TOGGLE_CASE ("iNVERTI mAIUSCOLE") ;
+		
+		private String title;
+		ModeCase(String string) {
+			this.title = string;
+		}
+		/**
+		 * @return the title
+		 */
+		public String getTitle() {
+			return title;
+		}
+	}
+}

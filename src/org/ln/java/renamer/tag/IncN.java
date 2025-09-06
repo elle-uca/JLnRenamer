@@ -1,0 +1,66 @@
+package org.ln.java.renamer.tag;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * <IncN:1:1>
+ * Genera una serie di numeri con un dato incremento a partire da start.
+ * Start può essere un numero negativo
+ * Il secondo parametro è opzionale e stabilisce l'incremento, di default è 1
+ *
+ *
+ * @author  Luca Noale
+ */
+public class IncN extends RnTag {
+
+
+
+
+	/**
+	 * @param arg
+	 */
+	public IncN(Integer...arg) {
+		super(arg);
+		this.tagName = "IncN";
+	}
+
+
+
+
+	@Override
+	public void init() {
+		this.newName = incrementalNumber(this, oldName, true);
+	}
+
+
+
+	@Override
+	public String getDescription() {
+		return "Numero incrementale";
+	}
+
+	
+	/**
+	 * @param tag
+	 * @param nameList
+	 * @param plus
+	 * @return
+	 */
+	public static List<String> incrementalNumber(RnTag tag, List<String> nameList, boolean plus){
+		List<String> result = new ArrayList<String>();
+		int incr = tag.getStart();
+		for(int i = 0; i < nameList.size(); i++) {
+			result.add(incr+"");
+			//System.out.println("incr  "+incr);
+			incr =  plus  ?  incr + tag.getStep()  :  incr - tag.getStep() ;
+		}
+		return result;
+	}
+
+	public static void main(String[] args) {
+
+	}
+
+
+}
