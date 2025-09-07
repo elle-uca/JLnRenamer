@@ -23,4 +23,11 @@ public class Costants {
 			return title;
 		}
 	}
+	
+	public enum FileStatus {
+		OK,         
+		KO;
+		
+
+	}
 }

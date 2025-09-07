@@ -2,11 +2,15 @@ package org.ln.java.renamer;
 
 import java.io.File;
 
+import org.ln.java.renamer.Costants.FileStatus;
+
 public class RnFile {
 
 	private AdFile from;
 	
 	private String status;
+	
+	private FileStatus fileStatus = FileStatus.OK;
 	
 	private String nameDest;
 	
@@ -21,10 +25,10 @@ public class RnFile {
 		nameDest = "";
 		if(from.exists()) {
 			//System.out.println("Status OKKKK");
-			status = "OK";
+			fileStatus = FileStatus.OK;
 		}else {
 			//System.out.println("Status KOOOO");
-			status = "KO";
+			fileStatus = FileStatus.KO;
 		}
 	}
 

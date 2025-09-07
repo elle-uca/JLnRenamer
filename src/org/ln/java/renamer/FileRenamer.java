@@ -69,6 +69,53 @@ public class FileRenamer {
         }
     }
 
+    
+    
+    public static boolean checkConflict(File directory, Map<File, String> newNames) {
+        if (directory == null || !directory.isDirectory()) {
+            System.out.println("❌ La cartella non è valida.");
+            return true;
+        }
+
+        File[] files = directory.listFiles();
+        if (files == null) {
+            System.out.println("❌ Impossibile leggere i file dalla cartella.");
+            return true;
+        }
+    	
+        // Nomi già esistenti
+        Set<String> existingNames = new HashSet<>();
+        for (File f : files) {
+            existingNames.add(f.getName());
+        }
+
+        // Controllo conflitti
+        Set<String> usedNewNames = new HashSet<>();
+        boolean conflictFound = false;
+        
+        for (Map.Entry<File, String> entry : newNames.entrySet()) {
+            File oldFile = entry.getKey();
+            String newName = entry.getValue();
+
+            // 1. conflitto con file esistenti (ma non se è lo stesso file)
+            if (existingNames.contains(newName) && !oldFile.getName().equals(newName)) {
+                System.out.println("❌ Conflitto: " + newName + " esiste già nella cartella.");
+                conflictFound = true;
+            }
+
+            // 2. duplicati nella lista dei nuovi nomi
+            if (!usedNewNames.add(newName)) {
+                System.out.println("❌ Conflitto: il nuovo nome " + newName + " è duplicato.");
+                conflictFound = true;
+            }
+        }
+		return conflictFound;
+    }
+    
+    
+    
+    
+    
     // Esempio di utilizzo
     public static void main(String[] args) {
         File directory = new File("C:/mia_cartella");

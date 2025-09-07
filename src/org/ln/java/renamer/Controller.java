@@ -73,7 +73,7 @@ public class Controller {
 			}
 			
 			
-			FileRenamer.renameFiles(rnfilesList.getFirst().getFrom().getParentFile(), newNames);
+			System.out.println("Conflitti   "+FileRenamer.checkConflict(rnfilesList.getFirst().getFrom().getParentFile(), newNames));
 			
 			//view.getTableModel().setData(new ArrayList<RnFile>());
 		}
