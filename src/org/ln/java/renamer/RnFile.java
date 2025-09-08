@@ -68,21 +68,22 @@ public class RnFile {
 	}
 
 
-	/**
-	 * @return the status
-	 */
-	public String getStatus() {
-		return status;
-	}
+//	/**
+//	 * @return the status
+//	 */
+//	public String getStatus() {
+//		return status;
+//	}
+//
+//
+//	/**
+//	 * @param status the status to set
+//	 */
+//	public void setStatus(String status) {
+//		this.status = status;
+//	}
 
-
-	/**
-	 * @param status the status to set
-	 */
-	public void setStatus(String status) {
-		this.status = status;
-	}
-
+	
 
 	/**
 	 * @return the from
@@ -94,6 +95,22 @@ public class RnFile {
 
 	
 	
+	/**
+	 * @return the fileStatus
+	 */
+	public FileStatus getFileStatus() {
+		return fileStatus;
+	}
+
+
+	/**
+	 * @param fileStatus the fileStatus to set
+	 */
+	public void setFileStatus(FileStatus fileStatus) {
+		this.fileStatus = fileStatus;
+	}
+
+
 	public boolean renameTo() {
 		String dest = from.getParent()+File.separator+nameDest+"."+from.getExtension();
 		System.out.println(from.getAbsolutePath()+" dest    "+dest);

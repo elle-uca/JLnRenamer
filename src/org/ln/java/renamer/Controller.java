@@ -79,50 +79,6 @@ public class Controller {
 		}
 	}
 
-//	public class RenameDocumentListener implements DocumentListener {
-//
-//	    @Override
-//		public void insertUpdate(DocumentEvent e) {
-//	    	changedUpdate(e);
-//	    }
-//	    @Override
-//		public void removeUpdate(DocumentEvent e) {
-//	    	changedUpdate(e);
-//	    }
-//	    @Override
-//		public void changedUpdate(DocumentEvent e) {
-//			String str  = view.getRenameField().getText();
-//			System.out.println(str);
-//				
-//			if(StringParser.isParsable(str)) {
-//				view.getTableModel().setData(StringParser.parse(str, view.getTableModel().getData())) ;
-//			}
-//	    }
-//	}
-	
-	
-//	public class AddMethodDocumentListener implements DocumentListener {
-//
-//	    @Override
-//		public void insertUpdate(DocumentEvent e) {
-//	    	changedUpdate(e);
-//	    }
-//	    @Override
-//		public void removeUpdate(DocumentEvent e) {
-//	    	changedUpdate(e);
-//	    }
-//	    @Override
-//		public void changedUpdate(DocumentEvent e) {
-//			String str  = view.getRenameField().getText();
-//			System.out.println(str);
-//				
-////			if(StringParser.isParsable(str)) {
-////				view.getTableModel().setData(StringParser.parse(str, view.getTableModel().getData())) ;
-////			}
-//	    }
-//	}
-	
 
-//	public static void main(String[] args) {
-//	  }
+
 }

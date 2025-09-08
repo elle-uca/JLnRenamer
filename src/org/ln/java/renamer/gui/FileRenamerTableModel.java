@@ -48,7 +48,7 @@ public class FileRenamerTableModel extends AbstractTableModel{
 		case 2:
 			return data.get(rowIndex).getFrom().getParent();
 		case 3:
-			return data.get(rowIndex).getStatus();
+			return data.get(rowIndex).getFileStatus().toString();
 		case 4:
 			return data.get(rowIndex).getSelected();
 
