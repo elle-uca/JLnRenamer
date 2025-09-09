@@ -67,12 +67,11 @@ public class TagPanel extends AbstractPanelContent {
 	@Override
 	void updateView() {
 		String str  = renameField.getText();
-		//System.out.println(str);
+		System.out.println(str);
 		
 		
 		
 		List<RnFile> rnfilesList = accordion.getView().getTableModel().getData();
-		
 		
 		Map<RnFile, String> newNames = new HashMap<>();
 		for (RnFile rnFile : rnfilesList) {
@@ -80,25 +79,20 @@ public class TagPanel extends AbstractPanelContent {
 		}
 		
 		
-		
 //		Map<File, String> newNames = new HashMap<>();
 //		for (RnFile rnFile : rnfilesList) {
 //			newNames.put(rnFile.getFrom(), rnFile.getNameDest());
 //		}
 		
-		
-		System.out.println("Conflitti   "+FileRenamer.checkConflicts(rnfilesList.getFirst().getFrom().getParentFile(), newNames));
-		
 		//view.getTableModel().setData(new ArrayList<RnFile>());
-		
-		
-		
-		
 		
 		if(StringParser.isParsable(str)) {
 			accordion.getView().getTableModel().setData(
 					StringParser.parse(str, accordion.getView().getTableModel().getData())) ;
 		}
+		
+		System.out.println("Conflitti   "+FileRenamer.checkConflicts(rnfilesList.getFirst().getFrom().getParentFile(), newNames));
+
 	}
 
 

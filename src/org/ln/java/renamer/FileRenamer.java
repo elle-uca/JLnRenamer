@@ -6,6 +6,8 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import org.ln.java.renamer.Costants.FileStatus;
+
 public class FileRenamer {
 
     /**
@@ -105,6 +107,7 @@ public class FileRenamer {
 
             // 2. duplicati nella lista dei nuovi nomi
             if (!usedNewNames.add(newName)) {
+            	
                 System.out.println("❌ Conflitto: il nuovo nome " + newName + " è duplicato.");
                 conflictFound = true;
             }
@@ -143,6 +146,7 @@ public class FileRenamer {
 
             // 2. duplicati nella lista dei nuovi nomi
             if (!usedNewNames.add(newName)) {
+            	 entry.getKey().setFileStatus(FileStatus.KO);
                 System.out.println("❌ Conflitto: il nuovo nome " + newName + " è duplicato.");
                 conflictFound = true;
             }

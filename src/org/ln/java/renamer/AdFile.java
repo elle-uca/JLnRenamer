@@ -1,7 +1,6 @@
 package org.ln.java.renamer;
 
 import java.io.File;
-import java.io.IOException;
 
 
 @SuppressWarnings("serial")
@@ -13,16 +12,6 @@ public class AdFile extends File {
 	public AdFile(String pathname) {
 		super(pathname);
 	}
-
-	/**
-	 * @param file
-	 * 
-	 * Serve????
-	 */
-//	public AdFile(AdFile file) {
-//		this(file.getParent()+separator+""+dot+file.getExtension());
-//
-//	}
 
 
 	/**
@@ -72,10 +61,6 @@ public class AdFile extends File {
      *          {@code false} otherwise
      *          
 	 */
-//	public  boolean renameTo(String pathname) {
-//		return renameTo(new File(pathname)) ;
-//	}
-	
 	public  boolean renameTo(String parent, String name, String ext) {
 		return renameTo(new File(parent+separator+name+Costants.DOT+ext));
 	}	
@@ -94,24 +79,6 @@ public class AdFile extends File {
 				getNameExtensionLess() + ", getExtension()=" + getExtension()
 				+ "]";
 	}
-
-//	public static void main(String[] args) throws IOException {
-//		String path = "/home/luke/test/pippo/";
-//		String name ="pippo.txt";
-//		AdFile f = new AdFile(path+name);
-//		f.createNewFile();
-//		System.out.println(f);
-//		System.out.println(f.getParent());
-//		System.out.println(f.getName());
-//		System.out.println(f.getCanonicalPath());
-//		System.out.println(f.getExtension());
-//		System.out.println(f.getNameExtensionLess());
-//		//f.newName("pluto");
-//		f.renameTo(path, "pluto", "pdf");
-//		
-//	}
-
-
 
 
 

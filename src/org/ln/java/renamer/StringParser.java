@@ -8,20 +8,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.ln.java.renamer.tag.RnTag;
-import org.ln.java.renamer.util.FileUtility;
 import org.ln.java.renamer.util.Utility;
 
 public class StringParser {
 
 	
-//	public static void main(String[] args) {
-////		StringParser.parse("<IncR:1:0>_Hello_<Word:1>", 
-////				FileUtility.createRnFiles("/home/luke/test/pippo/", 10, "pippo_pluto(minni) klo.lo", ".txt"));
-//		StringParser.parse("<IncR:1:0>_Hello_<Subs:5:8>_<Word:1>", 
-//				FileUtility.createRnFiles("C:\\Users\\l.noale\\Downloads\\test\\pippo\\", 10, "pippo_pluto(minni) klo.lo", ".txt"));
-//	}
-
-
 
 	/**
 	 * @param string

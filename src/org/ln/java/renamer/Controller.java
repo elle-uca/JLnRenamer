@@ -8,6 +8,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.prefs.Preferences;
 
 import javax.swing.JFileChooser;
 
@@ -16,6 +17,9 @@ import org.ln.java.renamer.gui.RenamerView;
 public class Controller {
 
 	private RenamerView view;
+	
+    private static final Preferences prefs = Preferences.userRoot().node("JLnRenamer");
+    private static final String LAST_DIR_KEY = "lastDir";
 
 
 	public Controller(RenamerView view) {
@@ -32,7 +36,12 @@ public class Controller {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-    		JFileChooser fc = new JFileChooser();
+			String lastPath = prefs.get(LAST_DIR_KEY, null);
+			
+    		JFileChooser fc = (lastPath != null)
+                    ? new JFileChooser(new File(lastPath))
+                    : new JFileChooser();
+    		
     		fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
     		fc.setMultiSelectionEnabled(true);
     		int returnVal = fc.showOpenDialog(null);
@@ -48,6 +57,7 @@ public class Controller {
     			//System.out.println(rn);
     			rnfilesList.add(rn);
     		}
+    		prefs.put(LAST_DIR_KEY, fileList.getFirst().getParent());
     		view.getTableModel().setData(rnfilesList);
     		view.setInfoText("file "+rnfilesList.size() );
 		}

@@ -1,15 +1,10 @@
 package org.ln.java.renamer.gui;
 
-import java.awt.Color;
-import java.awt.Component;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
-import javax.swing.table.DefaultTableCellRenderer;
 
-import org.ln.java.renamer.Costants.FileStatus;
 import org.ln.java.renamer.RnFile;
 
 @SuppressWarnings("serial")

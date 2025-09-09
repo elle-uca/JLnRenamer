@@ -53,7 +53,6 @@ public class TagListModel extends AbstractListModel<RnTag> {
 		try {
 			classes = FileUtility.getClasses("org.ln.java.renamer.tag");
 		} catch (ClassNotFoundException | IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
         RnTag tag = null;
@@ -66,7 +65,6 @@ public class TagListModel extends AbstractListModel<RnTag> {
 					tag = (RnTag) cons.newInstance((Object) arr);
 					dataList.add(tag);
 				} catch (NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
         	}
