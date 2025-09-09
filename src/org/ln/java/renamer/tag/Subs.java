@@ -30,7 +30,7 @@ public class Subs extends RnTag {
 		newName.clear();
 		for (String string : oldName) {
 			String sub = getSafeSubstring(string, start-1, step);
-			System.out.println("sub  "+sub);
+		//	System.out.println("sub  "+sub);
 			newName.add(sub);
 		}
 	}

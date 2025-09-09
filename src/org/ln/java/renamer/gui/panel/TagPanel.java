@@ -2,12 +2,17 @@ package org.ln.java.renamer.gui.panel;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
 
+import org.ln.java.renamer.FileRenamer;
+import org.ln.java.renamer.RnFile;
 import org.ln.java.renamer.StringParser;
 import org.ln.java.renamer.gui.AccordionPanel;
 import org.ln.java.renamer.gui.TagListModel;
@@ -62,7 +67,34 @@ public class TagPanel extends AbstractPanelContent {
 	@Override
 	void updateView() {
 		String str  = renameField.getText();
-		System.out.println(str);
+		//System.out.println(str);
+		
+		
+		
+		List<RnFile> rnfilesList = accordion.getView().getTableModel().getData();
+		
+		
+		Map<RnFile, String> newNames = new HashMap<>();
+		for (RnFile rnFile : rnfilesList) {
+			newNames.put(rnFile, rnFile.getNameDest());
+		}
+		
+		
+		
+//		Map<File, String> newNames = new HashMap<>();
+//		for (RnFile rnFile : rnfilesList) {
+//			newNames.put(rnFile.getFrom(), rnFile.getNameDest());
+//		}
+		
+		
+		System.out.println("Conflitti   "+FileRenamer.checkConflicts(rnfilesList.getFirst().getFrom().getParentFile(), newNames));
+		
+		//view.getTableModel().setData(new ArrayList<RnFile>());
+		
+		
+		
+		
+		
 		if(StringParser.isParsable(str)) {
 			accordion.getView().getTableModel().setData(
 					StringParser.parse(str, accordion.getView().getTableModel().getData())) ;

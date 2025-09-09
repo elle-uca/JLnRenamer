@@ -95,21 +95,21 @@ public class AdFile extends File {
 				+ "]";
 	}
 
-	public static void main(String[] args) throws IOException {
-		String path = "/home/luke/test/pippo/";
-		String name ="pippo.txt";
-		AdFile f = new AdFile(path+name);
-		f.createNewFile();
-		System.out.println(f);
-		System.out.println(f.getParent());
-		System.out.println(f.getName());
-		System.out.println(f.getCanonicalPath());
-		System.out.println(f.getExtension());
-		System.out.println(f.getNameExtensionLess());
-		//f.newName("pluto");
-		f.renameTo(path, "pluto", "pdf");
-		
-	}
+//	public static void main(String[] args) throws IOException {
+//		String path = "/home/luke/test/pippo/";
+//		String name ="pippo.txt";
+//		AdFile f = new AdFile(path+name);
+//		f.createNewFile();
+//		System.out.println(f);
+//		System.out.println(f.getParent());
+//		System.out.println(f.getName());
+//		System.out.println(f.getCanonicalPath());
+//		System.out.println(f.getExtension());
+//		System.out.println(f.getNameExtensionLess());
+//		//f.newName("pluto");
+//		f.renameTo(path, "pluto", "pdf");
+//		
+//	}
 
 
 

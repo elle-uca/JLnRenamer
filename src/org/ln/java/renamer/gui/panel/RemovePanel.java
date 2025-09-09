@@ -46,7 +46,7 @@ public class RemovePanel extends AbstractPanelContent {
 	 */
 	@Override
 	void updateView() {
-		System.out.println(getRenameField().getText()+"  "+posSpinner.getValue());
+		//System.out.println(getRenameField().getText()+"  "+posSpinner.getValue());
 		accordion.getView().getTableModel().setData(RenamerMethod.removeMethod(
 				accordion.getView().getTableModel().getData(), 
 				posSpinner.getIntValue(), numSpinner.getIntValue()));

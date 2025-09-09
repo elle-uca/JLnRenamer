@@ -97,7 +97,7 @@ public class RnFile {
 
 	public boolean renameTo() {
 		String dest = from.getParent()+File.separator+nameDest+"."+from.getExtension();
-		System.out.println(from.getAbsolutePath()+" dest    "+dest);
+		//System.out.println(from.getAbsolutePath()+" dest    "+dest);
 		return from.renameTo(new File(dest));
 	}
 
@@ -127,11 +127,11 @@ public class RnFile {
 	}
 	
 	
-	public static void main(String[] args) {
-		RnFile f = new RnFile(new AdFile("/home/luke/test/pippo/pippo6.txt"));
-		System.out.println(f.getFrom().getNameExtensionLess());
-		f.getFrom().newName("piripicchio");
-		System.out.println(f);
-	}
+//	public static void main(String[] args) {
+//		RnFile f = new RnFile(new AdFile("/home/luke/test/pippo/pippo6.txt"));
+//		System.out.println(f.getFrom().getNameExtensionLess());
+//		f.getFrom().newName("piripicchio");
+//		System.out.println(f);
+//	}
 
 }

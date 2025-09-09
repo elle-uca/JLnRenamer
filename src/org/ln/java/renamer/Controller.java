@@ -45,7 +45,7 @@ public class Controller {
     		List<File> fileList = new ArrayList<>(Arrays.asList(files));
     		for (File file : fileList) {
     			RnFile rn = new RnFile(new AdFile(file.getPath()));
-    			System.out.println(rn);
+    			//System.out.println(rn);
     			rnfilesList.add(rn);
     		}
     		view.getTableModel().setData(rnfilesList);
@@ -75,7 +75,7 @@ public class Controller {
 			
 			System.out.println("Conflitti   "+FileRenamer.checkConflict(rnfilesList.getFirst().getFrom().getParentFile(), newNames));
 			
-			//view.getTableModel().setData(new ArrayList<RnFile>());
+			view.getTableModel().setData(new ArrayList<RnFile>());
 		}
 	}
 

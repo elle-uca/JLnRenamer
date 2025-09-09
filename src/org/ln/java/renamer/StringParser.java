@@ -14,12 +14,12 @@ import org.ln.java.renamer.util.Utility;
 public class StringParser {
 
 	
-	public static void main(String[] args) {
-//		StringParser.parse("<IncR:1:0>_Hello_<Word:1>", 
-//				FileUtility.createRnFiles("/home/luke/test/pippo/", 10, "pippo_pluto(minni) klo.lo", ".txt"));
-		StringParser.parse("<IncR:1:0>_Hello_<Subs:5:8>_<Word:1>", 
-				FileUtility.createRnFiles("C:\\Users\\l.noale\\Downloads\\test\\pippo\\", 10, "pippo_pluto(minni) klo.lo", ".txt"));
-	}
+//	public static void main(String[] args) {
+////		StringParser.parse("<IncR:1:0>_Hello_<Word:1>", 
+////				FileUtility.createRnFiles("/home/luke/test/pippo/", 10, "pippo_pluto(minni) klo.lo", ".txt"));
+//		StringParser.parse("<IncR:1:0>_Hello_<Subs:5:8>_<Word:1>", 
+//				FileUtility.createRnFiles("C:\\Users\\l.noale\\Downloads\\test\\pippo\\", 10, "pippo_pluto(minni) klo.lo", ".txt"));
+//	}
 
 
 
@@ -30,7 +30,7 @@ public class StringParser {
 	 */
 	public static List<RnFile> parse(String string, List<RnFile> fileList) {
 		List<Object> objectList = new ArrayList<Object>() ;
-		System.out.println(string);
+		//System.out.println(string);
 
 		Pattern pattern = Pattern.compile("<[^>]+>|[^<]+");
 		Matcher matcher = pattern.matcher(string);
@@ -60,7 +60,7 @@ public class StringParser {
 				}
 			}
 			rnf.setNameDest(result);
-			System.out.println("result  "+rnf.getNameDest());
+			///System.out.println("result  "+rnf.getNameDest());
 		}
 		return fileList;
 	}

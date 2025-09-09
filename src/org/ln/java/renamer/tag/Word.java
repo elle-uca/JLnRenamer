@@ -30,7 +30,7 @@ public class Word extends RnTag {
 		newName.clear();
 		for (String string : oldName) {
 			List<String> sub = extractSubstringsFromChars(string, DELIMITERS);
-			System.out.println("string size  "+sub);
+			//System.out.println("string size  "+sub);
 			int w = start  <= sub.size() ? start : sub.size() ;
 			newName.add(sub.get(w-1));
 		}

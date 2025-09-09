@@ -40,7 +40,7 @@ public abstract class RnTag {
 	public RnTag(Integer...  arg) {
 		int size = arg.length;
 		if(arg == null || size == 0 ) {
-			System.out.println("ERROR VARARGS  ");
+			//System.out.println("ERROR VARARGS  ");
 		}
 		//System.out.println("VARARGS  "+arg.length);
 		 for (int i = 0; i < size; i++) {
@@ -50,9 +50,9 @@ public abstract class RnTag {
 		start = size >= 1 ? arg[0] : 1;
 		step = size >= 2 ? arg[1] : 1;
 		pos = size >= 3 ? arg[2] : 1;
-		System.out.println("start    "+start);
-		System.out.println("step    "+step);
-		System.out.println("pos    "+pos);
+	//	System.out.println("start    "+start);
+	//	System.out.println("step    "+step);
+	//	System.out.println("pos    "+pos);
 	}
 
 	public abstract void init() ;

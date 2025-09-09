@@ -20,7 +20,7 @@ public class Parser {
         Matcher matcher = pattern.matcher(input);
 
         while (matcher.find()) {
-            System.out.println("Tag trovato: " + matcher.group());
+            //System.out.println("Tag trovato: " + matcher.group());
         }
     }
     
@@ -31,8 +31,7 @@ public class Parser {
         Matcher matcher = pattern.matcher(input);
 
         while (matcher.find()) {
-            System.out.print(matcher.group(1
-            		) + " "); // group(1) contiene il testo
+           // System.out.print(matcher.group(1	) + " "); // group(1) contiene il testo
         }
     }
     
