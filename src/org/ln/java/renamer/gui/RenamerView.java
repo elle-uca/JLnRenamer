@@ -142,6 +142,8 @@ public class RenamerView extends JFrame{
 		table.setModel(tableModel);
 		tableScrollPane.setViewportView(table);
 		table.setAutoCreateRowSorter(true);
+        table.getColumnModel().getColumn(3).setCellRenderer(new StatusCellRenderer());
+
 
 		addFileButton = new JButton("Add file");
 		addDirButton = new JButton("Add directory");
