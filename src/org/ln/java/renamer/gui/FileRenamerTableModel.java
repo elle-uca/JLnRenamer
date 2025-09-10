@@ -48,7 +48,7 @@ public class FileRenamerTableModel extends AbstractTableModel{
 		case 2:
 			return data.get(rowIndex).getFrom().getParent();
 		case 3:
-			return data.get(rowIndex).getFileStatus().toString();
+			return data.get(rowIndex).getFileStatus();
 		case 4:
 			return data.get(rowIndex).getSelected();
 
@@ -93,17 +93,18 @@ public class FileRenamerTableModel extends AbstractTableModel{
     	}
     }
     
-	@Override
-    public Class<?> getColumnClass(int columnIndex) {
+//	@Override
+//    public Class<?> getColumnClass(int columnIndex) {
 //        switch (columnIndex) {
 //            case 0: return String.class;
 //            case 1: return String.class;
 //            case 2: return String.class;
-//            case 3: return String.class;
+//            case 3: return FileStatus.class;
 //            case 4: return boolean.class;
 //        }
-        return getValueAt(0, columnIndex).getClass();
-    }
+//        return String.class;
+//       // return getValueAt(0, columnIndex).getClass();
+//    }
 
     @Override
     public String getColumnName(int column) {

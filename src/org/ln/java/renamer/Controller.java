@@ -5,9 +5,7 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.prefs.Preferences;
 
 import javax.swing.JFileChooser;
@@ -75,17 +73,17 @@ public class Controller {
 //				rnFile.renameTo();
 //			}
 			
-			List<RnFile> rnfilesList = view.getTableModel().getData();
-			
-			Map<File, String> newNames = new HashMap<>();
-			for (RnFile rnFile : rnfilesList) {
-				newNames.put(rnFile.getFrom(), rnFile.getNameDest());
-			}
-			
-			
-			System.out.println("Conflitti   "+FileRenamer.checkConflict(rnfilesList.getFirst().getFrom().getParentFile(), newNames));
-			
-			view.getTableModel().setData(new ArrayList<RnFile>());
+//			List<RnFile> rnfilesList = view.getTableModel().getData();
+//			
+//			Map<File, String> newNames = new HashMap<>();
+//			for (RnFile rnFile : rnfilesList) {
+//				newNames.put(rnFile.getFrom(), rnFile.getNameDest());
+//			}
+//			
+//			
+//			System.out.println("Conflitti   "+FileRenamer.checkConflict(rnfilesList.getFirst().getFrom().getParentFile(), newNames));
+//			
+//			view.getTableModel().setData(new ArrayList<RnFile>());
 		}
 	}
 

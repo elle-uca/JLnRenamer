@@ -28,8 +28,6 @@ import org.ln.java.renamer.gui.panel.CasePanel;
 import org.ln.java.renamer.gui.panel.RemovePanel;
 import org.ln.java.renamer.gui.panel.TagPanel;
 
-import com.formdev.flatlaf.FlatLightLaf;
-
 import net.miginfocom.swing.MigLayout;
 
 @SuppressWarnings("serial")
@@ -221,7 +219,7 @@ public class RenamerView extends JFrame{
 
 
 	public static void main(String args[]) {
-		FlatLightLaf.setup();
+		//FlatLightLaf.setup();
 		EventQueue.invokeLater(new Runnable() {
 			@Override
 			public void run() {

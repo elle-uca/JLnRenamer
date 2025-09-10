@@ -19,6 +19,7 @@ public class StatusCellRenderer extends DefaultTableCellRenderer {
 
         if (value instanceof FileStatus) {
         	FileStatus status = (FileStatus) value;
+        	System.out.println("====== nuovo status " + status );
 
             if (!isSelected) { // Mantieni selezione blu di default
                 switch (status) {

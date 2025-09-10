@@ -135,8 +135,8 @@ public class FileRenamer {
         for (Map.Entry<RnFile, String> entry : newNames.entrySet()) {
             File oldFile = entry.getKey().getFrom();
             String newName = entry.getValue();
-            System.out.println("====== vecchio nome " + oldFile.getName() );
-            System.out.println("====== nuovo nome " + newName );
+           // System.out.println("====== vecchio nome " + oldFile.getName() );
+           // System.out.println("====== nuovo nome " + newName );
            
             // 1. conflitto con file esistenti (ma non se è lo stesso file)
             if (existingNames.contains(newName) && !oldFile.getName().equals(newName)) {
@@ -149,6 +149,8 @@ public class FileRenamer {
             	 entry.getKey().setFileStatus(FileStatus.KO);
                 System.out.println("❌ Conflitto: il nuovo nome " + newName + " è duplicato.");
                 conflictFound = true;
+            }else {
+            	entry.getKey().setFileStatus(FileStatus.OK);
             }
         }
 		return conflictFound;

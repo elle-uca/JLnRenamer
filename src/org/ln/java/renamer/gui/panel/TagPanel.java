@@ -69,6 +69,13 @@ public class TagPanel extends AbstractPanelContent {
 		String str  = renameField.getText();
 		System.out.println(str);
 		
+		if(StringParser.isParsable(str)) {
+			accordion.getView().getTableModel().setData(
+					StringParser.parse(str, accordion.getView().getTableModel().getData())) ;
+		}
+		
+		
+		
 		
 		
 		List<RnFile> rnfilesList = accordion.getView().getTableModel().getData();
@@ -86,10 +93,10 @@ public class TagPanel extends AbstractPanelContent {
 		
 		//view.getTableModel().setData(new ArrayList<RnFile>());
 		
-		if(StringParser.isParsable(str)) {
-			accordion.getView().getTableModel().setData(
-					StringParser.parse(str, accordion.getView().getTableModel().getData())) ;
-		}
+//		if(StringParser.isParsable(str)) {
+//			accordion.getView().getTableModel().setData(
+//					StringParser.parse(str, accordion.getView().getTableModel().getData())) ;
+//		}
 		
 		System.out.println("Conflitti   "+FileRenamer.checkConflicts(rnfilesList.getFirst().getFrom().getParentFile(), newNames));
 
