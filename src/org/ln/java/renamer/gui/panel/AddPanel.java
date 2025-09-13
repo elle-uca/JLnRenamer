@@ -42,14 +42,14 @@ public class AddPanel extends AbstractPanelContent {
 		posSpinner = new JIntegerSpinner();
 		posSpinner.setEnabled(false);
 		posSpinner.addChangeListener(this);
-		jrbStart = new JRadioButton("Inizio");
+		jrbStart = new JRadioButton("Inizio", true);
 		jrbEnd = new JRadioButton("Fine");
 		jrbPos = new JRadioButton("Posizione");
 		group = new ButtonGroup();
 		group.add(jrbStart);
 		group.add(jrbEnd);
 		group.add(jrbPos);
-		jrbStart.setSelected(true);
+	//	jrbStart.setSelected(true);
 
 		jrbStart.addActionListener(this);
 		jrbEnd.addActionListener(this);
@@ -59,9 +59,9 @@ public class AddPanel extends AbstractPanelContent {
 		add(textLabel, 	"cell 0 0");
 		add(renameField,"cell 1 0 2 1, growx, wrap, w :150:");
 		add(whereLabel, "cell 0 1 1 2");
-		add(jrbStart, 		"cell 1 1");
-		add(jrbEnd, 		"cell 2 1, wrap");
-		add(jrbPos, 		"cell 1 2 ");
+		add(jrbStart, 	"cell 1 1");
+		add(jrbEnd, 	"cell 2 1, wrap");
+		add(jrbPos, 	"cell 1 2 ");
 		add(posSpinner, "cell 2 2, growx ");
 	}   
 

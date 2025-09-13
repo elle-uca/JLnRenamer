@@ -11,6 +11,24 @@ import javax.swing.SpinnerNumberModel;
 @SuppressWarnings("serial")
 public class JIntegerSpinner extends JSpinner {
 
+
+
+    /**
+     * Costruttore di default.
+     * Crea uno JIntegerSpinner con valori di default (1, 0, max int, 1).
+     */
+    public JIntegerSpinner() {
+    	this(1, 0, Integer.MAX_VALUE, 1);
+    }
+    
+    /**
+     * Costruttore di default.
+     * Crea uno JIntegerSpinner con valori di default (1, 0, max int, 1).
+     */
+    public JIntegerSpinner(int value) {
+        this(value, 0, Integer.MAX_VALUE, 1);
+    }
+
     /**
      * Costruisce uno JIntegerSpinner con un valore iniziale, un minimo, un massimo
      * e uno step (passo di incremento/decremento).
@@ -23,15 +41,7 @@ public class JIntegerSpinner extends JSpinner {
     public JIntegerSpinner(int value, int min, int max, int step) {
         super(new SpinnerNumberModel(value, min, max, step));
     }
-
-    /**
-     * Costruttore di default.
-     * Crea uno JIntegerSpinner con valori di default (1, 0, max int, 1).
-     */
-    public JIntegerSpinner() {
-        super(new SpinnerNumberModel(1, 0, Integer.MAX_VALUE, 1));
-    }
-
+    
     /**
      * Restituisce il valore corrente dello spinner come un primitivo int.
      *

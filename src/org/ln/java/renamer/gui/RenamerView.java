@@ -27,6 +27,7 @@ import org.ln.java.renamer.gui.panel.AddPanel;
 import org.ln.java.renamer.gui.panel.CasePanel;
 import org.ln.java.renamer.gui.panel.RemovePanel;
 import org.ln.java.renamer.gui.panel.TagPanel;
+import org.ln.java.renamer.tool.PasswordGeneratorDialog;
 
 import net.miginfocom.swing.MigLayout;
 
@@ -70,9 +71,9 @@ public class RenamerView extends JFrame{
         menuBar.add(settingsMenu);
 
         JMenu toolsMenu = new JMenu("Tools");
-        JMenuItem tool1 = new JMenuItem("Tool 1");
+        JMenuItem psswGen = new JMenuItem("Generatore password");
         JMenuItem tool2 = new JMenuItem("Tool 2");
-        toolsMenu.add(tool1);
+        toolsMenu.add(psswGen);
         toolsMenu.add(tool2);
         menuBar.add(toolsMenu);
 
@@ -80,6 +81,17 @@ public class RenamerView extends JFrame{
         JMenuItem aboutItem = new JMenuItem("About");
         helpMenu.add(aboutItem);
         menuBar.add(helpMenu);
+        
+        psswGen.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				PasswordGeneratorDialog dialog = new PasswordGeneratorDialog(null);
+				dialog.setLocationRelativeTo(null);
+				dialog.setVisible(true);
+				
+			}
+		});
 
         setJMenuBar(menuBar);
 		

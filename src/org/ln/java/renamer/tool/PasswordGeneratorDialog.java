@@ -1,0 +1,123 @@
+package org.ln.java.renamer.tool;
+
+import java.awt.Frame;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
+import org.ln.java.renamer.gui.JIntegerSpinner;
+import org.ln.java.renamer.util.PasswordGenerator;
+
+import net.miginfocom.swing.MigLayout;
+
+@SuppressWarnings("serial")
+public class PasswordGeneratorDialog extends JDialog {
+
+	private JCheckBox jrbLower;
+	private JCheckBox jrbUpper;
+	private JCheckBox jrbDigit;
+	private JCheckBox jrbSpecial;
+	private JLabel lenghtLabel;
+	private JLabel resultLabel;
+	private JIntegerSpinner lenghtSpinner;
+	private JButton goButton;
+	private JButton copyButton;
+
+	public PasswordGeneratorDialog(Frame owner) {
+		super(owner, "Password Generator", true);
+
+		jrbLower = new JCheckBox("Lettere minuscole", true);
+		jrbUpper = new JCheckBox("Lettere maiuscole", true);
+		jrbDigit = new JCheckBox("Numeri", true);
+		jrbSpecial = new JCheckBox("Caratteri speciali", true);
+		lenghtLabel = new JLabel("Lunghezza password");
+		resultLabel = new JLabel("password");
+		lenghtSpinner = new JIntegerSpinner(8, 6, Integer.MAX_VALUE, 1);
+		goButton = new JButton("Genera password");
+		copyButton = new JButton("Copia negli appunti");
+		
+		JCheckBox[] checkBoxes = {jrbLower, jrbUpper, jrbDigit, jrbSpecial};
+        ItemListener enforceOneSelected = e -> {
+            if (e.getStateChange() == ItemEvent.DESELECTED && !anySelected(checkBoxes)) {
+                ((JCheckBox) e.getSource()).setSelected(true);
+            }
+        };
+		
+        for (JCheckBox cb : checkBoxes) {
+            cb.addItemListener(enforceOneSelected);
+            add(cb);
+        }
+		
+		goButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String pssw = PasswordGenerator.generatePassword(lenghtSpinner.getIntValue(), 
+						jrbLower.isSelected(),
+						jrbUpper.isSelected(),
+						jrbDigit.isSelected(),
+						jrbSpecial.isSelected());
+				resultLabel.setText(pssw);
+			}
+		});
+		copyButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+	
+		JPanel panel = new JPanel();
+		//panel.setLayout(new MigLayout("", "[grow]", "20[][][][][][][][][]20"));
+		panel.setLayout(new MigLayout("", "[grow]", "[]"));
+
+		panel.add(lenghtLabel, 		"cell 0 0");
+		panel.add(lenghtSpinner, 	"cell 0 1, growx, wrap, w :200:");
+		panel.add(jrbLower, 		"cell 0 2, wrap");
+		panel.add(jrbUpper, 		"cell 0 3, wrap");
+		panel.add(jrbDigit, 		"cell 0 4, wrap");
+		panel.add(jrbSpecial, 		"cell 0 5, wrap");
+		panel.add(goButton, 		"cell 0 6, wrap"); 
+		panel.add(resultLabel, 		"cell 0 7, growx, wrap, w :200:"); 
+		panel.add(copyButton, 		"cell 0 8, wrap"); 
+		
+		
+		 add(panel);
+         setSize(300, 400);
+         setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+         
+         
+	}
+
+
+
+    private boolean anySelected(JCheckBox[] boxes) {
+        for (JCheckBox cb : boxes) {
+            if (cb.isSelected()) return true;
+        }
+        return false;
+    }
+
+
+
+
+	public static void main(String[] args) {
+        JFrame frame = new JFrame();
+        frame.add(new PasswordGeneratorDialog(new JFrame()));
+        frame.setSize(300, 400);
+        frame.setLocationRelativeTo(null);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setVisible(true);
+	}
+
+}
