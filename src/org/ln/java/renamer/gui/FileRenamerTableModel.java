@@ -109,10 +109,10 @@ public class FileRenamerTableModel extends AbstractTableModel{
     @Override
     public String getColumnName(int column) {
         switch (column) {
-            case 0: return "Name";
-            case 1: return "New Name";
-            case 2: return "Path";
-            case 3: return "Status";
+        	case 0: return "S";
+            case 1: return "Name";
+            case 2: return "New Name";
+            case 3: return "Path";
             case 4: return "Status";
         }
         return "";
