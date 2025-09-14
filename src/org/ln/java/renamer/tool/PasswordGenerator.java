@@ -1,11 +1,13 @@
-package org.ln.java.renamer.util;
+package org.ln.java.renamer.tool;
 
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Scanner;
 
+/**
+ * A password generator
+ */
 public class PasswordGenerator {
 
     private static final String LOWERCASE = "abcdefghijklmnopqrstuvwxyz";
@@ -13,7 +15,8 @@ public class PasswordGenerator {
     private static final String DIGITS = "0123456789";
     private static final String SPECIAL = "!@#$%^&*()-_=+[]{};:,.<>?/";
 
-    public static String generatePassword(int length, boolean useLower, boolean useUpper, boolean useDigits, boolean useSpecial) {
+    public static String generatePassword(int length, boolean useLower, 
+    		boolean useUpper, boolean useDigits, boolean useSpecial) {
         StringBuilder charPool = new StringBuilder();
         SecureRandom random = new SecureRandom();
         List<Character> passwordChars = new ArrayList<>();
@@ -36,18 +39,17 @@ public class PasswordGenerator {
         }
 
         if (charPool.length() == 0) {
-            throw new IllegalArgumentException("Devi selezionare almeno un set di caratteri!");
+            throw new IllegalArgumentException("You must select at least one character set!");
         }
 
-        // Aggiunge caratteri casuali fino alla lunghezza richiesta
+        // Adds random characters up to the required length
         while (passwordChars.size() < length) {
             passwordChars.add(charPool.charAt(random.nextInt(charPool.length())));
         }
 
-        // Mescola la lista per non avere i caratteri garantiti tutti in testa
+        // shuffle the list so you don't have all the guaranteed characters in your head.
         Collections.shuffle(passwordChars, random);
 
-        // Costruisce la password finale
         StringBuilder password = new StringBuilder();
         for (char c : passwordChars) {
             password.append(c);
@@ -56,30 +58,4 @@ public class PasswordGenerator {
         return password.toString();
     }
 
-    @SuppressWarnings("resource")
-	public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-
-        System.out.print("Lunghezza password: ");
-        int length = scanner.nextInt();
-
-        System.out.print("Includere lettere minuscole? (true/false): ");
-        boolean useLower = scanner.nextBoolean();
-
-        System.out.print("Includere lettere maiuscole? (true/false): ");
-        boolean useUpper = scanner.nextBoolean();
-
-        System.out.print("Includere numeri? (true/false): ");
-        boolean useDigits = scanner.nextBoolean();
-
-        System.out.print("Includere caratteri speciali? (true/false): ");
-        boolean useSpecial = scanner.nextBoolean();
-
-        try {
-            String password = generatePassword(length, useLower, useUpper, useDigits, useSpecial);
-            System.out.println("✅ Password generata: " + password);
-        } catch (IllegalArgumentException e) {
-            System.out.println("❌ Errore: " + e.getMessage());
-        }
-    }
 }

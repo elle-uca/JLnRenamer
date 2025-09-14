@@ -39,8 +39,6 @@ public  class FileUtility {
 	}
 
 
-
-
 	public static Vector<AdFile> createFiles(String path, int num) {
 		return createFiles(path, num,  "pippo");
 	}
@@ -102,32 +100,6 @@ public  class FileUtility {
 		return AdFile;
 	}
 
-
-//	public static void deleteDir(String path) {
-//		deleteDir(new AdFile(path));
-//	}
-
-
-//	public static void deleteDir(AdFile dir) {
-//		if (dir.exists()) {
-//			AdFile[] AdFiles = dir.listFiles();
-//			if (AdFiles != null) { 
-//				for (AdFile AdFile : AdFiles) {
-//					if (AdFile.isDirectory()) {
-//						deleteDir(AdFile); 
-//					} else {
-//						AdFile.delete(); 
-//					}
-//				}
-//			}
-//		}
-//		dir.delete(); 
-//	}
-
-
-
-
-
 	
     public static boolean hasExtension(AdFile AdFile) {
     	if(AdFile == null)
@@ -138,9 +110,7 @@ public  class FileUtility {
 		return dotIndex > 0;
     	
     }
-    
 
-	
 	
 	 public static List<Class<?>> getClasses(String packageName)
 	            throws ClassNotFoundException, IOException {

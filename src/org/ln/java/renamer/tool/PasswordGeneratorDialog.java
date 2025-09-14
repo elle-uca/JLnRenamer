@@ -1,6 +1,10 @@
 package org.ln.java.renamer.tool;
 
+import java.awt.Color;
 import java.awt.Frame;
+import java.awt.Toolkit;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -12,9 +16,9 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 import org.ln.java.renamer.gui.JIntegerSpinner;
-import org.ln.java.renamer.util.PasswordGenerator;
 
 import net.miginfocom.swing.MigLayout;
 
@@ -27,6 +31,8 @@ public class PasswordGeneratorDialog extends JDialog {
 	private JCheckBox jrbSpecial;
 	private JLabel lenghtLabel;
 	private JLabel resultLabel;
+	private JLabel copyLabel;
+
 	private JIntegerSpinner lenghtSpinner;
 	private JButton goButton;
 	private JButton copyButton;
@@ -40,6 +46,8 @@ public class PasswordGeneratorDialog extends JDialog {
 		jrbSpecial = new JCheckBox("Caratteri speciali", true);
 		lenghtLabel = new JLabel("Lunghezza password");
 		resultLabel = new JLabel("password");
+		copyLabel = new JLabel("");
+		copyLabel.setForeground(Color.red);
 		lenghtSpinner = new JIntegerSpinner(8, 6, Integer.MAX_VALUE, 1);
 		goButton = new JButton("Genera password");
 		copyButton = new JButton("Copia negli appunti");
@@ -55,7 +63,6 @@ public class PasswordGeneratorDialog extends JDialog {
             cb.addItemListener(enforceOneSelected);
             add(cb);
         }
-		
 		goButton.addActionListener(new ActionListener() {
 			
 			@Override
@@ -66,14 +73,26 @@ public class PasswordGeneratorDialog extends JDialog {
 						jrbDigit.isSelected(),
 						jrbSpecial.isSelected());
 				resultLabel.setText(pssw);
+				copyLabel.setText("");
 			}
 		});
 		copyButton.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				
+				String pssw = resultLabel.getText();
+				Runnable task = () -> {
+		            StringSelection selection = new StringSelection(pssw);
+		            Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+		            clipboard.setContents(selection, null);
+		        };
+
+		        if (SwingUtilities.isEventDispatchThread()) {
+		            task.run();
+		        } else {
+		            SwingUtilities.invokeLater(task);
+		        }
+		        copyLabel.setText("Password copiata negli appunti");
 			}
 		});
 	
@@ -90,6 +109,7 @@ public class PasswordGeneratorDialog extends JDialog {
 		panel.add(goButton, 		"cell 0 6, wrap"); 
 		panel.add(resultLabel, 		"cell 0 7, growx, wrap, w :200:"); 
 		panel.add(copyButton, 		"cell 0 8, wrap"); 
+		panel.add(copyLabel, 		"cell 0 9, wrap"); 
 		
 		
 		 add(panel);

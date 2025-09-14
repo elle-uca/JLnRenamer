@@ -8,7 +8,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.ln.java.renamer.tag.RnTag;
-import org.ln.java.renamer.util.Utility;
 
 public class StringParser {
 
@@ -21,7 +20,6 @@ public class StringParser {
 	 */
 	public static List<RnFile> parse(String string, List<RnFile> fileList) {
 		List<Object> objectList = new ArrayList<Object>() ;
-		//System.out.println(string);
 
 		Pattern pattern = Pattern.compile("<[^>]+>|[^<]+");
 		Matcher matcher = pattern.matcher(string);
@@ -30,8 +28,8 @@ public class StringParser {
 			String str = matcher.group();
 			if(str.startsWith("<")) {
 				RnTag tag = parseTag(str);
-				tag.setOldName(Utility.getOldName(fileList));
-				tag.setNewName(Utility.getNewName(fileList));
+				tag.setOldName(getOldName(fileList));
+				tag.setNewName(getNewName(fileList));
 				tag.init();
 				objectList.add(tag);
 
@@ -51,7 +49,6 @@ public class StringParser {
 				}
 			}
 			rnf.setNameDest(result);
-			///System.out.println("result  "+rnf.getNameDest());
 		}
 		return fileList;
 	}
@@ -64,13 +61,14 @@ public class StringParser {
 	 */
 	private static RnTag parseTag(String str) {
 		String name = "org.ln.java.renamer.tag.";
-		Pattern pattern1 = Pattern.compile("(?<=<)[a-zA-Z]+(?=:)");	 // estrae il nome del tag
+		// extracts the tag name
+		Pattern pattern1 = Pattern.compile("(?<=<)[a-zA-Z]+(?=:)");	 
 		Matcher matcher1 = pattern1.matcher(str);
 		while (matcher1.find()) {
 			name = name + matcher1.group();
 		}
-
-		Pattern pattern2 = Pattern.compile("(?<=:)\\d+(?=[>:])");	// estrae i parametri del tag
+		// extracts the tag parameters
+		Pattern pattern2 = Pattern.compile("(?<=:)\\d+(?=[>:])");	
 		Matcher matcher2 = pattern2.matcher(str);
 
 		List<Integer> args = new ArrayList<Integer>();
@@ -126,6 +124,30 @@ public class StringParser {
 	}
 
 
+	/**
+	 * @param fileList
+	 * @return
+	 */
+	public static List<String> getOldName(List<RnFile> fileList) {
+		List<String> result = new ArrayList<String>();
+		for (RnFile file : fileList) {
+			result.add(file.getFrom().getNameExtensionLess());
+		}
 
+		return result;
+	}
+	
+	/**
+	 * @param fileList
+	 * @return
+	 */
+	public static List<String> getNewName(List<RnFile> fileList) {
+		List<String> result = new ArrayList<String>();
+		for (RnFile file : fileList) {
+			result.add(file.getNameDest());
+		}
+
+		return result;
+	}
 
 }
