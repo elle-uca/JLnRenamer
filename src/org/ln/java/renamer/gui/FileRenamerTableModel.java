@@ -30,33 +30,30 @@ public class FileRenamerTableModel extends AbstractTableModel{
 		this.data = data;
 		fireTableDataChanged();
 	} 
-    
-
+ 
+	
 	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) {
-		if(data.size() < 1) {
-			return "";
-		}
-		switch (columnIndex) {
-		case 0:
-			return data.get(rowIndex).getFrom().getName();
-		case 1:
-			if(data.get(rowIndex).getNameDest() == "") {
-				return data.get(rowIndex).getFrom().getName();
-			}
-			return data.get(rowIndex).getNameDest();
-		case 2:
-			return data.get(rowIndex).getFrom().getParent();
-		case 3:
-			return data.get(rowIndex).getFileStatus();
-		case 4:
-			return data.get(rowIndex).getSelected();
+	    if (rowIndex >= data.size()) {
+	        switch (columnIndex) {
+	            case 4: return Boolean.FALSE; // checkbox spento di default
+	            default: return "";           // stringa vuota per le altre colonne
+	        }
+	    }
 
-		default:
-			return data.get(rowIndex);
-		}
+	    RnFile file = data.get(rowIndex);
+
+	    switch (columnIndex) {
+	        case 0: return file.getFrom().getName();
+	        case 1: return (file.getNameDest() == null || file.getNameDest().isEmpty())
+	                        ? file.getFrom().getName()
+	                        : file.getNameDest();
+	        case 2: return file.getFrom().getParent();
+	        case 3: return file.getFileStatus();
+	        case 4: return file.getSelected();
+	        default: return "";
+	    }
 	}
-
 	/**
 	 * @return the data
 	 */
@@ -77,13 +74,13 @@ public class FileRenamerTableModel extends AbstractTableModel{
 		return 5;
 	}
 	
-    public boolean isCellEditable(int row, int col) {
-        if (col == 4) {
-            return true;
-        } else {
-            return false;
-        }
-    }
+	@Override
+	public boolean isCellEditable(int rowIndex, int columnIndex) {
+		if (columnIndex == 4 && rowIndex < data.size()) {
+			return true;
+		}  
+		return false;
+	}
 	
     @Override
     public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
@@ -93,27 +90,25 @@ public class FileRenamerTableModel extends AbstractTableModel{
     	}
     }
     
-//	@Override
-//    public Class<?> getColumnClass(int columnIndex) {
-//        switch (columnIndex) {
-//            case 0: return String.class;
-//            case 1: return String.class;
-//            case 2: return String.class;
-//            case 3: return FileStatus.class;
-//            case 4: return boolean.class;
-//        }
-//        return String.class;
-//       // return getValueAt(0, columnIndex).getClass();
-//    }
+    @Override
+    public Class<?> getColumnClass(int columnIndex) {
+        switch (columnIndex) {
+            case 4:
+                return Boolean.class; // checkbox
+            default:
+                return String.class;  // tutte le altre colonne come testo
+        }
+    }
+
 
     @Override
     public String getColumnName(int column) {
         switch (column) {
-        	case 0: return "S";
-            case 1: return "Name";
-            case 2: return "New Name";
-            case 3: return "Path";
-            case 4: return "Status";
+            case 0: return "Name";       // String
+            case 1: return "New Name";   // String
+            case 2: return "Path";       // String
+            case 3: return "Status";     // String
+            case 4: return "Selected";   // Boolean
         }
         return "";
     }

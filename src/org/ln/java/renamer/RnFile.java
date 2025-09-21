@@ -8,12 +8,11 @@ public class RnFile {
 
 	private AdFile from;
 	
-
 	private FileStatus fileStatus = FileStatus.OK;
 	
 	private String nameDest;
 	
-	private Boolean selected = Boolean.valueOf(false);
+	private Boolean selected = Boolean.valueOf(true);
 
 
 
@@ -23,10 +22,8 @@ public class RnFile {
 		//System.out.println(from.exists());
 		nameDest = "";
 		if(from.exists()) {
-			//System.out.println("Status OKKKK");
 			fileStatus = FileStatus.OK;
 		}else {
-			//System.out.println("Status KOOOO");
 			fileStatus = FileStatus.KO;
 		}
 	}
@@ -118,20 +115,11 @@ public class RnFile {
 	}
 
 	
-	
-	
-	
 	@Override
 	public String toString() {
 		return "RnFiles [from=" + from.toString() + ", to=" + getNameDest() + "]";
 	}
 	
 	
-//	public static void main(String[] args) {
-//		RnFile f = new RnFile(new AdFile("/home/luke/test/pippo/pippo6.txt"));
-//		System.out.println(f.getFrom().getNameExtensionLess());
-//		f.getFrom().newName("piripicchio");
-//		System.out.println(f);
-//	}
 
 }
