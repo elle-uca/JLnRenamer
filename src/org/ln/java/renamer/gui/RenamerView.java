@@ -45,7 +45,7 @@ public class RenamerView extends JFrame{
 
 
 	private JSplitPane splitPane;
-	AccordionPanel accordion;
+	private AccordionPanel accordion;
 
 
 	public RenamerView() {

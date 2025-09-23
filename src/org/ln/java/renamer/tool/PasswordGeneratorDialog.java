@@ -1,6 +1,7 @@
 package org.ln.java.renamer.tool;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Frame;
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
@@ -13,7 +14,6 @@ import java.awt.event.ItemListener;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
@@ -48,6 +48,10 @@ public class PasswordGeneratorDialog extends JDialog {
 		resultLabel = new JLabel("password");
 		copyLabel = new JLabel("");
 		copyLabel.setForeground(Color.red);
+		resultLabel.setForeground(Color.blue);
+		Font boldFont = new Font(resultLabel.getFont().getFontName(), Font.BOLD, resultLabel.getFont().getSize());
+		resultLabel.setFont(boldFont);
+		
 		lenghtSpinner = new JIntegerSpinner(8, 6, Integer.MAX_VALUE, 1);
 		goButton = new JButton("Genera password");
 		copyButton = new JButton("Copia negli appunti");
@@ -97,17 +101,17 @@ public class PasswordGeneratorDialog extends JDialog {
 		});
 	
 		JPanel panel = new JPanel();
-		//panel.setLayout(new MigLayout("", "[grow]", "20[][][][][][][][][]20"));
-		panel.setLayout(new MigLayout("", "[grow]", "[]"));
+		panel.setLayout(new MigLayout("", "[grow, align center]", "20[][][][][][]20[]20[]20[]20[]20"));
+		//panel.setLayout(new MigLayout("", "[grow]", "[]"));
 
 		panel.add(lenghtLabel, 		"cell 0 0");
 		panel.add(lenghtSpinner, 	"cell 0 1, growx, wrap, w :200:");
-		panel.add(jrbLower, 		"cell 0 2, wrap");
-		panel.add(jrbUpper, 		"cell 0 3, wrap");
-		panel.add(jrbDigit, 		"cell 0 4, wrap");
-		panel.add(jrbSpecial, 		"cell 0 5, wrap");
+		panel.add(jrbLower, 		"cell 0 2, wrap, sg jcb");
+		panel.add(jrbUpper, 		"cell 0 3, wrap, sg jcb");
+		panel.add(jrbDigit, 		"cell 0 4, wrap, sg jcb");
+		panel.add(jrbSpecial, 		"cell 0 5, wrap, sg jcb");
 		panel.add(goButton, 		"cell 0 6, wrap"); 
-		panel.add(resultLabel, 		"cell 0 7, growx, wrap, w :200:"); 
+		panel.add(resultLabel, 		"cell 0 7, wrap"); 
 		panel.add(copyButton, 		"cell 0 8, wrap"); 
 		panel.add(copyLabel, 		"cell 0 9, wrap"); 
 		
@@ -115,8 +119,7 @@ public class PasswordGeneratorDialog extends JDialog {
 		 add(panel);
          setSize(300, 400);
          setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-         
-         
+
 	}
 
 
@@ -129,15 +132,5 @@ public class PasswordGeneratorDialog extends JDialog {
     }
 
 
-
-
-	public static void main(String[] args) {
-        JFrame frame = new JFrame();
-        frame.add(new PasswordGeneratorDialog(new JFrame()));
-        frame.setSize(300, 400);
-        frame.setLocationRelativeTo(null);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setVisible(true);
-	}
 
 }
