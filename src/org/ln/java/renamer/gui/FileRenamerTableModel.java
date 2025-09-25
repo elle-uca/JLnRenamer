@@ -20,6 +20,7 @@ public class FileRenamerTableModel extends AbstractTableModel{
     	this(20);
     	
     }
+    
     public FileRenamerTableModel(int rowCount) {
     	this.rowCount = rowCount;
     	data = new ArrayList<RnFile>();
@@ -107,7 +108,7 @@ public class FileRenamerTableModel extends AbstractTableModel{
             case 0: return "Name";       // String
             case 1: return "New Name";   // String
             case 2: return "Path";       // String
-            case 3: return "Status";     // String
+            case 3: return "Errore";     // String
             case 4: return "Selected";   // Boolean
         }
         return "";

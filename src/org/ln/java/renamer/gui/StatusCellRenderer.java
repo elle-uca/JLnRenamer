@@ -19,18 +19,18 @@ public class StatusCellRenderer extends DefaultTableCellRenderer {
 
         if (value instanceof FileStatus) {
         	FileStatus status = (FileStatus) value;
-        	System.out.println("====== nuovo status " + status );
+        	//System.out.println("====== nuovo status " + status );
 
             if (!isSelected) { // Mantieni selezione blu di default
                 switch (status) {
-                    case OK -> c.setBackground(new Color(144, 238, 144)); // Verde chiaro
-                  //  case WARNING -> c.setBackground(new Color(255, 255, 150)); // Giallo
-                    case KO -> c.setBackground(new Color(255, 100, 100)); // Rosso
+                    case OK -> c.setForeground(Color.BLACK); // Verde chiaro
+                    case KO -> c.setForeground(new Color(255, 100, 100)); // Rosso
+                    case KO1 -> c.setForeground(new Color(255, 100, 100)); // Rosso
                 }
-                c.setForeground(Color.BLACK);
+                //c.setForeground(Color.BLACK);
             }
         }
-
+    
         return c;
     }
 }

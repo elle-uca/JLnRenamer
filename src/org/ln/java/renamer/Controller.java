@@ -30,7 +30,7 @@ public class Controller {
 	/**
 	 *
 	 */
-	public class AddButtonActionListener implements ActionListener{
+	public class AddFileButtonActionListener implements ActionListener{
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -57,9 +57,46 @@ public class Controller {
     		}
     		prefs.put(LAST_DIR_KEY, fileList.getFirst().getParent());
     		view.getTableModel().setData(rnfilesList);
-    		view.setInfoText("file "+rnfilesList.size() );
+    		view.setInfoText("file "+rnfilesList.size());
 		}
 	}
+	
+	/**
+	 *
+	 */
+	public class AddDirButtonActionListener implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			String lastPath = prefs.get(LAST_DIR_KEY, null);
+			
+   		JFileChooser fc = (lastPath != null)
+                   ? new JFileChooser(new File(lastPath))
+                   : new JFileChooser();
+   		
+   		fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+   		fc.setMultiSelectionEnabled(true);
+   		int returnVal = fc.showOpenDialog(null);
+
+   		if (returnVal != JFileChooser.APPROVE_OPTION) {
+   			return;
+   		}
+   		File[] files =fc.getSelectedFiles();
+   		List<RnFile> rnfilesList = new ArrayList<RnFile>();
+   		List<File> fileList = new ArrayList<>(Arrays.asList(files));
+   		for (File file : fileList) {
+   			RnFile rn = new RnFile(new AdFile(file.getPath()));
+   			//System.out.println(rn);
+   			rnfilesList.add(rn);
+   		}
+   		prefs.put(LAST_DIR_KEY, fileList.getFirst().getParent());
+   		view.getTableModel().setData(rnfilesList);
+   		view.setInfoText("file "+rnfilesList.size());
+		}
+	}	
+	
+	
+	
 
 	/**
 	 *

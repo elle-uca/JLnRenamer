@@ -16,22 +16,27 @@ import org.ln.java.renamer.gui.AccordionPanel;
 public abstract class AbstractPanelContent extends JPanel implements ChangeListener, DocumentListener, ActionListener{
 	
 	protected AccordionPanel accordion;
-	
 	protected JTextField renameField;
 
 	
 	
+	/**
+	 * @param ap
+	 */
 	public AbstractPanelContent(AccordionPanel ap) {
 			accordion = ap;
 			renameField = new JTextField();
 			initComponents();
 	}
 
-
-	
-	
+	/**
+	 * 
+	 */
 	abstract void initComponents();
 
+	/**
+	 * 
+	 */
 	abstract void updateView();
 
 	public JTextField getRenameField() {

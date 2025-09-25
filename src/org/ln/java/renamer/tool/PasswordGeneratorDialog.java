@@ -25,14 +25,13 @@ import net.miginfocom.swing.MigLayout;
 @SuppressWarnings("serial")
 public class PasswordGeneratorDialog extends JDialog {
 
-	private JCheckBox jrbLower;
-	private JCheckBox jrbUpper;
-	private JCheckBox jrbDigit;
-	private JCheckBox jrbSpecial;
+	private JCheckBox jcbLower;
+	private JCheckBox jcbUpper;
+	private JCheckBox jcbDigit;
+	private JCheckBox jcbSpecial;
 	private JLabel lenghtLabel;
 	private JLabel resultLabel;
 	private JLabel copyLabel;
-
 	private JIntegerSpinner lenghtSpinner;
 	private JButton goButton;
 	private JButton copyButton;
@@ -40,10 +39,10 @@ public class PasswordGeneratorDialog extends JDialog {
 	public PasswordGeneratorDialog(Frame owner) {
 		super(owner, "Password Generator", true);
 
-		jrbLower = new JCheckBox("Lettere minuscole", true);
-		jrbUpper = new JCheckBox("Lettere maiuscole", true);
-		jrbDigit = new JCheckBox("Numeri", true);
-		jrbSpecial = new JCheckBox("Caratteri speciali", true);
+		jcbLower = new JCheckBox("Lettere minuscole", true);
+		jcbUpper = new JCheckBox("Lettere maiuscole", true);
+		jcbDigit = new JCheckBox("Numeri", true);
+		jcbSpecial = new JCheckBox("Caratteri speciali", true);
 		lenghtLabel = new JLabel("Lunghezza password");
 		resultLabel = new JLabel("password");
 		copyLabel = new JLabel("");
@@ -51,85 +50,83 @@ public class PasswordGeneratorDialog extends JDialog {
 		resultLabel.setForeground(Color.blue);
 		Font boldFont = new Font(resultLabel.getFont().getFontName(), Font.BOLD, resultLabel.getFont().getSize());
 		resultLabel.setFont(boldFont);
-		
+
 		lenghtSpinner = new JIntegerSpinner(8, 6, Integer.MAX_VALUE, 1);
 		goButton = new JButton("Genera password");
 		copyButton = new JButton("Copia negli appunti");
-		
-		JCheckBox[] checkBoxes = {jrbLower, jrbUpper, jrbDigit, jrbSpecial};
-        ItemListener enforceOneSelected = e -> {
-            if (e.getStateChange() == ItemEvent.DESELECTED && !anySelected(checkBoxes)) {
-                ((JCheckBox) e.getSource()).setSelected(true);
-            }
-        };
-		
-        for (JCheckBox cb : checkBoxes) {
-            cb.addItemListener(enforceOneSelected);
-            add(cb);
-        }
+
+		JCheckBox[] checkBoxes = {jcbLower, jcbUpper, jcbDigit, jcbSpecial};
+		ItemListener enforceOneSelected = e -> {
+			if (e.getStateChange() == ItemEvent.DESELECTED && !anySelected(checkBoxes)) {
+				((JCheckBox) e.getSource()).setSelected(true);
+			}
+		};
+
+		for (JCheckBox cb : checkBoxes) {
+			cb.addItemListener(enforceOneSelected);
+			add(cb);
+		}
 		goButton.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				String pssw = PasswordGenerator.generatePassword(lenghtSpinner.getIntValue(), 
-						jrbLower.isSelected(),
-						jrbUpper.isSelected(),
-						jrbDigit.isSelected(),
-						jrbSpecial.isSelected());
+						jcbLower.isSelected(),
+						jcbUpper.isSelected(),
+						jcbDigit.isSelected(),
+						jcbSpecial.isSelected());
 				resultLabel.setText(pssw);
 				copyLabel.setText("");
 			}
 		});
 		copyButton.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				String pssw = resultLabel.getText();
 				Runnable task = () -> {
-		            StringSelection selection = new StringSelection(pssw);
-		            Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-		            clipboard.setContents(selection, null);
-		        };
+					StringSelection selection = new StringSelection(pssw);
+					Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+					clipboard.setContents(selection, null);
+				};
 
-		        if (SwingUtilities.isEventDispatchThread()) {
-		            task.run();
-		        } else {
-		            SwingUtilities.invokeLater(task);
-		        }
-		        copyLabel.setText("Password copiata negli appunti");
+				if (SwingUtilities.isEventDispatchThread()) {
+					task.run();
+				} else {
+					SwingUtilities.invokeLater(task);
+				}
+				copyLabel.setText("Password copiata negli appunti");
 			}
 		});
-	
+
 		JPanel panel = new JPanel();
 		panel.setLayout(new MigLayout("", "[grow, align center]", "20[][][][][][]20[]20[]20[]20[]20"));
-		//panel.setLayout(new MigLayout("", "[grow]", "[]"));
 
 		panel.add(lenghtLabel, 		"cell 0 0");
-		panel.add(lenghtSpinner, 	"cell 0 1, growx, wrap, w :200:");
-		panel.add(jrbLower, 		"cell 0 2, wrap, sg jcb");
-		panel.add(jrbUpper, 		"cell 0 3, wrap, sg jcb");
-		panel.add(jrbDigit, 		"cell 0 4, wrap, sg jcb");
-		panel.add(jrbSpecial, 		"cell 0 5, wrap, sg jcb");
+		panel.add(lenghtSpinner, 	"cell 0 1, growx, wrap, w :250:");
+		panel.add(jcbLower, 		"cell 0 2, wrap, sg jcb");
+		panel.add(jcbUpper, 		"cell 0 3, wrap, sg jcb");
+		panel.add(jcbDigit, 		"cell 0 4, wrap, sg jcb");
+		panel.add(jcbSpecial, 		"cell 0 5, wrap, sg jcb");
 		panel.add(goButton, 		"cell 0 6, wrap"); 
 		panel.add(resultLabel, 		"cell 0 7, wrap"); 
 		panel.add(copyButton, 		"cell 0 8, wrap"); 
 		panel.add(copyLabel, 		"cell 0 9, wrap"); 
-		
-		
-		 add(panel);
-         setSize(300, 400);
-         setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+
+		add(panel);
+		setSize(300, 400);
+		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 
 	}
 
 
 
-    private boolean anySelected(JCheckBox[] boxes) {
-        for (JCheckBox cb : boxes) {
-            if (cb.isSelected()) return true;
-        }
-        return false;
-    }
+	private boolean anySelected(JCheckBox[] boxes) {
+		for (JCheckBox cb : boxes) {
+			if (cb.isSelected()) return true;
+		}
+		return false;
+	}
 
 
 

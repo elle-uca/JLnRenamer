@@ -58,9 +58,19 @@ public class RenamerView extends JFrame{
         JMenuBar menuBar = new JMenuBar();
 
         JMenu fileMenu = new JMenu("File");
-        JMenuItem openItem = new JMenuItem("Open");
+        JMenuItem addFileItem = new JMenuItem("Add file");
+        addFileItem.addActionListener(controller.new AddFileButtonActionListener());
+        JMenuItem addDirItem = new JMenuItem("Add dir");
+        addDirItem.addActionListener(controller.new AddDirButtonActionListener());
         JMenuItem exitItem = new JMenuItem("Exit");
-        fileMenu.add(openItem);
+        exitItem.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0); // Termina l'applicazione
+            }
+        });
+        
+        fileMenu.add(addFileItem);
+        fileMenu.add(addDirItem);
         fileMenu.addSeparator();
         fileMenu.add(exitItem);
         menuBar.add(fileMenu);
@@ -94,9 +104,6 @@ public class RenamerView extends JFrame{
 		});
 
         setJMenuBar(menuBar);
-		
-		
-		
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		setSize(600,400);
 		setLocationRelativeTo(null);
@@ -159,7 +166,8 @@ public class RenamerView extends JFrame{
 		addDirButton = new JButton("Add directory");
 		renameButton = new JButton("Rename");
 
-		addFileButton.addActionListener(controller.new AddButtonActionListener());
+		addFileButton.addActionListener(controller.new AddFileButtonActionListener());
+		addDirButton.addActionListener(controller.new AddDirButtonActionListener());
 		renameButton.addActionListener(controller.new RenameButtonActionListener());
 		
 		infoLabel = new JLabel("Label");

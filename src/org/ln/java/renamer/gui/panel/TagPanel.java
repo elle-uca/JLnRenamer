@@ -64,6 +64,12 @@ public class TagPanel extends AbstractPanelContent {
 	}
 
 
+
+
+
+
+
+
 	@Override
 	void updateView() {
 		String str  = renameField.getText();

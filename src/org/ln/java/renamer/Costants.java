@@ -16,6 +16,7 @@ public class Costants {
 		ModeCase(String string) {
 			this.title = string;
 		}
+
 		/**
 		 * @return the title
 		 */
@@ -25,9 +26,20 @@ public class Costants {
 	}
 	
 	public enum FileStatus {
-		OK,         
-		KO;
+		OK ("Ok"),  
+		KO1 ("Esiste nella cartella"),
+		KO ("Nome duplicato");
 		
+		private String title;
+		FileStatus(String string) {
+			this.title = string;
+		}
+
+	
+		@Override
+		public String toString() {
+			return title;
+		}
 
 	}
 }
