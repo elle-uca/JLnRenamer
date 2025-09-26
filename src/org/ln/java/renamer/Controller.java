@@ -96,7 +96,9 @@ public class Controller {
 	}	
 	
 	
-	
+	public void setTableData(List<RnFile> list) {
+		view.getTableModel().setData(list);
+	}
 
 	/**
 	 *

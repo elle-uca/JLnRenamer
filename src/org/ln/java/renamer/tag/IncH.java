@@ -7,7 +7,8 @@ public class IncH extends RnTag {
 
 	public IncH(Integer... arg) {
 		super(arg);
-		this.tagName = "IncH";	}
+		this.tagName = "IncH";	
+	}
 
 	@Override
 	public void init() {

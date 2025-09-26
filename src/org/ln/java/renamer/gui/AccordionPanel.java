@@ -7,6 +7,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import org.ln.java.renamer.Controller;
 import org.ln.java.renamer.gui.panel.AbstractPanelContent;
 import org.ln.java.renamer.gui.panel.SlidingPanel;
 
@@ -44,6 +45,9 @@ public class AccordionPanel extends JPanel {
     }
     
     
+    /**
+     * @param expandedPanel
+     */
     public void collapseAllExcept(SlidingPanel expandedPanel) {
         for (SlidingPanel panel : panels) {
             if (panel != expandedPanel) {
@@ -71,6 +75,25 @@ public class AccordionPanel extends JPanel {
         return panels.size()+1;
     }
 
+	/**
+	 * @return
+	 */
+	public JTextField getRenameField() {
+		return getActivePanel().getRenameField();
+	}
+
+
+	/**
+	 * @return
+	 */
+	public SlidingPanel getActivePanel() {
+		for (SlidingPanel slidingPanel : panels) {
+			if(slidingPanel.isActivePanel()) {
+				return slidingPanel;
+			}
+		}
+		return null;
+	}
 
 	/**
 	 * @return the view
@@ -80,18 +103,20 @@ public class AccordionPanel extends JPanel {
 	}
 
 
-	public SlidingPanel getActivePanel() {
-		//JTextField t = null;
-		for (SlidingPanel slidingPanel : panels) {
-			if(slidingPanel.isActivePanel()) {
-				return slidingPanel;
-			}
-		}
-		return null;
+	/**
+	 * @return
+	 */
+	public Controller getController() {
+		return view.getController();
 	}
 
-	public JTextField getRenameField() {
-		return getActivePanel().getRenameField();
+
+	/**
+	 * @return
+	 */
+	public FileRenamerTableModel getTableModel() {
+		return view.getTableModel();
 	}
+	
 	
 }

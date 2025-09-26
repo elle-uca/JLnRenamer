@@ -1,6 +1,5 @@
 package org.ln.java.renamer.tag;
 
-import java.io.File;
 import java.util.List;
 
 /**
@@ -17,9 +16,9 @@ public abstract class RnTag {
 
 	protected String tagName;
 	
-	protected int start; 	// arg1
-	protected int step;		// arg2
-	protected int pos;		// arg3
+	protected int start; 	
+	protected int step;		
+	protected int pos;		
 	
 	protected List<String> oldName;
 	
@@ -33,16 +32,14 @@ public abstract class RnTag {
 
 	
 
-//	public RnTag() {
-//		super();
-//	}
+
 
 	public RnTag(Integer...  arg) {
 		int size = arg.length;
 		if(arg == null || size == 0 ) {
 			//System.out.println("ERROR VARARGS  ");
 		}
-		//System.out.println("VARARGS  "+arg.length);
+	
 		 for (int i = 0; i < size; i++) {
 			if(arg[i] < 1)
 				arg[i] = 1;
@@ -50,14 +47,12 @@ public abstract class RnTag {
 		start = size >= 1 ? arg[0] : 1;
 		step = size >= 2 ? arg[1] : 1;
 		pos = size >= 3 ? arg[2] : 1;
-	//	System.out.println("start    "+start);
-	//	System.out.println("step    "+step);
-	//	System.out.println("pos    "+pos);
-	}
 
-	public abstract void init() ;
+	}
+	
 	
 
+	public abstract void init() ;
 	
 
 
@@ -94,7 +89,6 @@ public abstract class RnTag {
 	@Override
 	public String toString() {
 		return getTagString()+" - "+getDescription();
-		//return OPEN_TAG+tagName+SEPARATOR_TAG+start+SEPARATOR_TAG+step+CLOSE_TAG;
 	}
 
 	/**
@@ -113,7 +107,6 @@ public abstract class RnTag {
 
 
 
-
 	/**
 	 * @return the oldName
 	 */
@@ -127,15 +120,6 @@ public abstract class RnTag {
 	 */
 	public void setOldName(List<String> oldName) {
 		this.oldName = oldName;
-	}
-
-
-
-
-
-	public static void main(String[] args) {
-		File f = new File("DecN.java");
-		System.out.println(f.exists());
 	}
 
 

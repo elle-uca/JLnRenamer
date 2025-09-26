@@ -56,9 +56,7 @@ public class SlidingPanel extends JPanel {
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		setBorder(null);
 		this.accordionPanel = accordionPanel;
-		//System.out.println(accordionPanel);
 		this.contentComponent = content;
-		//System.out.println(contentComponent.getClass());
 		this.title = title;
 		activePanel = true;
 		init();

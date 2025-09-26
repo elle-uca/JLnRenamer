@@ -4,6 +4,8 @@ public class Costants {
 
 	public static final String DOT = ".";
 	
+	public static final  String DELIMITERS = ".-_()[]";
+	
 	
 	public enum ModeCase {
 		UPPER ("TUTTO MAIUSCOLO"),         

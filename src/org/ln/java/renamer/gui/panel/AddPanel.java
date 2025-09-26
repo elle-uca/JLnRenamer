@@ -49,7 +49,6 @@ public class AddPanel extends AbstractPanelContent {
 		group.add(jrbStart);
 		group.add(jrbEnd);
 		group.add(jrbPos);
-	//	jrbStart.setSelected(true);
 
 		jrbStart.addActionListener(this);
 		jrbEnd.addActionListener(this);
@@ -79,12 +78,14 @@ public class AddPanel extends AbstractPanelContent {
 			posSpinner.setEnabled(true);
 			intPos = posSpinner.getIntValue();
 		}
-		accordion.getView().getTableModel().setData(RenamerMethod.addMethod(
-				accordion.getView().getTableModel().getData(), 
+		
+		accordion.getController().setTableData(RenamerMethod.addMethod(
+				accordion.getTableModel().getData(), 
 				getRenameField().getText(), intPos));
-
+		
+//		accordion.getView().getTableModel().setData(RenamerMethod.addMethod(
+//				accordion.getView().getTableModel().getData(), 
+//				getRenameField().getText(), intPos));
 	}
-
-
 
 }

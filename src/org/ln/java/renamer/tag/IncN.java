@@ -15,8 +15,6 @@ import java.util.List;
 public class IncN extends RnTag {
 
 
-
-
 	/**
 	 * @param arg
 	 */
@@ -26,13 +24,10 @@ public class IncN extends RnTag {
 	}
 
 
-
-
 	@Override
 	public void init() {
 		this.newName = incrementalNumber(this, oldName, true);
 	}
-
 
 
 	@Override
@@ -52,14 +47,9 @@ public class IncN extends RnTag {
 		int incr = tag.getStart();
 		for(int i = 0; i < nameList.size(); i++) {
 			result.add(incr+"");
-			//System.out.println("incr  "+incr);
 			incr =  plus  ?  incr + tag.getStep()  :  incr - tag.getStep() ;
 		}
 		return result;
-	}
-
-	public static void main(String[] args) {
-
 	}
 
 

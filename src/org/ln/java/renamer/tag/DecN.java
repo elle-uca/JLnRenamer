@@ -30,5 +30,4 @@ public class DecN extends IncN {
 	}
 
 
-
 }
