@@ -52,7 +52,7 @@ public class Controller {
     		if (returnVal != JFileChooser.APPROVE_OPTION) {
     			return;
     		}
-    		File[] files =fc.getSelectedFiles();
+    		File[] files = fc.getSelectedFiles();
     		List<RnFile> rnfilesList = new ArrayList<RnFile>();
     		List<File> fileList = new ArrayList<>(Arrays.asList(files));
     		for (File file : fileList) {
@@ -80,15 +80,18 @@ public class Controller {
                    : new JFileChooser();
    		
    		fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-   		fc.setMultiSelectionEnabled(true);
+   		fc.setMultiSelectionEnabled(false);
    		int returnVal = fc.showOpenDialog(null);
 
    		if (returnVal != JFileChooser.APPROVE_OPTION) {
    			return;
    		}
-   		File[] files =fc.getSelectedFiles();
+
+   		File root = fc.getSelectedFile();
+   		List<File> fileList = displayDirectory(root, new ArrayList<File>()); 
+   		
    		List<RnFile> rnfilesList = new ArrayList<RnFile>();
-   		List<File> fileList = new ArrayList<>(Arrays.asList(files));
+   		
    		for (File file : fileList) {
    			RnFile rn = new RnFile(new AdFile(file.getPath()));
    			//System.out.println(rn);
@@ -97,9 +100,22 @@ public class Controller {
    		prefs.put(LAST_DIR_KEY, fileList.getFirst().getParent());
    		view.getTableModel().setData(rnfilesList);
    		view.setInfoText("file "+rnfilesList.size());
+
 		}
 	}	
 	
+	
+	private List<File> displayDirectory(File dir, List<File> result) {
+		File[] files = dir.listFiles();
+		for (File file : files) {
+			// Checking of file inside directory
+			if (file.isDirectory()) {
+				result.add(file);
+				displayDirectory(file, result);
+			}
+		}
+		return result;
+	}
 	
 	/**
 	 * @param list

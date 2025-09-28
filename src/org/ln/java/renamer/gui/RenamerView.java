@@ -18,6 +18,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
+import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
@@ -34,13 +35,18 @@ import net.miginfocom.swing.MigLayout;
 @SuppressWarnings("serial")
 public class RenamerView extends JFrame{
 
-	private JScrollPane tableScrollPane;
-	private JTable table;
+	private JScrollPane tableScrollPane1;
+	private JTable table1;
+	private FileRenamerTableModel tableModel1;
+
+	private JScrollPane tableScrollPane2;
+	private JTable table2;
+	private FileRenamerTableModel tableModel2;
+	
 	private Controller controller;
 	private JButton renameButton;
 	private JButton addFileButton;
 	private JButton addDirButton;
-	private FileRenamerTableModel tableModel;
 	private JLabel infoLabel;
 
 
@@ -131,12 +137,10 @@ public class RenamerView extends JFrame{
 		accordion.setAlignmentX(Component.LEFT_ALIGNMENT);
 		accordion.setBorder(BorderFactory.createEmptyBorder());
 
-
 		newNameButton.addActionListener(new AccordionButtonActionListener());
 		addButton.addActionListener(new AccordionButtonActionListener());
 		removeButton.addActionListener(new AccordionButtonActionListener());
 		caseButton.addActionListener(new AccordionButtonActionListener());
-
 
 		panel.add(accordion, BorderLayout.NORTH);
 		panel.add(buttonPanel, BorderLayout.SOUTH);
@@ -153,14 +157,22 @@ public class RenamerView extends JFrame{
 		JPanel container = new JPanel();
 		JPanel north = new JPanel();
 		JPanel south = new JPanel();
-		tableScrollPane = new JScrollPane();
-		table = new JTable();
-		tableModel = new FileRenamerTableModel(40);
-		table.setModel(tableModel);
-		tableScrollPane.setViewportView(table);
-		table.setAutoCreateRowSorter(true);
-        table.getColumnModel().getColumn(3).setCellRenderer(new StatusCellRenderer());
+		tableScrollPane1 = new JScrollPane();
+		table1 = new JTable();
+		tableModel1 = new FileRenamerTableModel(40);
+		table1.setModel(tableModel1);
+		tableScrollPane1.setViewportView(table1);
+		table1.setAutoCreateRowSorter(true);
+        table1.getColumnModel().getColumn(3).setCellRenderer(new StatusCellRenderer());
 
+        
+		tableScrollPane2 = new JScrollPane();
+		table2 = new JTable();
+		tableModel2 = new FileRenamerTableModel(40);
+		table2.setModel(tableModel2);
+		tableScrollPane2.setViewportView(table2);
+		table2.setAutoCreateRowSorter(true);
+        table2.getColumnModel().getColumn(3).setCellRenderer(new StatusCellRenderer());
 
 		addFileButton = new JButton("Add file");
 		addDirButton = new JButton("Add directory");
@@ -180,9 +192,14 @@ public class RenamerView extends JFrame{
 		south.setLayout(new MigLayout("", "[grow]", "[]"));
 		south.add(infoLabel);
 
+		JTabbedPane tabPanel = new JTabbedPane();
+        tabPanel.addTab("Tab 1", tableScrollPane1);
+        tabPanel.addTab("Tab 2", tableScrollPane2);
+		
+		
 		container.setLayout(new MigLayout("", "[grow]", "[]"));
-		container.add(north, "wrap");
-		container.add(tableScrollPane, "grow, wrap");
+		container.add(north, 	"wrap");
+		container.add(tabPanel, "grow, wrap");
 		container.add(south);
 		return container;
 	}
@@ -199,7 +216,7 @@ public class RenamerView extends JFrame{
 
 
 	public FileRenamerTableModel getTableModel() {
-		return tableModel;
+		return tableModel1;
 	}
 
 
