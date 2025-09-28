@@ -39,8 +39,18 @@ public abstract class AbstractPanelContent extends JPanel implements ChangeListe
 	 */
 	abstract void updateView();
 
+	/**
+	 * @return
+	 */
 	public JTextField getRenameField() {
 		return renameField;
+	}
+	
+	/**
+	 * @return
+	 */
+	public String getRenameText() {
+		return renameField.getText();
 	}
 
 	@Override

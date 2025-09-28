@@ -79,13 +79,9 @@ public class AddPanel extends AbstractPanelContent {
 			intPos = posSpinner.getIntValue();
 		}
 		
-		accordion.getController().setTableData(RenamerMethod.addMethod(
-				accordion.getTableModel().getData(), 
-				getRenameField().getText(), intPos));
-		
-//		accordion.getView().getTableModel().setData(RenamerMethod.addMethod(
-//				accordion.getView().getTableModel().getData(), 
-//				getRenameField().getText(), intPos));
+		accordion.setTableData(RenamerMethod.addMethod(
+				accordion.getTableData(), getRenameText(), intPos));
+
 	}
 
 }

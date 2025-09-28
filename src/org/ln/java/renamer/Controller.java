@@ -5,7 +5,9 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.prefs.Preferences;
 
 import javax.swing.JFileChooser;
@@ -20,6 +22,9 @@ public class Controller {
     private static final String LAST_DIR_KEY = "lastDir";
 
 
+	/**
+	 * @param view
+	 */
 	public Controller(RenamerView view) {
 		super();
 		this.view = view;
@@ -96,8 +101,17 @@ public class Controller {
 	}	
 	
 	
+	/**
+	 * @param list
+	 */
 	public void setTableData(List<RnFile> list) {
 		view.getTableModel().setData(list);
+		Map<RnFile, String> newNames = new HashMap<>();
+		for (RnFile rnFile : list) {
+			newNames.put(rnFile, rnFile.getNameDest());
+		}
+		
+		FileRenamer.checkConflicts(list.getFirst().getFrom().getParentFile(), newNames);
 	}
 
 	/**

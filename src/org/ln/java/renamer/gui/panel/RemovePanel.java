@@ -12,8 +12,8 @@ import net.miginfocom.swing.MigLayout;
 public class RemovePanel extends AbstractPanelContent {
 
 	private JLabel posLabel;
-	private JIntegerSpinner posSpinner;
 	private JLabel numLabel;
+	private JIntegerSpinner posSpinner;
 	private JIntegerSpinner numSpinner;
 
 
@@ -46,9 +46,8 @@ public class RemovePanel extends AbstractPanelContent {
 	 */
 	@Override
 	void updateView() {
-		//System.out.println(getRenameField().getText()+"  "+posSpinner.getValue());
-		accordion.getView().getTableModel().setData(RenamerMethod.removeMethod(
-				accordion.getView().getTableModel().getData(), 
+		accordion.setTableData(RenamerMethod.removeMethod(
+				accordion.getTableData(), 
 				posSpinner.getIntValue(), numSpinner.getIntValue()));
 	}
 

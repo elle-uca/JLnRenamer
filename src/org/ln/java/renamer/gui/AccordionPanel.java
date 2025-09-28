@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import org.ln.java.renamer.Controller;
+import org.ln.java.renamer.RnFile;
 import org.ln.java.renamer.gui.panel.AbstractPanelContent;
 import org.ln.java.renamer.gui.panel.SlidingPanel;
 
@@ -118,5 +119,18 @@ public class AccordionPanel extends JPanel {
 		return view.getTableModel();
 	}
 	
+	/**
+	 * @param list
+	 */
+	public void setTableData(List<RnFile> list) {
+		view.getController().setTableData(list);
+	}
 	
+	
+	/**
+	 * @return
+	 */
+	public List<RnFile> getTableData() {
+		return view.getTableModel().getData();
+	}
 }

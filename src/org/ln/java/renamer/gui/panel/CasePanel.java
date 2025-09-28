@@ -37,7 +37,6 @@ public class CasePanel extends AbstractPanelContent {
 	 */
 	@Override
 	void initComponents() {
-
 		jrbUpper = new CaseRadioButton(ModeCase.UPPER, true);
 		jrbLower = new CaseRadioButton(ModeCase.LOWER);
 		jrbCapAll = new CaseRadioButton(ModeCase.TITLE_CASE);
@@ -81,11 +80,9 @@ public class CasePanel extends AbstractPanelContent {
             }
         }
 
-		accordion.getView().getTableModel().setData(RenamerMethod.transformCase(
-				accordion.getView().getTableModel().getData(), modeCase));
+		accordion.setTableData(RenamerMethod.transformCase(
+				accordion.getTableData(), modeCase));
 	}
-
-
 
 
 

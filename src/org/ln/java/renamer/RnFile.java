@@ -19,7 +19,6 @@ public class RnFile {
 
 	public RnFile(AdFile from) {
 		this.from = from;
-		//System.out.println(from.exists());
 		nameDest = "";
 		if(from.exists()) {
 			fileStatus = FileStatus.OK;
@@ -30,7 +29,7 @@ public class RnFile {
 
 
 	/**
-	 * @return the nameDest
+	 * @return the name of destination file
 	 */
 	public String getNameDest() {
 		return nameDest;
@@ -38,7 +37,7 @@ public class RnFile {
 
 
 	/**
-	 * @param nameDest the nameDest to set
+	 * @param nameDest the name of destination file to set
 	 */
 	public void setNameDest(String nameDest) {
 		this.nameDest = nameDest;
@@ -53,17 +52,12 @@ public class RnFile {
 	}
 
 
-
-
-
 	/**
 	 * @return the parentDest
 	 */
 	public String getParentDest() {
 		return from.getParent();
 	}
-
-
 	
 
 	/**
@@ -72,8 +66,6 @@ public class RnFile {
 	public AdFile getFrom() {
 		return from;
 	}
-
-
 	
 	
 	/**
@@ -92,34 +84,40 @@ public class RnFile {
 	}
 
 
+	/**
+	 * @return
+	 */
 	public boolean renameTo() {
 		String dest = from.getParent()+File.separator+nameDest+"."+from.getExtension();
-		//System.out.println(from.getAbsolutePath()+" dest    "+dest);
 		return from.renameTo(new File(dest));
 	}
 
 
 
+	/**
+	 * @return
+	 */
 	public Boolean getSelected() {
 		return selected;
 	}
 
 
+	/**
+	 * @param selected
+	 */
 	public void setSelected(Boolean selected) {
 		this.selected = selected;
 	}
 
 
-	public void rename(String name) {
-		from.newName(name);
-	}
+//	public void rename(String name) {
+//		from.newName(name);
+//	}
 
 	
 	@Override
 	public String toString() {
 		return "RnFiles [from=" + from.toString() + ", to=" + getNameDest() + "]";
 	}
-	
-	
 
 }

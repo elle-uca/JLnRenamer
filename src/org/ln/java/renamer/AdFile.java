@@ -31,9 +31,6 @@ public class AdFile extends File {
 		return getName().substring(0, index);
 	}
 
-	
-
-
 	/**
      * @param  dest  The new abstract pathname for the named file
      *
@@ -66,6 +63,10 @@ public class AdFile extends File {
 	}	
 	
 
+	/**
+	 * @param name
+	 * @return
+	 */
 	public  boolean newName(String name) {
 		return renameTo(getParent(), name, getExtension()) ;
 	}

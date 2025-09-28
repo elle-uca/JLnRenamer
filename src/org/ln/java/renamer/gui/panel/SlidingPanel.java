@@ -5,8 +5,6 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.Dimension;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -19,10 +17,13 @@ import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.Timer;
 
 import org.ln.java.renamer.gui.AccordionPanel;
 import org.ln.java.renamer.gui.RenamerView;
+
+import net.miginfocom.swing.MigLayout;
 
 @SuppressWarnings("serial")
 public class SlidingPanel extends JPanel {
@@ -86,70 +87,54 @@ public class SlidingPanel extends JPanel {
 		}
 	}
 	
+
+
 	private JPanel getHeaderPanel() {
-		headerPanel = new JPanel(new GridBagLayout());
-		paintHeaderPanel();
-		headerPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+	    headerPanel = new JPanel(new MigLayout("insets 5, fill", "[][][grow] [] []", "[]"));
+	    paintHeaderPanel();
+	    headerPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
-		iconRight = new ImageIcon(getClass().getResource("/icons/arrow_right.png"));
-		iconDown  = new ImageIcon(getClass().getResource("/icons/arrow_down.png"));
-		iconLabel = new JLabel(iconRight);
+	    iconRight = new ImageIcon(getClass().getResource("/icons/arrow_right.png"));
+	    iconDown  = new ImageIcon(getClass().getResource("/icons/arrow_down.png"));
+	    iconLabel = new JLabel(iconRight);
 
-		countLabel = new JLabel(accordionPanel.getPanelCount() + "");
-		titleLabel = new JLabel(title);
+	    countLabel = new JLabel(accordionPanel.getPanelCount() + "");
+	    titleLabel = new JLabel(title);
+	    titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
-		active = new JCheckBox();
-		active.setOpaque(false);
-		active.setSelected(activePanel);
+	    active = new JCheckBox();
+	    active.setOpaque(false);
+	    active.setSelected(activePanel);
 
-		closeButton = new JButton("x");
-		closeButton.setForeground(Color.RED);
-		closeButton.setFocusPainted(false);
-		closeButton.setBorderPainted(false);
-		closeButton.setContentAreaFilled(false);
-		closeButton.setMargin(new Insets(0, 5, 0, 5));
+	    closeButton = new JButton("x");
+	    closeButton.setForeground(Color.RED);
+	    closeButton.setFocusPainted(false);
+	    closeButton.setBorderPainted(false);
+	    closeButton.setContentAreaFilled(false);
+	    closeButton.setMargin(new Insets(0, 5, 0, 5));
 
-		closeButton.addActionListener(e -> accordionPanel.removePanel(this));
+	    closeButton.addActionListener(e -> accordionPanel.removePanel(this));
 
-		headerPanel.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent e) {
-				if (!isExpanded && collapseOthers != null) {
-					collapseOthers.run();
-				}
-				togglePanel();
-			}
-		});
+	    headerPanel.addMouseListener(new MouseAdapter() {
+	        public void mouseClicked(MouseEvent e) {
+	            if (!isExpanded && collapseOthers != null) {
+	                collapseOthers.run();
+	            }
+	            togglePanel();
+	        }
+	    });
+	    
+	    headerPanel.add(iconLabel,   "cell 0 0");
+	    headerPanel.add(countLabel,  "cell 1 0");
+	    headerPanel.add(titleLabel,  "cell 2 0, growx, pushx");
+	    headerPanel.add(active,      "cell 3 0");
+	    headerPanel.add(closeButton, "cell 4 0");
 
-		GridBagConstraints gbc = new GridBagConstraints();
-		gbc.insets = new Insets(5, 5, 5, 5);
-		gbc.anchor = GridBagConstraints.CENTER;
-
-		gbc.gridx = 0;
-		gbc.weightx = 0;
-		headerPanel.add(iconLabel, gbc);
-
-		gbc.gridx = 1;
-		headerPanel.add(countLabel, gbc);
-
-		gbc.gridx = 2;
-		gbc.weightx = 1.0;
-		gbc.fill = GridBagConstraints.HORIZONTAL;
-		headerPanel.add(titleLabel, gbc);
-
-		gbc.gridx = 3;
-		gbc.weightx = 0;
-		gbc.fill = GridBagConstraints.NONE;
-		headerPanel.add(active, gbc);
-
-		gbc.gridx = 4;
-		headerPanel.add(closeButton, gbc);
-
-		headerPanel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		headerPanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 40));
-		headerPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
-		return headerPanel;
+	    headerPanel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+	    headerPanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 40));
+	    headerPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
+	    return headerPanel;
 	}
-
 
 
 	public void collapse() {
@@ -253,6 +238,9 @@ public class SlidingPanel extends JPanel {
 		return accordionPanel.getView();
 	}
 	
+	/**
+	 * @return
+	 */
 	public JTextField getRenameField() {
 		return contentComponent.getRenameField();
 	}

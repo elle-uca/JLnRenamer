@@ -6,86 +6,84 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
-import java.util.Vector;
 
 import org.ln.java.renamer.AdFile;
-import org.ln.java.renamer.RnFile;
 import org.ln.java.renamer.tag.IncN;
 
 public  class FileUtility {
 
 
-	/**
-	 * @param path
-	 * @return
-	 */
-	public static AdFile createAdFile(String path) {
-		return createAdFile(new AdFile(path));
-	}
-
-	/**
-	 * @param AdFile
-	 * @return
-	 */
-	public static AdFile createAdFile(AdFile AdFile) {
-		try {
-			if(!AdFile.exists()) {
-				AdFile.createNewFile();
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return AdFile;
-	}
-
-
-	public static Vector<AdFile> createFiles(String path, int num) {
-		return createFiles(path, num,  "pippo");
-	}
+//	/**
+//	 * @param path
+//	 * @return
+//	 */
+//	public static AdFile createAdFile(String path) {
+//		return createAdFile(new AdFile(path));
+//	}
+//
+//	/**
+//	 * @param AdFile
+//	 * @return
+//	 */
+//	public static AdFile createAdFile(AdFile AdFile) {
+//		try {
+//			if(!AdFile.exists()) {
+//				AdFile.createNewFile();
+//			}
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//		return AdFile;
+//	}
 
 
-	public static Vector<AdFile> createFiles(String path, int num, String name) {
-		return createFiles(path, num, name, ".txt");
-	}
-
-	public static Vector<AdFile> createFiles(String path, int num, String name, String ext) {
-		Vector<AdFile> result = new Vector<AdFile>();
-		for (int i = 1; i <= num; i++) {
-			result.add(createAdFile(new AdFile(path+name+i+ext)));
-		}
-		return result;
-	}
-
-
-	public static List<RnFile> createRnFiles(String path, int num, String name, String ext) {
-		List<RnFile> result = new ArrayList<RnFile>();
-		for (int i = 1; i <= num; i++) {
-			AdFile f = new AdFile(path+name+i+ext); 
-			result.add((new RnFile(f)));
-		}
-		return result;
-	}
-
-
-	public static boolean deleteAdFile(String path) {
-		return deleteAdFile(new AdFile(path));
-	}
-
-	public static boolean deleteAdFile(AdFile AdFile) {
-		return AdFile.delete();
-	}
-
-
-	public static boolean deleteAdFiles(String path, int num, String name, String ext) {
-		boolean result = true;
-		for (int i = 1; i <= num; i++) {
-			boolean deleted = deleteAdFile(new AdFile(path+name+i+ext));
-			if(!deleted) {
-				result = deleted;
-			}
-		}
-		return result;
-	}
+//	public static Vector<AdFile> createFiles(String path, int num) {
+//		return createFiles(path, num,  "pippo");
+//	}
+//
+//
+//	public static Vector<AdFile> createFiles(String path, int num, String name) {
+//		return createFiles(path, num, name, ".txt");
+//	}
+//
+//	public static Vector<AdFile> createFiles(String path, int num, String name, String ext) {
+//		Vector<AdFile> result = new Vector<AdFile>();
+//		for (int i = 1; i <= num; i++) {
+//			result.add(createAdFile(new AdFile(path+name+i+ext)));
+//		}
+//		return result;
+//	}
+//
+//
+//	public static List<RnFile> createRnFiles(String path, int num, String name, String ext) {
+//		List<RnFile> result = new ArrayList<RnFile>();
+//		for (int i = 1; i <= num; i++) {
+//			AdFile f = new AdFile(path+name+i+ext); 
+//			result.add((new RnFile(f)));
+//		}
+//		return result;
+//	}
+//
+//
+//	public static boolean deleteAdFile(String path) {
+//		return deleteAdFile(new AdFile(path));
+//	}
+//
+//	public static boolean deleteAdFile(AdFile AdFile) {
+//		return AdFile.delete();
+//	}
+//
+//
+//	public static boolean deleteAdFiles(String path, int num, String name, String ext) {
+//		boolean result = true;
+//		for (int i = 1; i <= num; i++) {
+//			boolean deleted = deleteAdFile(new AdFile(path+name+i+ext));
+//			if(!deleted) {
+//				result = deleted;
+//			}
+//		}
+//		return result;
+//	}
 
 	public static AdFile createDir(String path) {
 		return createDir(new AdFile(path)) ;
@@ -158,7 +156,6 @@ public  class FileUtility {
 		Class<?> goatClass = tag.getClass();
 		Package pkg = goatClass.getPackage();
 		System.out.println(pkg);
-		
 	}
 
 
