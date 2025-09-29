@@ -21,11 +21,9 @@ public class SplitPanel extends AbstractPanelContent {
 	private JLabel sizeLabel;
 	private JIntegerSpinner numberSpinner;
 	private JIntegerSpinner sizeSpinner;
-	private int intPos = 1;
 	private ButtonGroup group;
 	private JRadioButton jrbNumber;
 	private JRadioButton jrbSize;
-	//private JRadioButton jrbPos;
 
 	public SplitPanel(AccordionPanel accordion) {
 		super(accordion);
@@ -41,11 +39,10 @@ public class SplitPanel extends AbstractPanelContent {
 		textLabel = new JLabel("Prefisso dir");
 		numberLabel = new JLabel("Numero file");
 		sizeLabel = new JLabel("Dimensione in MB");
-		numberSpinner = new JIntegerSpinner();
-		sizeSpinner = new JIntegerSpinner();
+		numberSpinner = new JIntegerSpinner(1,1,500,1);
+		sizeSpinner = new JIntegerSpinner(1,1,500,1);
+		sizeSpinner.setEnabled(false);
 		
-		//numberSpinner.setEnabled(false);
-		//numberSpinner.addChangeListener(this);
 		jrbNumber = new JRadioButton("Per numero", true);
 		jrbSize = new JRadioButton("Per grandezza");
 		group = new ButtonGroup();
@@ -58,12 +55,15 @@ public class SplitPanel extends AbstractPanelContent {
 		setLayout(new MigLayout("", "[][grow]", "20[][][]20"));
 		add(jrbNumber, 		"cell 0 0 2 1");
 		add(numberLabel,	"cell 0 1");
-		add(numberSpinner, 	"cell 1 1, growx, wrap, w :150: ");
+		add(numberSpinner, 	"cell 1 1, growx, w :150: ");
 		
-		add(jrbSize, 		"cell 0 1 2 1");
-		add(sizeLabel, 		"cell 0 2");
-		add(sizeSpinner, 	"cell 1 2, growx, wrap, w :150: ");
-		
+		add(jrbSize, 		"cell 0 2 2 1");
+		add(sizeLabel, 		"cell 0 3");
+		add(sizeSpinner, 	"cell 1 3, growx, w :150: ");
+
+		add(textLabel, 		"cell 0 4");
+		add(renameField, 	"cell 1 4, growx, w :150: ");
+
 
 	}   
 
@@ -72,15 +72,14 @@ public class SplitPanel extends AbstractPanelContent {
 	 */
 	@Override
 	void updateView() {
-//		intPos = 1;
-//		numberSpinner.setEnabled(false);
-//		if(jrbSize.isSelected()) {
-//			intPos = Integer.MAX_VALUE;
-//		}
-//		if(jrbPos.isSelected()) {
-//			numberSpinner.setEnabled(true);
-//			intPos = numberSpinner.getIntValue();
-//		}
+		if(jrbNumber.isSelected()) {
+			sizeSpinner.setEnabled(false);
+			numberSpinner.setEnabled(true);
+		}
+		else {
+			sizeSpinner.setEnabled(true);
+			numberSpinner.setEnabled(false);
+		}
 //		
 //		accordion.setTableData(RenamerMethod.addMethod(
 //				accordion.getTableData(), getRenameText(), intPos));
