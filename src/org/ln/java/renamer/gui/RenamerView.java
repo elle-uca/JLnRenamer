@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.EventQueue;
 import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -27,6 +28,7 @@ import org.ln.java.renamer.Controller;
 import org.ln.java.renamer.gui.panel.AddPanel;
 import org.ln.java.renamer.gui.panel.CasePanel;
 import org.ln.java.renamer.gui.panel.RemovePanel;
+import org.ln.java.renamer.gui.panel.SplitPanel;
 import org.ln.java.renamer.gui.panel.TagPanel;
 import org.ln.java.renamer.tool.PasswordGeneratorDialog;
 
@@ -122,15 +124,17 @@ public class RenamerView extends JFrame{
 	 */
 	private JPanel createMethodPanel() {
 		JPanel panel = new JPanel(new BorderLayout());
-		JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+		JPanel buttonPanel = new JPanel(new GridLayout (3,3));
 		JButton newNameButton = new JButton("Nuovo nome");
 		JButton addButton = new JButton("Aggiungi");
 		JButton removeButton = new JButton("Rimuovi");
 		JButton caseButton = new JButton("Case");
+		JButton splitButton = new JButton("Split");
 		buttonPanel.add(newNameButton);
 		buttonPanel.add(addButton);
 		buttonPanel.add(removeButton);
 		buttonPanel.add(caseButton);
+		buttonPanel.add(splitButton);
 
 		accordion = new AccordionPanel(this);
 		accordion.setLayout(new BoxLayout(accordion, BoxLayout.Y_AXIS));
@@ -141,6 +145,7 @@ public class RenamerView extends JFrame{
 		addButton.addActionListener(new AccordionButtonActionListener());
 		removeButton.addActionListener(new AccordionButtonActionListener());
 		caseButton.addActionListener(new AccordionButtonActionListener());
+		splitButton.addActionListener(new AccordionButtonActionListener());
 
 		panel.add(accordion, BorderLayout.NORTH);
 		panel.add(buttonPanel, BorderLayout.SOUTH);
@@ -247,6 +252,9 @@ public class RenamerView extends JFrame{
 			break;
 			case ("Case"):
 				accordion.addPanel(name, new CasePanel(accordion));
+			break;
+			case ("Split"):
+				accordion.addPanel(name, new SplitPanel(accordion));
 			break;
 			}
 		}
