@@ -23,7 +23,7 @@ import net.miginfocom.swing.MigLayout;
  * @author luke
  */
 @SuppressWarnings("serial")
-public class SplitPanel extends AbstractPanelContent {
+public class MergePanel extends AbstractPanelContent {
 
 	private JLabel textLabel;
 	private JLabel numberLabel;
@@ -35,7 +35,7 @@ public class SplitPanel extends AbstractPanelContent {
 	private JRadioButton jrbSize;
 	private JButton go;
 
-	public SplitPanel(AccordionPanel accordion) {
+	public MergePanel(AccordionPanel accordion) {
 		super(accordion);
 	}
 

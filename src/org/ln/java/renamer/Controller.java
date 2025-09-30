@@ -137,22 +137,22 @@ public class Controller {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-//			List<RnFile> rnfilesList = view.getTableModel().getData();
-//			for (RnFile rnFile : rnfilesList) {
-//				rnFile.renameTo();
-//			}
 			
-//			List<RnFile> rnfilesList = view.getTableModel().getData();
-//			
-//			Map<File, String> newNames = new HashMap<>();
-//			for (RnFile rnFile : rnfilesList) {
-//				newNames.put(rnFile.getFrom(), rnFile.getNameDest());
-//			}
-//			
-//			
-//			System.out.println("Conflitti   "+FileRenamer.checkConflict(rnfilesList.getFirst().getFrom().getParentFile(), newNames));
-//			
-//			view.getTableModel().setData(new ArrayList<RnFile>());
+			//System.out.println("Rename ");
+			List<RnFile> list = view.getTableModel().getData();
+			Map<RnFile, String> newNames = new HashMap<>();
+			for (RnFile rnFile : list) {
+				newNames.put(rnFile, rnFile.getNameDest());
+			}
+			if (!FileRenamer.checkConflicts(list.getFirst().getFrom().getParentFile(), newNames)) {
+				for (RnFile rnFile : list) {
+					rnFile.renameTo();
+				}
+			}
+			
+			view.getTableModel().setData(new ArrayList<RnFile>());
+			
+
 		}
 	}
 

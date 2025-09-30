@@ -85,6 +85,10 @@ public class RnFile {
 
 
 	/**
+	 * qui va valutato se si tratta di file o directory!!!
+	 * 
+	 * 
+	 * 
 	 * @return
 	 */
 	public boolean renameTo() {

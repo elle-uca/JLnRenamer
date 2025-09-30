@@ -85,17 +85,12 @@ public class FileSplitter {
 
     // ESEMPIO DI UTILIZZO
     public static void main(String[] args) {
-        try {
-            String path = "C:/temp/files";
+    	String sourceDir = "R:\\02_Resi\\test\\Sapidata\\PM_Firenze\\Da_inviare\\test";
+    	 File folder = new File(sourceDir);
+    	 File[] files = folder.listFiles();
 
-            // Dividi in cartelle da 20 file con prefisso "parte"
-            splitByCount(path, 20, "parte");
-
-            // Oppure dividi in cartelle da 20MB con prefisso "parte"
-            // splitBySize(path, 20, "parte");
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+         for (File file : files) {
+        	 System.out.println(file.getName()+"   "+file.isFile()+"     "+file.isDirectory());
+         }
     }
 }

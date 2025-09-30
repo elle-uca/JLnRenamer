@@ -125,7 +125,7 @@ public class FileSplitterSimulator {
             int confirm = JOptionPane.showConfirmDialog(null, "Vuoi applicare davvero lo split?");
             if (confirm == JOptionPane.YES_OPTION) {
                 try {
-                    applySplit("C:/temp/files", simulation); // percorso fisso come esempio
+                    applySplit("R:\\02_Resi\\test\\Sapidata\\PM_Firenze\\Da_inviare", simulation); // percorso fisso come esempio
                     JOptionPane.showMessageDialog(null, "Split completato!");
                 } catch (IOException e) {
                     JOptionPane.showMessageDialog(null, "Errore: " + e.getMessage());
@@ -135,11 +135,11 @@ public class FileSplitterSimulator {
     }
 
     public static void main(String[] args) {
-        String path = "/home/luke/test";
+        String path = "R:\\02_Resi\\test\\Sapidata\\PM_Firenze\\Da_inviare";
 
         // Simulazione (scegli tu se per numero o per dimensione)
-        //Map<String, List<File>> simulation = simulateSplitByCount(path, 20, "parte");
-        Map<String, List<File>> simulation = simulateSplitBySize(path, 20, "parte");
+        Map<String, List<File>> simulation = simulateSplitByCount(path, 10, "parte");
+      //  Map<String, List<File>> simulation = simulateSplitBySize(path, 20, "parte");
 
         SwingUtilities.invokeLater(() -> showSimulationTable(simulation));
     }

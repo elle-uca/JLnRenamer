@@ -139,14 +139,14 @@ public class FileRenamer {
            
             // 1. conflitto con file esistenti (ma non se è lo stesso file)
             if (existingNames.contains(newName) && !oldFile.getName().equals(newName)) {
-                System.out.println("❌ Conflitto: " + newName + " esiste già nella cartella.");
+               // System.out.println("❌ Conflitto: " + newName + " esiste già nella cartella.");
                 conflictFound = true;
             }
 
             // 2. duplicati nella lista dei nuovi nomi
             if (!usedNewNames.add(newName)) {
             	 entry.getKey().setFileStatus(FileStatus.KO);
-                System.out.println("❌ Conflitto: il nuovo nome " + newName + " è duplicato.");
+               // System.out.println("❌ Conflitto: il nuovo nome " + newName + " è duplicato.");
                 conflictFound = true;
             }else {
             	entry.getKey().setFileStatus(FileStatus.OK);

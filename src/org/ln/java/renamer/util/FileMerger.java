@@ -57,8 +57,8 @@ public class FileMerger {
     // ESEMPIO DI UTILIZZO
     public static void main(String[] args) {
         try {
-            String parentDir = "C:/temp/files";     // contiene parte1, parte2, ...
-            String targetDir = "C:/temp/merged";    // cartella di destinazione
+            String parentDir = "R:\\02_Resi\\test\\Sapidata\\PM_Firenze\\Da_inviare\\Part_1";     // contiene parte1, parte2, ... R:\02_Resi\test\Sapidata\PM_Firenze\Da_inviare\Part_1
+            String targetDir = "R:\\02_Resi\\test\\Sapidata\\PM_Firenze\\Da_inviare\\Part_1";    // cartella di destinazione
 
             mergeFolders(parentDir, targetDir, true); // true = sposta, false = copia
 
