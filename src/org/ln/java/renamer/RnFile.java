@@ -1,8 +1,11 @@
 package org.ln.java.renamer;
 
 import java.io.File;
+import java.io.IOException;
 
 import org.ln.java.renamer.Costants.FileStatus;
+import org.ln.java.renamer.Costants.RenameMode;
+import org.ln.java.renamer.util.FileUtils;
 
 public class RnFile {
 
@@ -85,18 +88,22 @@ public class RnFile {
 
 
 	/**
-	 * qui va valutato se si tratta di file o directory!!!
+	 * 
 	 * 
 	 * 
 	 * 
 	 * @return
 	 */
-	public boolean renameTo() {
-		String dest = from.getParent()+File.separator+nameDest+"."+from.getExtension();
-		return from.renameTo(new File(dest));
+	public File safeRename() {
+		File result = null;
+		try {
+			result = FileUtils.safeRename(from, nameDest, RenameMode.NAME_ONLY);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return result;
 	}
-
-
 
 	/**
 	 * @return
@@ -114,14 +121,14 @@ public class RnFile {
 	}
 
 
-//	public void rename(String name) {
-//		from.newName(name);
-//	}
 
 	
 	@Override
 	public String toString() {
 		return "RnFiles [from=" + from.toString() + ", to=" + getNameDest() + "]";
 	}
+
+
+
 
 }

@@ -80,7 +80,7 @@ public class SplitPanel extends AbstractPanelContent {
 					simulation = FileSplitterSimulator.simulateSplitBySize(path, sizeSpinner.getIntValue(), renameField.getText());
 				}
 				
-				SwingUtilities.invokeLater(() -> FileSplitterSimulator.showSimulationTable(simulation));
+				SwingUtilities.invokeLater(() -> FileSplitterSimulator.showSimulationTable(path, simulation));
 				
 			}
 		});

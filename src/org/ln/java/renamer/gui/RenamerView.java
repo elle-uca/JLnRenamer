@@ -3,7 +3,6 @@ package org.ln.java.renamer.gui;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.EventQueue;
-import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -27,6 +26,7 @@ import javax.swing.WindowConstants;
 import org.ln.java.renamer.Controller;
 import org.ln.java.renamer.gui.panel.AddPanel;
 import org.ln.java.renamer.gui.panel.CasePanel;
+import org.ln.java.renamer.gui.panel.MergePanel;
 import org.ln.java.renamer.gui.panel.RemovePanel;
 import org.ln.java.renamer.gui.panel.SplitPanel;
 import org.ln.java.renamer.gui.panel.TagPanel;
@@ -58,7 +58,8 @@ public class RenamerView extends JFrame{
 
 	public RenamerView() {
 		controller = new Controller(this);
-		splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, createMethodPanel(), createListPanel());
+		splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, 
+				createMethodPanel(), createListPanel());
 		splitPane.setDividerLocation(400);
 		getContentPane().add(splitPane);
 		
@@ -124,17 +125,22 @@ public class RenamerView extends JFrame{
 	 */
 	private JPanel createMethodPanel() {
 		JPanel panel = new JPanel(new BorderLayout());
-		JPanel buttonPanel = new JPanel(new GridLayout (3,3));
+		JPanel buttonPanel = new JPanel();
 		JButton newNameButton = new JButton("Nuovo nome");
 		JButton addButton = new JButton("Aggiungi");
 		JButton removeButton = new JButton("Rimuovi");
 		JButton caseButton = new JButton("Case");
 		JButton splitButton = new JButton("Split");
+		JButton mergeButton = new JButton("Merge");
+		
+		//buttonPanel.setLayout(new MigLayout("", "[][][]", "[]"));
+		buttonPanel.setLayout(new GridLayout(0, 3));
 		buttonPanel.add(newNameButton);
 		buttonPanel.add(addButton);
 		buttonPanel.add(removeButton);
 		buttonPanel.add(caseButton);
 		buttonPanel.add(splitButton);
+		buttonPanel.add(mergeButton);
 
 		accordion = new AccordionPanel(this);
 		accordion.setLayout(new BoxLayout(accordion, BoxLayout.Y_AXIS));
@@ -146,6 +152,7 @@ public class RenamerView extends JFrame{
 		removeButton.addActionListener(new AccordionButtonActionListener());
 		caseButton.addActionListener(new AccordionButtonActionListener());
 		splitButton.addActionListener(new AccordionButtonActionListener());
+		mergeButton.addActionListener(new AccordionButtonActionListener());
 
 		panel.add(accordion, BorderLayout.NORTH);
 		panel.add(buttonPanel, BorderLayout.SOUTH);
@@ -256,6 +263,9 @@ public class RenamerView extends JFrame{
 			case ("Split"):
 				accordion.addPanel(name, new SplitPanel(accordion));
 			break;
+			case ("Merge"):
+				accordion.addPanel(name, new MergePanel(accordion));
+			break;			
 			}
 		}
 	}

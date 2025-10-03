@@ -94,8 +94,9 @@ public class FileSplitterSimulator {
 
     /**
      * Mostra la simulazione in una JTable.
+     * @param path 
      */
-    public static void showSimulationTable(Map<String, List<File>> simulation) {
+    public static void showSimulationTable(String path, Map<String, List<File>> simulation) {
         String[] columns = {"Cartella", "Nome File", "Dimensione (KB)"};
         DefaultTableModel model = new DefaultTableModel(columns, 0);
 
@@ -125,7 +126,7 @@ public class FileSplitterSimulator {
             int confirm = JOptionPane.showConfirmDialog(null, "Vuoi applicare davvero lo split?");
             if (confirm == JOptionPane.YES_OPTION) {
                 try {
-                    applySplit("R:\\02_Resi\\test\\Sapidata\\PM_Firenze\\Da_inviare", simulation); // percorso fisso come esempio
+                    applySplit(path, simulation); 
                     JOptionPane.showMessageDialog(null, "Split completato!");
                 } catch (IOException e) {
                     JOptionPane.showMessageDialog(null, "Errore: " + e.getMessage());
@@ -141,6 +142,6 @@ public class FileSplitterSimulator {
         Map<String, List<File>> simulation = simulateSplitByCount(path, 10, "parte");
       //  Map<String, List<File>> simulation = simulateSplitBySize(path, 20, "parte");
 
-        SwingUtilities.invokeLater(() -> showSimulationTable(simulation));
+        SwingUtilities.invokeLater(() -> showSimulationTable(path, simulation));
     }
 }

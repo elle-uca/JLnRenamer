@@ -19,7 +19,7 @@ public class Controller {
 	private RenamerView view;
 	
     private static final Preferences prefs = Preferences.userRoot().node("JLnRenamer");
-    private static final String LAST_DIR_KEY = "lastDir";
+   // private static final String LAST_DIR_KEY = "lastDir";
 
 
 	/**
@@ -30,6 +30,22 @@ public class Controller {
 		this.view = view;
 	}
 
+	
+	public static JFileChooser getFileChooser(int mode, boolean multi) {
+		String lastPath = prefs.get(Costants.LAST_DIR_KEY, null);
+		
+		JFileChooser fc = (lastPath != null)
+                ? new JFileChooser(new File(lastPath))
+                : new JFileChooser();
+		
+		fc.setFileSelectionMode(mode);
+		fc.setMultiSelectionEnabled(multi);
+		return fc;
+	}
+	
+	public static void setPrefs(String key, String path) {
+		prefs.put(key, path);
+	}
 
 
 	/**
@@ -39,14 +55,8 @@ public class Controller {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			String lastPath = prefs.get(LAST_DIR_KEY, null);
-			
-    		JFileChooser fc = (lastPath != null)
-                    ? new JFileChooser(new File(lastPath))
-                    : new JFileChooser();
-    		
-    		fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
-    		fc.setMultiSelectionEnabled(true);
+	
+    		JFileChooser fc = getFileChooser(JFileChooser.FILES_ONLY, true);
     		int returnVal = fc.showOpenDialog(null);
 
     		if (returnVal != JFileChooser.APPROVE_OPTION) {
@@ -57,10 +67,11 @@ public class Controller {
     		List<File> fileList = new ArrayList<>(Arrays.asList(files));
     		for (File file : fileList) {
     			RnFile rn = new RnFile(new AdFile(file.getPath()));
-    			//System.out.println(rn);
     			rnfilesList.add(rn);
     		}
-    		prefs.put(LAST_DIR_KEY, fileList.getFirst().getParent());
+    		//prefs.put(LAST_DIR_KEY, fileList.getFirst().getParent());
+    		setPrefs(Costants.LAST_DIR_KEY, fileList.getFirst().getParent());
+    		
     		view.getTableModel().setData(rnfilesList);
     		view.setInfoText("file "+rnfilesList.size());
 		}
@@ -73,34 +84,27 @@ public class Controller {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			String lastPath = prefs.get(LAST_DIR_KEY, null);
-			
-   		JFileChooser fc = (lastPath != null)
-                   ? new JFileChooser(new File(lastPath))
-                   : new JFileChooser();
-   		
-   		fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-   		fc.setMultiSelectionEnabled(false);
-   		int returnVal = fc.showOpenDialog(null);
 
-   		if (returnVal != JFileChooser.APPROVE_OPTION) {
-   			return;
-   		}
+			JFileChooser fc = getFileChooser(JFileChooser.DIRECTORIES_ONLY, false);	
+			int returnVal = fc.showOpenDialog(null);
 
-   		File root = fc.getSelectedFile();
-   		List<File> fileList = displayDirectory(root, new ArrayList<File>()); 
-   		
-   		List<RnFile> rnfilesList = new ArrayList<RnFile>();
-   		
-   		for (File file : fileList) {
-   			RnFile rn = new RnFile(new AdFile(file.getPath()));
-   			//System.out.println(rn);
-   			rnfilesList.add(rn);
-   		}
-   		prefs.put(LAST_DIR_KEY, fileList.getFirst().getParent());
-   		view.getTableModel().setData(rnfilesList);
-   		view.setInfoText("file "+rnfilesList.size());
+			if (returnVal != JFileChooser.APPROVE_OPTION) {
+				return;
+			}
 
+			File root = fc.getSelectedFile();
+			List<File> fileList = displayDirectory(root, new ArrayList<File>()); 
+
+			List<RnFile> rnfilesList = new ArrayList<RnFile>();
+
+			for (File file : fileList) {
+				RnFile rn = new RnFile(new AdFile(file.getPath()));
+				rnfilesList.add(rn);
+			}
+			//prefs.put(Costants.LAST_DIR_KEY, fileList.getFirst().getParent());
+			setPrefs(Costants.LAST_DIR_KEY, fileList.getFirst().getParent());
+			view.getTableModel().setData(rnfilesList);
+			view.setInfoText("file "+rnfilesList.size());
 		}
 	}	
 	
@@ -126,8 +130,8 @@ public class Controller {
 		for (RnFile rnFile : list) {
 			newNames.put(rnFile, rnFile.getNameDest());
 		}
-		
-		FileRenamer.checkConflicts(list.getFirst().getFrom().getParentFile(), newNames);
+		FileRenamer.checkConflicts(list.getFirst().getFrom().getParentFile(), 
+				newNames);
 	}
 
 	/**
@@ -137,22 +141,22 @@ public class Controller {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			
-			//System.out.println("Rename ");
 			List<RnFile> list = view.getTableModel().getData();
 			Map<RnFile, String> newNames = new HashMap<>();
 			for (RnFile rnFile : list) {
 				newNames.put(rnFile, rnFile.getNameDest());
 			}
-			if (!FileRenamer.checkConflicts(list.getFirst().getFrom().getParentFile(), newNames)) {
+			List<RnFile> renameList = new ArrayList<RnFile>();
+			if (!FileRenamer.checkConflicts(list.getFirst().getFrom().getParentFile(), 
+					newNames)) {
+
 				for (RnFile rnFile : list) {
-					rnFile.renameTo();
+					File file = rnFile.safeRename();
+					RnFile rn = new RnFile(new AdFile(file.getPath()));
+					renameList.add(rn);
 				}
 			}
-			
-			view.getTableModel().setData(new ArrayList<RnFile>());
-			
-
+			view.getTableModel().setData(renameList);
 		}
 	}
 

@@ -18,7 +18,7 @@ import org.ln.java.renamer.tag.RandN;
 import org.ln.java.renamer.tag.RnTag;
 import org.ln.java.renamer.tag.Subs;
 import org.ln.java.renamer.tag.Word;
-import org.ln.java.renamer.util.FileUtility;
+import org.ln.java.renamer.util.FileUtils;
 
 @SuppressWarnings("serial")
 public class TagListModel extends AbstractListModel<RnTag> {
@@ -51,7 +51,7 @@ public class TagListModel extends AbstractListModel<RnTag> {
 		
         List<Class<?>> classes = null;
 		try {
-			classes = FileUtility.getClasses("org.ln.java.renamer.tag");
+			classes = FileUtils.getClasses("org.ln.java.renamer.tag");
 		} catch (ClassNotFoundException | IOException e) {
 			e.printStackTrace();
 		}

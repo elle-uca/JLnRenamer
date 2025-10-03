@@ -3,18 +3,21 @@ package org.ln.java.renamer.gui.panel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.util.List;
-import java.util.Map;
+import java.io.IOException;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JRadioButton;
+import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
+import org.ln.java.renamer.Controller;
+import org.ln.java.renamer.Costants;
 import org.ln.java.renamer.gui.AccordionPanel;
-import org.ln.java.renamer.gui.JIntegerSpinner;
-import org.ln.java.renamer.util.FileSplitterSimulator;
+import org.ln.java.renamer.util.FileMergerGUI;
+import org.ln.java.renamer.util.FileMergerGUI.MergeResult;
 
 import net.miginfocom.swing.MigLayout;
 
@@ -25,15 +28,17 @@ import net.miginfocom.swing.MigLayout;
 @SuppressWarnings("serial")
 public class MergePanel extends AbstractPanelContent {
 
-	private JLabel textLabel;
-	private JLabel numberLabel;
-	private JLabel sizeLabel;
-	private JIntegerSpinner numberSpinner;
-	private JIntegerSpinner sizeSpinner;
+	private JLabel sourceLabel;
+	private JLabel targetLabel;
+	private boolean move = true;
 	private ButtonGroup group;
-	private JRadioButton jrbNumber;
-	private JRadioButton jrbSize;
+	private JRadioButton jrbMove;
+	private JRadioButton jrbCopy;
+	private JTextField sourceField;
+	private JTextField targetField;
 	private JButton go;
+	private JButton fc1;
+	private JButton fc2;
 
 	public MergePanel(AccordionPanel accordion) {
 		super(accordion);
@@ -45,60 +50,74 @@ public class MergePanel extends AbstractPanelContent {
 	 */
 	@Override
 	void initComponents() {
-		renameField.setText("Part_");
-		//renameField.getDocument().addDocumentListener(this);
-		textLabel = new JLabel("Prefisso dir");
-		numberLabel = new JLabel("Numero file");
-		sizeLabel = new JLabel("Dimensione in MB");
-		numberSpinner = new JIntegerSpinner(1, 1 ,500 ,1);
-		sizeSpinner = new JIntegerSpinner(1, 1, 500, 1);
-		sizeSpinner.setEnabled(false);
-		
-		jrbNumber = new JRadioButton("Per numero", true);
-		jrbSize = new JRadioButton("Per grandezza");
+		sourceField = new JTextField();
+		targetField = new JTextField();
+		sourceLabel = new JLabel("Source dir");
+		targetLabel = new JLabel("Target dir");
+		jrbMove = new JRadioButton("Sposta", true);
+		jrbCopy = new JRadioButton("Copia");
 		group = new ButtonGroup();
-		group.add(jrbNumber);
-		group.add(jrbSize);
+		group.add(jrbMove);
+		group.add(jrbCopy);
+		fc1 = new JButton("...");
+		fc2 = new JButton("...");
+		
+		fc1.addActionListener(new FileChooserActionListener());
+		fc2.addActionListener(new FileChooserActionListener());
+		
 
-		jrbNumber.addActionListener(this);
-		jrbSize.addActionListener(this);
-		go = new JButton("GO");
+		jrbMove.addActionListener(this);
+		jrbCopy.addActionListener(this);
+		go = new JButton("Go");
 
 		go.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				 String path = accordion.getTableData().getFirst().getFrom().getParent();
-				 System.out.println(path);
-				 
-				 Map<String, List<File>> simulation;
 				
-				if(jrbNumber.isSelected()) {
-					simulation = FileSplitterSimulator.simulateSplitByCount(path, numberSpinner.getIntValue(), renameField.getText());
+				
+				MergeResult simulation;
+				try {
+					simulation = FileMergerGUI.simulateMerge(sourceField.getText(), targetField.getText());
+					SwingUtilities.invokeLater(() -> FileMergerGUI.showSimulation(simulation, move));
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
 				}
-				else {
-					simulation = FileSplitterSimulator.simulateSplitBySize(path, sizeSpinner.getIntValue(), renameField.getText());
-				}
-				
-				SwingUtilities.invokeLater(() -> FileSplitterSimulator.showSimulationTable(simulation));
-				
+
+	            
+//				 String path = accordion.getTableData().getFirst().getFrom().getParent();
+//				 
+//				 Map<String, List<File>> simulation;
+//				
+//				if(jrbMove.isSelected()) {
+//					simulation = FileSplitterSimulator.simulateSplitByCount(path, 
+//							numberSpinner.getIntValue(), renameField.getText());
+//				}
+//				else {
+//					simulation = FileSplitterSimulator.simulateSplitBySize(path, 
+//							sizeSpinner.getIntValue(), renameField.getText());
+//				}
+//				
+//				SwingUtilities.invokeLater(() -> 
+//				FileSplitterSimulator.showSimulationTable(path, simulation));
 			}
 		});
 
-		setLayout(new MigLayout("", "[][grow]", "20[][][][][]20"));
+		setLayout(new MigLayout("", "[][grow][]", "20[][][][][]20"));
 		
-		add(jrbNumber, 		"cell 0 0 2 1");
-		add(numberLabel,	"cell 0 1");
-		add(numberSpinner, 	"cell 1 1, growx, w :150: ");
+		add(sourceLabel, 	"cell 0 0");
+		add(sourceField,	"cell 1 0, growx, w :150:");
+		add(fc1, 			"cell 2 0");
 		
-		add(jrbSize, 		"cell 0 2 2 1");
-		add(sizeLabel, 		"cell 0 3");
-		add(sizeSpinner, 	"cell 1 3, growx, w :150: ");
+		add(targetLabel, 	"cell 0 1");
+		add(targetField, 	"cell 1 1, growx, w :150: ");
+		add(fc2, 			"cell 2 1");
 
-		add(textLabel, 		"cell 0 4");
-		add(renameField, 	"cell 1 4, growx, w :150: ");
+		add(jrbMove, 		"cell 0 2");
+		add(jrbCopy, 		"cell 0 3");
 		
-		add(go, 			"cell 0 5");
+		add(go, 			"cell 0 4");
 		
 	}   
 
@@ -109,34 +128,32 @@ public class MergePanel extends AbstractPanelContent {
 	@Override
 	void updateView() {
 		
-		if(jrbNumber.isSelected()) {
-			sizeSpinner.setEnabled(false);
-			numberSpinner.setEnabled(true);
+		if(jrbMove.isSelected()) {
+			move = true;
 		}
 		else {
-			sizeSpinner.setEnabled(true);
-			numberSpinner.setEnabled(false);
+			move = false;
 		}
-		
+	}
+	
+	
+	public class FileChooserActionListener implements ActionListener{
 
-		
-//        for (Map.Entry<String, List<File>> entry : simulation.entrySet()) {
-//            String folder = entry.getKey();
-//            for (File file : entry.getValue()) {
-//                model.addRow(new Object[]{
-//                        folder,
-//                        file.getName(),
-//                        file.length() / 1024
-//                });
-//            }
-//        }
-		
-		
-		
-//		
-//		accordion.setTableData(RenamerMethod.addMethod(
-//				accordion.getTableData(), getRenameText(), intPos));
+		@Override
+		public void actionPerformed(ActionEvent e) {
+	
+    		JFileChooser fc = Controller.getFileChooser(JFileChooser.DIRECTORIES_ONLY, false);
+    		int returnVal = fc.showOpenDialog(null);
 
+    		if (returnVal != JFileChooser.APPROVE_OPTION) {
+    			return;
+    		}
+    		File file = fc.getSelectedFile();
+    		sourceField.setText(file.getAbsolutePath());
+    		targetField.setText(file.getAbsolutePath());
+
+    		Controller.setPrefs(Costants.LAST_DIR_KEY, file.getAbsolutePath());
+		}
 	}
 
 }
