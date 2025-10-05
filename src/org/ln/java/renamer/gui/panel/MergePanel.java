@@ -16,8 +16,8 @@ import javax.swing.SwingUtilities;
 import org.ln.java.renamer.Controller;
 import org.ln.java.renamer.Costants;
 import org.ln.java.renamer.gui.AccordionPanel;
-import org.ln.java.renamer.util.FileMergerGUI;
-import org.ln.java.renamer.util.FileMergerGUI.MergeResult;
+import org.ln.java.renamer.util.SplitMergeUtils;
+import org.ln.java.renamer.util.SplitMergeUtils.MergeResult;
 
 import net.miginfocom.swing.MigLayout;
 
@@ -78,8 +78,8 @@ public class MergePanel extends AbstractPanelContent {
 				
 				MergeResult simulation;
 				try {
-					simulation = FileMergerGUI.simulateMerge(sourceField.getText(), targetField.getText());
-					SwingUtilities.invokeLater(() -> FileMergerGUI.showSimulation(simulation, move));
+					simulation = SplitMergeUtils.simulateMerge(sourceField.getText(), targetField.getText());
+					SwingUtilities.invokeLater(() -> SplitMergeUtils.showSimulation(simulation, move));
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();

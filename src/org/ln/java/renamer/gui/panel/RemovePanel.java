@@ -36,9 +36,9 @@ public class RemovePanel extends AbstractPanelContent {
 		setLayout(new MigLayout("", "[][grow]", "20[][]20"));
 
 		add(numLabel);
-		add(numSpinner, "growx, wrap, w :150:");
+		add(numSpinner, "growx, wrap");
 		add(posLabel);
-		add(posSpinner, "growx, wrap, w :150:"); 
+		add(posSpinner, "growx, wrap"); 
 
 	}
 	/**

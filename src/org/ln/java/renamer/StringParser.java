@@ -86,7 +86,9 @@ public class StringParser {
 			Constructor<?> cons = clazz.getDeclaredConstructor(Integer[].class);
 			tag = (RnTag) cons.newInstance((Object) arr);
 			
-		} catch (ClassNotFoundException | IllegalArgumentException | SecurityException | InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+		} catch (ClassNotFoundException | IllegalArgumentException | SecurityException 
+				| InstantiationException | IllegalAccessException 
+				| InvocationTargetException | NoSuchMethodException e) {
 			e.printStackTrace();
 		}
 		return tag;

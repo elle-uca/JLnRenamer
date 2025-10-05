@@ -56,7 +56,7 @@ public class AddPanel extends AbstractPanelContent {
 
 		setLayout(new MigLayout("", "[][][grow]", "20[][][]20"));
 		add(textLabel, 	"cell 0 0");
-		add(renameField,"cell 1 0 2 1, growx, wrap, w :150:");
+		add(renameField,"cell 1 0 2 1, growx, wrap");
 		add(whereLabel, "cell 0 1 1 2");
 		add(jrbStart, 	"cell 1 1");
 		add(jrbEnd, 	"cell 2 1, wrap");

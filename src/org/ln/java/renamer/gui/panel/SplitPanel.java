@@ -14,7 +14,7 @@ import javax.swing.SwingUtilities;
 
 import org.ln.java.renamer.gui.AccordionPanel;
 import org.ln.java.renamer.gui.JIntegerSpinner;
-import org.ln.java.renamer.util.FileSplitterSimulator;
+import org.ln.java.renamer.util.SplitMergeUtils;
 
 import net.miginfocom.swing.MigLayout;
 
@@ -46,7 +46,7 @@ public class SplitPanel extends AbstractPanelContent {
 	@Override
 	void initComponents() {
 		renameField.setText("Part_");
-		//renameField.getDocument().addDocumentListener(this);
+
 		textLabel = new JLabel("Prefisso dir");
 		numberLabel = new JLabel("Numero file");
 		sizeLabel = new JLabel("Dimensione in MB");
@@ -74,13 +74,16 @@ public class SplitPanel extends AbstractPanelContent {
 				 Map<String, List<File>> simulation;
 				
 				if(jrbNumber.isSelected()) {
-					simulation = FileSplitterSimulator.simulateSplitByCount(path, numberSpinner.getIntValue(), renameField.getText());
+					simulation = SplitMergeUtils.simulateSplitByCount(path, 
+							numberSpinner.getIntValue(), renameField.getText());
 				}
 				else {
-					simulation = FileSplitterSimulator.simulateSplitBySize(path, sizeSpinner.getIntValue(), renameField.getText());
+					simulation = SplitMergeUtils.simulateSplitBySize(path, 
+							sizeSpinner.getIntValue(), renameField.getText());
 				}
 				
-				SwingUtilities.invokeLater(() -> FileSplitterSimulator.showSimulationTable(path, simulation));
+				SwingUtilities.invokeLater(() -> 
+				SplitMergeUtils.showSimulationTable(path, simulation));
 				
 			}
 		});
@@ -117,26 +120,6 @@ public class SplitPanel extends AbstractPanelContent {
 			sizeSpinner.setEnabled(true);
 			numberSpinner.setEnabled(false);
 		}
-		
-
-		
-//        for (Map.Entry<String, List<File>> entry : simulation.entrySet()) {
-//            String folder = entry.getKey();
-//            for (File file : entry.getValue()) {
-//                model.addRow(new Object[]{
-//                        folder,
-//                        file.getName(),
-//                        file.length() / 1024
-//                });
-//            }
-//        }
-		
-		
-		
-//		
-//		accordion.setTableData(RenamerMethod.addMethod(
-//				accordion.getTableData(), getRenameText(), intPos));
-
 	}
 
 }

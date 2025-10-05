@@ -41,9 +41,9 @@ public class RenamerView extends JFrame{
 	private JTable table1;
 	private FileRenamerTableModel tableModel1;
 
-	private JScrollPane tableScrollPane2;
-	private JTable table2;
-	private FileRenamerTableModel tableModel2;
+//	private JScrollPane tableScrollPane2;
+//	private JTable table2;
+//	private FileRenamerTableModel tableModel2;
 	
 	private Controller controller;
 	private JButton renameButton;
@@ -126,15 +126,15 @@ public class RenamerView extends JFrame{
 	private JPanel createMethodPanel() {
 		JPanel panel = new JPanel(new BorderLayout());
 		JPanel buttonPanel = new JPanel();
-		JButton newNameButton = new JButton("Nuovo nome");
-		JButton addButton = new JButton("Aggiungi");
-		JButton removeButton = new JButton("Rimuovi");
-		JButton caseButton = new JButton("Case");
-		JButton splitButton = new JButton("Split");
-		JButton mergeButton = new JButton("Merge");
+		TextButton newNameButton = new TextButton("Nuovo nome");
+		TextButton addButton = new TextButton("Aggiungi");
+		TextButton removeButton = new TextButton("Rimuovi");
+		TextButton caseButton = new TextButton("Case");
+		TextButton splitButton = new TextButton("Split");
+		TextButton mergeButton = new TextButton("Merge");
 		
 		//buttonPanel.setLayout(new MigLayout("", "[][][]", "[]"));
-		buttonPanel.setLayout(new GridLayout(0, 3));
+		buttonPanel.setLayout(new GridLayout(0, 4));
 		buttonPanel.add(newNameButton);
 		buttonPanel.add(addButton);
 		buttonPanel.add(removeButton);
@@ -178,13 +178,13 @@ public class RenamerView extends JFrame{
         table1.getColumnModel().getColumn(3).setCellRenderer(new StatusCellRenderer());
 
         
-		tableScrollPane2 = new JScrollPane();
-		table2 = new JTable();
-		tableModel2 = new FileRenamerTableModel(40);
-		table2.setModel(tableModel2);
-		tableScrollPane2.setViewportView(table2);
-		table2.setAutoCreateRowSorter(true);
-        table2.getColumnModel().getColumn(3).setCellRenderer(new StatusCellRenderer());
+//		tableScrollPane2 = new JScrollPane();
+//		table2 = new JTable();
+//		tableModel2 = new FileRenamerTableModel(40);
+//		table2.setModel(tableModel2);
+//		tableScrollPane2.setViewportView(table2);
+//		table2.setAutoCreateRowSorter(true);
+//        table2.getColumnModel().getColumn(3).setCellRenderer(new StatusCellRenderer());
 
 		addFileButton = new JButton("Add file");
 		addDirButton = new JButton("Add directory");
@@ -204,14 +204,14 @@ public class RenamerView extends JFrame{
 		south.setLayout(new MigLayout("", "[grow]", "[]"));
 		south.add(infoLabel);
 
-		JTabbedPane tabPanel = new JTabbedPane();
-        tabPanel.addTab("Tab 1", tableScrollPane1);
-        tabPanel.addTab("Tab 2", tableScrollPane2);
+//		JTabbedPane tabPanel = new JTabbedPane();
+//        tabPanel.addTab("Tab 1", tableScrollPane1);
+//        tabPanel.addTab("Tab 2", tableScrollPane2);
 		
 		
 		container.setLayout(new MigLayout("", "[grow]", "[]"));
 		container.add(north, 	"wrap");
-		container.add(tabPanel, "grow, wrap");
+		container.add(tableScrollPane1, "grow, wrap");
 		container.add(south);
 		return container;
 	}
@@ -245,6 +245,12 @@ public class RenamerView extends JFrame{
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
+			JButton b = (JButton) e.getSource();
+			
+			System.out.println("Dimensione preferita: " + b.getPreferredSize());
+			System.out.println("Dimensione effettiva: " + b.getSize());
+
+			
 			String name = ((JButton) e.getSource()).getText();
 
 			switch (name) {

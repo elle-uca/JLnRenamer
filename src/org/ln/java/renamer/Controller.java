@@ -13,13 +13,13 @@ import java.util.prefs.Preferences;
 import javax.swing.JFileChooser;
 
 import org.ln.java.renamer.gui.RenamerView;
+import org.ln.java.renamer.util.FileUtils;
 
 public class Controller {
 
 	private RenamerView view;
 	
     private static final Preferences prefs = Preferences.userRoot().node("JLnRenamer");
-   // private static final String LAST_DIR_KEY = "lastDir";
 
 
 	/**
@@ -130,7 +130,7 @@ public class Controller {
 		for (RnFile rnFile : list) {
 			newNames.put(rnFile, rnFile.getNameDest());
 		}
-		FileRenamer.checkConflicts(list.getFirst().getFrom().getParentFile(), 
+		FileUtils.checkConflicts(list.getFirst().getFrom().getParentFile(), 
 				newNames);
 	}
 
@@ -147,7 +147,7 @@ public class Controller {
 				newNames.put(rnFile, rnFile.getNameDest());
 			}
 			List<RnFile> renameList = new ArrayList<RnFile>();
-			if (!FileRenamer.checkConflicts(list.getFirst().getFrom().getParentFile(), 
+			if (!FileUtils.checkConflicts(list.getFirst().getFrom().getParentFile(), 
 					newNames)) {
 
 				for (RnFile rnFile : list) {
