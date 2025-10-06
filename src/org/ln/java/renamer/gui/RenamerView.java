@@ -18,7 +18,6 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
-import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
@@ -210,7 +209,7 @@ public class RenamerView extends JFrame{
 		
 		
 		container.setLayout(new MigLayout("", "[grow]", "[]"));
-		container.add(north, 	"wrap");
+		container.add(north, 			"wrap");
 		container.add(tableScrollPane1, "grow, wrap");
 		container.add(south);
 		return container;
@@ -245,10 +244,10 @@ public class RenamerView extends JFrame{
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			JButton b = (JButton) e.getSource();
+			//JButton b = (JButton) e.getSource();
 			
-			System.out.println("Dimensione preferita: " + b.getPreferredSize());
-			System.out.println("Dimensione effettiva: " + b.getSize());
+//			System.out.println("Dimensione preferita: " + b.getPreferredSize());
+//			System.out.println("Dimensione effettiva: " + b.getSize());
 
 			
 			String name = ((JButton) e.getSource()).getText();

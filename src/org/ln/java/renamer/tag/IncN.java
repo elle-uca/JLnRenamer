@@ -3,6 +3,8 @@ package org.ln.java.renamer.tag;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.ln.java.renamer.util.ZeroPadder;
+
 /**
  * <IncN:1:1>
  * Genera una serie di numeri con un dato incremento a partire da start.
@@ -46,7 +48,8 @@ public class IncN extends RnTag {
 		List<String> result = new ArrayList<String>();
 		int incr = tag.getStart();
 		for(int i = 0; i < nameList.size(); i++) {
-			result.add(incr+"");
+			
+			result.add(ZeroPadder.padToTotalDigits(incr, 4));
 			incr =  plus  ?  incr + tag.getStep()  :  incr - tag.getStep() ;
 		}
 		return result;
