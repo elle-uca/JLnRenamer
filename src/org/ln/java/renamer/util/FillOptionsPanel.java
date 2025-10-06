@@ -1,15 +1,22 @@
 package org.ln.java.renamer.util;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 
 /**
  * Un pannello che combina una JComboBox e una JTextField per gestire opzioni di riempimento.
  * La JTextField è editabile solo quando la JComboBox ha selezionato un valore
  * che richiede un input numerico.
  */
+@SuppressWarnings("serial")
 public class FillOptionsPanel extends JPanel {
 
     // 1. Definiamo gli stati possibili con un Enum per chiarezza e sicurezza
