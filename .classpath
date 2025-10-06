@@ -10,7 +10,5 @@
 	<classpathentry kind="lib" path="/home/luke/workspace/lib/miglayout-core-4.3-20121116.151612-3.jar"/>
 	<classpathentry kind="lib" path="/home/luke/workspace/lib/miglayout-swing-4.3-20121116.151626-3.jar"/>
 	<classpathentry kind="lib" path="/home/luke/workspace/lib/flatlaf-3.5.4.jar"/>
-	<classpathentry kind="lib" path="/home/luke/workspace/lib/jaudiotagger-2.0.1.jar"/>
-	<classpathentry kind="lib" path="/home/luke/workspace/lib/metadata-extractor-2.19.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
