@@ -1,9 +1,10 @@
 package org.ln.java.renamer.media;
 
-import javax.swing.table.AbstractTableModel;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.swing.table.AbstractTableModel;
 
 /**
  * Modello per JTable che mostra i risultati di analisi media.

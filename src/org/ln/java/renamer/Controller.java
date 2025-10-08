@@ -8,7 +8,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.prefs.Preferences;
 
 import javax.swing.JFileChooser;
 
@@ -19,9 +18,7 @@ public class Controller {
 
 	private RenamerView view;
 	
-    private static final Preferences prefs = Preferences.userRoot().node("JLnRenamer");
 
-    private RenamerPreferences preferences;
 
 	/**
 	 * @param view
@@ -29,12 +26,11 @@ public class Controller {
 	public Controller(RenamerView view) {
 		super();
 		this.view = view;
-		preferences = RenamerPreferences.get();
 	}
 
 	
 	public static JFileChooser getFileChooser(int mode, boolean multi) {
-		String lastPath = prefs.get(Costants.LAST_DIR_KEY, null);
+		String lastPath = RenamerPreferences.loadLastDir();
 		
 		JFileChooser fc = (lastPath != null)
                 ? new JFileChooser(new File(lastPath))
@@ -45,9 +41,7 @@ public class Controller {
 		return fc;
 	}
 	
-	public static void setPrefs(String key, String path) {
-		prefs.put(key, path);
-	}
+
 
 
 	/**
@@ -71,8 +65,7 @@ public class Controller {
     			RnFile rn = new RnFile(new AdFile(file.getPath()));
     			rnfilesList.add(rn);
     		}
-    		//prefs.put(LAST_DIR_KEY, fileList.getFirst().getParent());
-    		setPrefs(Costants.LAST_DIR_KEY, fileList.getFirst().getParent());
+    		RenamerPreferences.saveLastDir(fileList.getFirst().getParent());
     		
     		view.getTableModel().setData(rnfilesList);
     		view.setInfoText("file "+rnfilesList.size());
@@ -103,8 +96,7 @@ public class Controller {
 				RnFile rn = new RnFile(new AdFile(file.getPath()));
 				rnfilesList.add(rn);
 			}
-			//prefs.put(Costants.LAST_DIR_KEY, fileList.getFirst().getParent());
-			setPrefs(Costants.LAST_DIR_KEY, fileList.getFirst().getParent());
+			RenamerPreferences.saveLastDir(fileList.getFirst().getParent());
 			view.getTableModel().setData(rnfilesList);
 			view.setInfoText("file "+rnfilesList.size());
 		}
@@ -161,15 +153,5 @@ public class Controller {
 			view.getTableModel().setData(renameList);
 		}
 	}
-
-
-	/**
-	 * @return the preferences
-	 */
-	public RenamerPreferences getPreferences() {
-		return preferences;
-	}
-
-
 
 }

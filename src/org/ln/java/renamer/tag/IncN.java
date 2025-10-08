@@ -48,8 +48,8 @@ public class IncN extends RnTag {
 	public static List<String> incrementalNumber(RnTag tag, List<String> nameList, boolean plus){
 		List<String> result = new ArrayList<String>();
 		int incr = tag.getStart();
-		System.out.println(RenamerPreferences.get().getGlobalProperty("FILL_TYPE", "")
-				+"    "+RenamerPreferences.get().getGlobalProperty("FILL_VALUE", ""));
+		System.out.println(RenamerPreferences.getInstance().getGlobalProperty("FILL_TYPE", "")
+				+"    "+RenamerPreferences.getInstance().getGlobalProperty("FILL_VALUE", ""));
 		for(int i = 0; i < nameList.size(); i++) {
 			
 			result.add(ZeroPadder.padToTotalDigits(incr, 4));

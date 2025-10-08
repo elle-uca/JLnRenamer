@@ -68,8 +68,8 @@ public class TagPanel extends AbstractPanelContent {
 	@Override
 	void updateView() {
 		String str  = renameField.getText();
-		RenamerPreferences.get().setGlobalProperty("FILL_TYPE", fill.getSelectedOption().getKeyValue()+"");
-		RenamerPreferences.get().setGlobalProperty("FILL_VALUE", fill.getEnteredValue()+"");
+		RenamerPreferences.getInstance().setGlobalProperty("FILL_TYPE", fill.getSelectedOption().getKeyValue()+"");
+		RenamerPreferences.getInstance().setGlobalProperty("FILL_VALUE", fill.getEnteredValue()+"");
 		if(StringParser.isParsable(str)) {
 			accordion.setTableData(StringParser.parse(str, accordion.getTableData())) ;
 		}

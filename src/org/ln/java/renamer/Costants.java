@@ -8,6 +8,8 @@ public class Costants {
 	
 	public static final String LAST_DIR_KEY = "lastDir";
 	
+	public static final String CONFIG_FILE = "config.properties";
+	
 	
     public enum FillOption {
         NO_FILL("Nessun riempimento", "NO_FILL", 0),

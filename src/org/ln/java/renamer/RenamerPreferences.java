@@ -1,6 +1,9 @@
 package org.ln.java.renamer;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.Properties;
 import java.util.prefs.Preferences;
 
@@ -14,7 +17,7 @@ import java.util.prefs.Preferences;
  */
 public class RenamerPreferences {
 
-    private static final String CONFIG_FILE = "config.properties";
+    //private static final String CONFIG_FILE = "config.properties";
     private static RenamerPreferences instance;
 
     private final Properties globalConfig;
@@ -30,7 +33,7 @@ public class RenamerPreferences {
     }
 
     /** Ottieni l'istanza unica (thread-safe lazy init) */
-    public static synchronized RenamerPreferences get() {
+    public static synchronized RenamerPreferences getInstance() {
         if (instance == null) {
             instance = new RenamerPreferences();
         }
@@ -41,7 +44,7 @@ public class RenamerPreferences {
     // CONFIGURAZIONE GLOBALE (.properties)
     // ---------------------------
     private void loadGlobalConfig() {
-        File file = new File(CONFIG_FILE);
+        File file = new File(Costants.CONFIG_FILE);
         if (file.exists()) {
             try (FileInputStream fis = new FileInputStream(file)) {
                 globalConfig.load(fis);
@@ -57,7 +60,7 @@ public class RenamerPreferences {
     }
 
     public void saveGlobalConfig() {
-        try (FileOutputStream fos = new FileOutputStream(CONFIG_FILE)) {
+        try (FileOutputStream fos = new FileOutputStream(Costants.CONFIG_FILE)) {
             globalConfig.store(fos, "Configurazione globale del programma");
         } catch (IOException e) {
             e.printStackTrace();
@@ -66,6 +69,10 @@ public class RenamerPreferences {
 
     public String getGlobalProperty(String key, String defaultValue) {
         return globalConfig.getProperty(key, defaultValue);
+    }
+    
+    public String getGlobalProperty(String key) {
+        return globalConfig.getProperty(key, "");
     }
 
     public void setGlobalProperty(String key, String value) {
@@ -93,35 +100,45 @@ public class RenamerPreferences {
     public String loadLastFile() {
         return userPrefs.get("lastFile", "");
     }
+    
+    public void saveLastDirectory(String path) {
+        userPrefs.put(Costants.LAST_DIR_KEY, path);
+    }
+
+    public String loadLastDirectory() {
+        return userPrefs.get(Costants.LAST_DIR_KEY, "");
+    }
 
     // ---------------------------
     // METODI STATICI DI COMODO
     // ---------------------------
     public static String getProp(String key, String def) {
-        return get().getGlobalProperty(key, def);
+        return getInstance().getGlobalProperty(key, def);
     }
 
     public static void setProp(String key, String value) {
-        get().setGlobalProperty(key, value);
+        getInstance().setGlobalProperty(key, value);
     }
 
     public static void saveAll() {
-        get().saveGlobalConfig();
+        getInstance().saveGlobalConfig();
     }
 
     public static void saveWindow(int w, int h) {
-        get().saveWindowSize(w, h);
+        getInstance().saveWindowSize(w, h);
     }
 
     public static int[] loadWindow() {
-        return get().loadWindowSize();
+        return getInstance().loadWindowSize();
     }
 
-    public static void saveLast(String path) {
-        get().saveLastFile(path);
+    public static void saveLastDir(String path) {
+        getInstance().saveLastDirectory(path);
     }
 
-    public static String loadLast() {
-        return get().loadLastFile();
+    public static String loadLastDir() {
+        return getInstance().loadLastDirectory();
     }
+
+
 }

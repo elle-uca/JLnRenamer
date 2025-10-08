@@ -14,7 +14,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
 import org.ln.java.renamer.Controller;
-import org.ln.java.renamer.Costants;
+import org.ln.java.renamer.RenamerPreferences;
 import org.ln.java.renamer.gui.AccordionPanel;
 import org.ln.java.renamer.util.SplitMergeUtils;
 import org.ln.java.renamer.util.SplitMergeUtils.MergeResult;
@@ -152,7 +152,7 @@ public class MergePanel extends AbstractPanelContent {
     		sourceField.setText(file.getAbsolutePath());
     		targetField.setText(file.getAbsolutePath());
 
-    		Controller.setPrefs(Costants.LAST_DIR_KEY, file.getAbsolutePath());
+    		RenamerPreferences.saveLastDir(file.getAbsolutePath());
 		}
 	}
 
