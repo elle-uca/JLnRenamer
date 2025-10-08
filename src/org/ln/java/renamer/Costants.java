@@ -9,6 +9,23 @@ public class Costants {
 	public static final String LAST_DIR_KEY = "lastDir";
 	
 	
+    public enum FillOption {
+        NO_FILL("Nessun riempimento"),
+        FILL_TO_ZERO("Riempi con zeri"),
+        FILL_TO_NUMBER("Riempi fino a");
+
+        private final String displayName;
+
+        FillOption(String displayName) {
+            this.displayName = displayName;
+        }
+
+        @Override
+        public String toString() {
+            return displayName; 
+        }
+    }
+	
     public enum RenameMode {
         FULL,        // rinomina tutto (nome + estensione)
         NAME_ONLY,   // rinomina solo il nome, mantiene estensione
