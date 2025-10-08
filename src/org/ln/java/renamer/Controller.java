@@ -21,6 +21,7 @@ public class Controller {
 	
     private static final Preferences prefs = Preferences.userRoot().node("JLnRenamer");
 
+    private RenamerPreferences preferences;
 
 	/**
 	 * @param view
@@ -28,6 +29,7 @@ public class Controller {
 	public Controller(RenamerView view) {
 		super();
 		this.view = view;
+		preferences = RenamerPreferences.get();
 	}
 
 	
@@ -158,6 +160,14 @@ public class Controller {
 			}
 			view.getTableModel().setData(renameList);
 		}
+	}
+
+
+	/**
+	 * @return the preferences
+	 */
+	public RenamerPreferences getPreferences() {
+		return preferences;
 	}
 
 

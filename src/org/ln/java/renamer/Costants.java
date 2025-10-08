@@ -10,20 +10,37 @@ public class Costants {
 	
 	
     public enum FillOption {
-        NO_FILL("Nessun riempimento"),
-        FILL_TO_ZERO("Riempi con zeri"),
-        FILL_TO_NUMBER("Riempi fino a");
+        NO_FILL("Nessun riempimento", "NO_FILL", 0),
+        FILL_TO_ZERO("Riempi con zeri", "FILL_TO_ZERO", 1),
+        FILL_TO_NUMBER("Riempi fino a", "FILL_TO_NUMBER", 2);
 
         private final String displayName;
+        private final String keyName;
+        private final int keyValue;
 
-        FillOption(String displayName) {
+        FillOption(String displayName, String keyName, int keyValue) {
             this.displayName = displayName;
+			this.keyName = keyName;
+			this.keyValue = keyValue;
         }
 
         @Override
         public String toString() {
             return displayName; 
         }
+        
+        public String keyString() {
+            return keyName; 
+        }
+
+		/**
+		 * @return the keyValue
+		 */
+		public int getKeyValue() {
+			return keyValue;
+		}
+        
+        
     }
 	
     public enum RenameMode {

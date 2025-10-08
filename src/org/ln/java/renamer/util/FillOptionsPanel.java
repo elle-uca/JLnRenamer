@@ -7,11 +7,13 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
 import org.ln.java.renamer.Costants.FillOption;
 import org.ln.java.renamer.gui.JIntegerSpinner;
+import org.ln.java.renamer.gui.panel.TagPanel;
 
 /**
  * Un pannello che combina una JComboBox e una JTextField per gestire opzioni di riempimento.
@@ -25,11 +27,13 @@ public class FillOptionsPanel extends JPanel {
 
     private JComboBox<FillOption> fillComboBox;
     private JIntegerSpinner fillValue;
+    private JLabel fillLabel;
 
     public FillOptionsPanel() {
         setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
         fillComboBox = new JComboBox<>(FillOption.values());
         fillValue = new JIntegerSpinner(1, 0, 100, 1);
+        fillLabel = new JLabel("");
         fillComboBox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -39,7 +43,7 @@ public class FillOptionsPanel extends JPanel {
 
         add(fillComboBox);
         add(fillValue);
-
+        add(fillLabel);
         updateTextFieldState();
     }
 
@@ -57,10 +61,15 @@ public class FillOptionsPanel extends JPanel {
         // Switch per decidere cosa fare in base alla selezione
         switch (selectedOption) {
             case FILL_TO_ZERO:
-            case FILL_TO_NUMBER:
-                // Se l'utente deve inserire un valore, abilita il campo di testo
             	fillValue.setEnabled(true);
                 fillValue.setValue(1);
+                fillLabel.setText("zeri");
+                break;        	
+            	
+            case FILL_TO_NUMBER:
+            	fillValue.setEnabled(true);
+                fillValue.setValue(1);
+                fillLabel.setText("cifre");
                 break;
             
             case NO_FILL:
@@ -68,10 +77,11 @@ public class FillOptionsPanel extends JPanel {
                 // Altrimenti, disabilitalo e puliscilo
                 fillValue.setEnabled(false);
                 fillValue.setValue(0);
+                fillLabel.setText("");
                 break;
         }
         
-        System.out.println(getSelectedOption()+"    "+getEnteredValue());
+        
     }
 
     // Metodi pubblici per interagire con il pannello dall'esterno (opzionale ma utile)
@@ -101,4 +111,11 @@ public class FillOptionsPanel extends JPanel {
             frame.setVisible(true);
         });
     }
+
+	public void addChangeListener(TagPanel tagPanel) {
+		fillValue.addChangeListener(tagPanel);
+		
+	}
+
+
 }
