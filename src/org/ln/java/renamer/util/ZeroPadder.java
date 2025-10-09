@@ -38,6 +38,11 @@ public class ZeroPadder {
         return String.format(formatSpecifier, number);
     }
     
+    
+    
+    
+    
+    
     public static void main(String[] args) {
         int numero = 11;
         int zeriDaAggiungere = 2;

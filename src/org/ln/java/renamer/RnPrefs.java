@@ -15,9 +15,9 @@ import java.util.prefs.Preferences;
  *
  * Accesso statico ovunque tramite RenamerPreferences.get() o metodi statici di comodo.
  */
-public class RenamerPreferences {
+public class RnPrefs {
 
-    private static RenamerPreferences instance;
+    private static RnPrefs instance;
 
     private final Properties globalConfig;
     private final Preferences userPrefs;
@@ -25,16 +25,16 @@ public class RenamerPreferences {
     // ---------------------------
     // SINGLETON
     // ---------------------------
-    private RenamerPreferences() {
+    private RnPrefs() {
         globalConfig = new Properties();
-        userPrefs = Preferences.userNodeForPackage(RenamerPreferences.class);
+        userPrefs = Preferences.userNodeForPackage(RnPrefs.class);
         loadGlobalConfig();
     }
 
     /** Ottieni l'istanza unica (thread-safe lazy init) */
-    public static synchronized RenamerPreferences getInstance() {
+    public static synchronized RnPrefs getInstance() {
         if (instance == null) {
-            instance = new RenamerPreferences();
+            instance = new RnPrefs();
         }
         return instance;
     }

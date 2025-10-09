@@ -8,7 +8,7 @@ import javax.swing.JList;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
 
-import org.ln.java.renamer.RenamerPreferences;
+import org.ln.java.renamer.RnPrefs;
 import org.ln.java.renamer.StringParser;
 import org.ln.java.renamer.gui.AccordionPanel;
 import org.ln.java.renamer.gui.TagListModel;
@@ -68,8 +68,8 @@ public class TagPanel extends AbstractPanelContent {
 	@Override
 	void updateView() {
 		String str  = renameField.getText();
-		RenamerPreferences.getInstance().setGlobalProperty("FILL_TYPE", fill.getSelectedOption().getKeyValue()+"");
-		RenamerPreferences.getInstance().setGlobalProperty("FILL_VALUE", fill.getEnteredValue()+"");
+		RnPrefs.getInstance().setGlobalProperty("FILL_TYPE", fill.getSelectedOption().getKeyValue()+"");
+		RnPrefs.getInstance().setGlobalProperty("FILL_VALUE", fill.getEnteredValue()+"");
 		if(StringParser.isParsable(str)) {
 			accordion.setTableData(StringParser.parse(str, accordion.getTableData())) ;
 		}

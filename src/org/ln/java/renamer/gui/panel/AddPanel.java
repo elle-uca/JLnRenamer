@@ -37,7 +37,7 @@ public class AddPanel extends AbstractPanelContent {
 	@Override
 	void initComponents() {
 		renameField.getDocument().addDocumentListener(this);
-		textLabel = new JLabel("Testo da aggiungere");
+		textLabel = new JLabel(bundle.getString("label.add.panel.text"));
 		whereLabel = new JLabel("Dove");
 		posSpinner = new JIntegerSpinner();
 		posSpinner.setEnabled(false);

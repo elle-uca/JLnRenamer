@@ -2,6 +2,7 @@ package org.ln.java.renamer.gui.panel;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ResourceBundle;
 
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -10,6 +11,7 @@ import javax.swing.event.ChangeListener;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
+import org.ln.java.renamer.Controller;
 import org.ln.java.renamer.gui.AccordionPanel;
 
 @SuppressWarnings("serial")
@@ -18,7 +20,7 @@ implements ChangeListener, DocumentListener, ActionListener{
 	
 	protected AccordionPanel accordion;
 	protected JTextField renameField;
-
+	ResourceBundle bundle = Controller.getBundle();
 	
 	
 	/**

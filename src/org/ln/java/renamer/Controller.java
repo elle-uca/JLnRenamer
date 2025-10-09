@@ -7,7 +7,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
+import java.util.ResourceBundle;
 
 import javax.swing.JFileChooser;
 
@@ -30,7 +32,7 @@ public class Controller {
 
 	
 	public static JFileChooser getFileChooser(int mode, boolean multi) {
-		String lastPath = RenamerPreferences.loadLastDir();
+		String lastPath = RnPrefs.loadLastDir();
 		
 		JFileChooser fc = (lastPath != null)
                 ? new JFileChooser(new File(lastPath))
@@ -42,7 +44,9 @@ public class Controller {
 	}
 	
 
-
+	public static ResourceBundle getBundle() {
+		return ResourceBundle.getBundle("languages", Locale.of("it"));
+	}
 
 	/**
 	 *
@@ -65,7 +69,7 @@ public class Controller {
     			RnFile rn = new RnFile(new AdFile(file.getPath()));
     			rnfilesList.add(rn);
     		}
-    		RenamerPreferences.saveLastDir(fileList.getFirst().getParent());
+    		RnPrefs.saveLastDir(fileList.getFirst().getParent());
     		
     		view.getTableModel().setData(rnfilesList);
     		view.setInfoText("file "+rnfilesList.size());
@@ -96,7 +100,7 @@ public class Controller {
 				RnFile rn = new RnFile(new AdFile(file.getPath()));
 				rnfilesList.add(rn);
 			}
-			RenamerPreferences.saveLastDir(fileList.getFirst().getParent());
+			RnPrefs.saveLastDir(fileList.getFirst().getParent());
 			view.getTableModel().setData(rnfilesList);
 			view.setInfoText("file "+rnfilesList.size());
 		}

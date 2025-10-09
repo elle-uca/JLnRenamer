@@ -6,6 +6,7 @@ import java.awt.EventQueue;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ResourceBundle;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -35,6 +36,8 @@ import net.miginfocom.swing.MigLayout;
 
 @SuppressWarnings("serial")
 public class RenamerView extends JFrame{
+	
+	ResourceBundle bundle = Controller.getBundle();	
 
 	private JScrollPane tableScrollPane1;
 	private JTable table1;
@@ -161,6 +164,8 @@ public class RenamerView extends JFrame{
 
 
 
+
+
 	/**
 	 * @return
 	 */
@@ -184,9 +189,11 @@ public class RenamerView extends JFrame{
 //		tableScrollPane2.setViewportView(table2);
 //		table2.setAutoCreateRowSorter(true);
 //        table2.getColumnModel().getColumn(3).setCellRenderer(new StatusCellRenderer());
+        
 
-		addFileButton = new JButton("Add file");
-		addDirButton = new JButton("Add directory");
+
+		addFileButton = new JButton(bundle.getString("button.add.file"));
+		addDirButton = new JButton(bundle.getString("button.add.directory"));
 		renameButton = new JButton("Rename");
 
 		addFileButton.addActionListener(controller.new AddFileButtonActionListener());
