@@ -46,7 +46,6 @@ public class SplitPanel extends AbstractPanelContent {
 	@Override
 	void initComponents() {
 		renameField.setText("Part_");
-
 		textLabel = new JLabel("Prefisso dir");
 		numberLabel = new JLabel("Numero file");
 		sizeLabel = new JLabel("Dimensione in MB");

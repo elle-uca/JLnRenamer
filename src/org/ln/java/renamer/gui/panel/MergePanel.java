@@ -85,22 +85,6 @@ public class MergePanel extends AbstractPanelContent {
 					e1.printStackTrace();
 				}
 
-	            
-//				 String path = accordion.getTableData().getFirst().getFrom().getParent();
-//				 
-//				 Map<String, List<File>> simulation;
-//				
-//				if(jrbMove.isSelected()) {
-//					simulation = FileSplitterSimulator.simulateSplitByCount(path, 
-//							numberSpinner.getIntValue(), renameField.getText());
-//				}
-//				else {
-//					simulation = FileSplitterSimulator.simulateSplitBySize(path, 
-//							sizeSpinner.getIntValue(), renameField.getText());
-//				}
-//				
-//				SwingUtilities.invokeLater(() -> 
-//				FileSplitterSimulator.showSimulationTable(path, simulation));
 			}
 		});
 

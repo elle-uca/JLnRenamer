@@ -10,6 +10,11 @@ public class Costants {
 	
 	public static final String CONFIG_FILE = "config.properties";
 	
+	public static final String TAG_PACKAGE = "org.ln.java.renamer.tag.";
+	
+	public static final String ICON_RIGHT = "/icons/arrow_right.png";
+	
+	public static final String ICON_DOWN = "/icons/arrow_down.png";
 	
     public enum FillOption {
         NO_FILL("Nessun riempimento", "NO_FILL", 0),

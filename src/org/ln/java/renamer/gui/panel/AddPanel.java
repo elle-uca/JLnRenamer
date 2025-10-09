@@ -81,7 +81,6 @@ public class AddPanel extends AbstractPanelContent {
 		
 		accordion.setTableData(RenamerMethod.addMethod(
 				accordion.getTableData(), getRenameText(), intPos));
-
 	}
 
 }

@@ -60,7 +60,7 @@ public class StringParser {
 	 * @return
 	 */
 	private static RnTag parseTag(String str) {
-		String name = "org.ln.java.renamer.tag.";
+		String name = Costants.TAG_PACKAGE;
 		// extracts the tag name
 		Pattern pattern1 = Pattern.compile("(?<=<)[a-zA-Z]+(?=:)");	 
 		Matcher matcher1 = pattern1.matcher(str);

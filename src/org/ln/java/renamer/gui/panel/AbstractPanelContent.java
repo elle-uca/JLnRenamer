@@ -13,7 +13,8 @@ import javax.swing.event.DocumentListener;
 import org.ln.java.renamer.gui.AccordionPanel;
 
 @SuppressWarnings("serial")
-public abstract class AbstractPanelContent extends JPanel implements ChangeListener, DocumentListener, ActionListener{
+public abstract class AbstractPanelContent extends JPanel 
+implements ChangeListener, DocumentListener, ActionListener{
 	
 	protected AccordionPanel accordion;
 	protected JTextField renameField;

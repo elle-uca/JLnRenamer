@@ -20,6 +20,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
 
+import org.ln.java.renamer.Costants;
 import org.ln.java.renamer.gui.AccordionPanel;
 import org.ln.java.renamer.gui.RenamerView;
 
@@ -94,8 +95,8 @@ public class SlidingPanel extends JPanel {
 	    paintHeaderPanel();
 	    headerPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
-	    iconRight = new ImageIcon(getClass().getResource("/icons/arrow_right.png"));
-	    iconDown  = new ImageIcon(getClass().getResource("/icons/arrow_down.png"));
+	    iconRight = new ImageIcon(getClass().getResource(Costants.ICON_RIGHT));
+	    iconDown  = new ImageIcon(getClass().getResource(Costants.ICON_DOWN));
 	    iconLabel = new JLabel(iconRight);
 
 	    countLabel = new JLabel(accordionPanel.getPanelCount() + "");

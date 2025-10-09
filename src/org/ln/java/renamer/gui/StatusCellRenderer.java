@@ -23,9 +23,9 @@ public class StatusCellRenderer extends DefaultTableCellRenderer {
 
             if (!isSelected) { // Mantieni selezione blu di default
                 switch (status) {
-                    case OK -> c.setForeground(Color.BLACK); // Verde chiaro
-                    case KO -> c.setForeground(new Color(255, 100, 100)); // Rosso
-                    case KO1 -> c.setForeground(new Color(255, 100, 100)); // Rosso
+                    case OK -> c.setForeground(Color.BLACK); 
+                    case KO -> c.setForeground(new Color(255, 100, 100));
+                    case KO1 -> c.setForeground(new Color(255, 100, 100)); 
                 }
                 //c.setForeground(Color.BLACK);
             }

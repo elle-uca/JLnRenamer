@@ -49,8 +49,6 @@ public class CasePanel extends AbstractPanelContent {
 		buttonGroup.add(jrbInvert);
 		buttonGroup.add(jrbCapFirst);
 		
-		//jrbUpper.setSelected(true);
-
 		jrbUpper.addActionListener(this);
 		jrbLower.addActionListener(this);
 		jrbCapAll.addActionListener(this);

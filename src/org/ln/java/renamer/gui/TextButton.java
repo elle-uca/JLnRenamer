@@ -12,23 +12,12 @@ public class TextButton extends JButton {
 
 	public TextButton(String text) {
 		super(text);
-		
-		// 1. Rimuovi il bordo
-        setBorderPainted(false);
-        
-        // 2. Rimuovi lo sfondo (rendilo trasparente)
-        setContentAreaFilled(false);
 
-        // 3. Rimuovi il bordo di focus
-       setFocusPainted(false);
-        
-        // 4. (Opzionale ma consigliato) Cambia il cursore in una manina
-        setCursor(new Cursor(Cursor.HAND_CURSOR));
-        
-        // 5. (Opzionale) Cambia il colore del testo per assomigliare a un link
-        setForeground(Color.BLUE);
+		setBorderPainted(false);
+		setContentAreaFilled(false);
+		setFocusPainted(false);
+		setCursor(new Cursor(Cursor.HAND_CURSOR));
+		setForeground(Color.BLUE);
 	}
-
-
 
 }

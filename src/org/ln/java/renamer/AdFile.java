@@ -50,26 +50,26 @@ public class AdFile extends File {
 		return super.renameTo(dest);
 	}
 	
-	/**
-	 * @param pathname 	A pathname string
-	 * 
-     * @return  {@code true} if and only if the renaming succeeded and the file
-     * 			dest not exist;
-     *          {@code false} otherwise
-     *          
-	 */
-	public  boolean renameTo(String parent, String name, String ext) {
-		return renameTo(new File(parent+separator+name+Costants.DOT+ext));
-	}	
+//	/**
+//	 * @param pathname 	A pathname string
+//	 * 
+//     * @return  {@code true} if and only if the renaming succeeded and the file
+//     * 			dest not exist;
+//     *          {@code false} otherwise
+//     *          
+//	 */
+//	public  boolean renameTo(String parent, String name, String ext) {
+//		return renameTo(new File(parent+separator+name+Costants.DOT+ext));
+//	}	
 	
 
-	/**
-	 * @param name
-	 * @return
-	 */
-	public  boolean newName(String name) {
-		return renameTo(getParent(), name, getExtension()) ;
-	}
+//	/**
+//	 * @param name
+//	 * @return
+//	 */
+//	public  boolean newName(String name) {
+//		return renameTo(getParent(), name, getExtension()) ;
+//	}
 
 
 

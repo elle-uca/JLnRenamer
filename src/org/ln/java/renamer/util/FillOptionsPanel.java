@@ -16,19 +16,20 @@ import org.ln.java.renamer.gui.JIntegerSpinner;
 import org.ln.java.renamer.gui.panel.TagPanel;
 
 /**
- * Un pannello che combina una JComboBox e una JTextField per gestire opzioni di riempimento.
- * La JTextField è editabile solo quando la JComboBox ha selezionato un valore
+ * Un pannello che combina una JComboBox e una JIntegerSpinner per gestire opzioni di riempimento.
+ * La JIntegerSpinner è editabile solo quando la JComboBox ha selezionato un valore
  * che richiede un input numerico.
  */
 @SuppressWarnings("serial")
 public class FillOptionsPanel extends JPanel {
 
- 
-
     private JComboBox<FillOption> fillComboBox;
     private JIntegerSpinner fillValue;
     private JLabel fillLabel;
 
+    /**
+     * 
+     */
     public FillOptionsPanel() {
         setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
         fillComboBox = new JComboBox<>(FillOption.values());
@@ -58,7 +59,6 @@ public class FillOptionsPanel extends JPanel {
             return; 
         }
 
-        // Switch per decidere cosa fare in base alla selezione
         switch (selectedOption) {
             case FILL_TO_ZERO:
             	fillValue.setEnabled(true);
@@ -74,15 +74,17 @@ public class FillOptionsPanel extends JPanel {
             
             case NO_FILL:
             default:
-                // Altrimenti, disabilitalo e puliscilo
                 fillValue.setEnabled(false);
                 fillValue.setValue(0);
                 fillLabel.setText("");
                 break;
         }
-        
-        
-    }
+     }
+    
+    
+	public void addChangeListener(TagPanel tagPanel) {
+		fillValue.addChangeListener(tagPanel);
+	}
 
     // Metodi pubblici per interagire con il pannello dall'esterno (opzionale ma utile)
     public FillOption getSelectedOption() {
@@ -112,10 +114,7 @@ public class FillOptionsPanel extends JPanel {
         });
     }
 
-	public void addChangeListener(TagPanel tagPanel) {
-		fillValue.addChangeListener(tagPanel);
-		
-	}
+
 
 
 }

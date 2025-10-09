@@ -17,7 +17,6 @@ import java.util.prefs.Preferences;
  */
 public class RenamerPreferences {
 
-    //private static final String CONFIG_FILE = "config.properties";
     private static RenamerPreferences instance;
 
     private final Properties globalConfig;
