@@ -1,4 +1,4 @@
-package org.ln.java.renamer.util;
+package org.ln.java.renamer.gui;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
@@ -12,7 +12,6 @@ import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
 import org.ln.java.renamer.Costants.FillOption;
-import org.ln.java.renamer.gui.JIntegerSpinner;
 import org.ln.java.renamer.gui.panel.TagPanel;
 
 /**
@@ -91,8 +90,13 @@ public class FillOptionsPanel extends JPanel {
         return (FillOption) fillComboBox.getSelectedItem();
     }
 
-    public int getEnteredValue() {
+    public int getIntValue() {
         return fillValue.getIntValue();
+    }
+    
+    
+    public String getStringValue() {
+        return  String.valueOf(fillValue.getIntValue());
     }
 
     /**

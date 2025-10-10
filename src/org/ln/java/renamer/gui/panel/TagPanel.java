@@ -11,9 +11,9 @@ import javax.swing.ListSelectionModel;
 import org.ln.java.renamer.RnPrefs;
 import org.ln.java.renamer.StringParser;
 import org.ln.java.renamer.gui.AccordionPanel;
+import org.ln.java.renamer.gui.FillOptionsPanel;
 import org.ln.java.renamer.gui.TagListModel;
 import org.ln.java.renamer.tag.RnTag;
-import org.ln.java.renamer.util.FillOptionsPanel;
 
 import net.miginfocom.swing.MigLayout;
 
@@ -68,8 +68,8 @@ public class TagPanel extends AbstractPanelContent {
 	@Override
 	void updateView() {
 		String str  = renameField.getText();
-		RnPrefs.getInstance().setGlobalProperty("FILL_TYPE", fill.getSelectedOption().getKeyValue()+"");
-		RnPrefs.getInstance().setGlobalProperty("FILL_VALUE", fill.getEnteredValue()+"");
+		RnPrefs.getInstance().setGlobalProperty("FILL_TYPE", fill.getSelectedOption().name());
+		RnPrefs.getInstance().setGlobalProperty("FILL_VALUE", fill.getStringValue());
 		if(StringParser.isParsable(str)) {
 			accordion.setTableData(StringParser.parse(str, accordion.getTableData())) ;
 		}

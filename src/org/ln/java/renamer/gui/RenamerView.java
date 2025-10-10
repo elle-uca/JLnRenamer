@@ -192,9 +192,9 @@ public class RenamerView extends JFrame{
         
 
 
-		addFileButton = new JButton(bundle.getString("button.add.file"));
-		addDirButton = new JButton(bundle.getString("button.add.directory"));
-		renameButton = new JButton("Rename");
+		addFileButton = new JButton(bundle.getString("tabPanel.button.addFile"));
+		addDirButton = new JButton(bundle.getString("tabPanel.button.addDirectory"));
+		renameButton = new JButton(bundle.getString("tabPanel.button.rename"));
 
 		addFileButton.addActionListener(controller.new AddFileButtonActionListener());
 		addDirButton.addActionListener(controller.new AddDirButtonActionListener());

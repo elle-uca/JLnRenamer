@@ -37,14 +37,14 @@ public class AddPanel extends AbstractPanelContent {
 	@Override
 	void initComponents() {
 		renameField.getDocument().addDocumentListener(this);
-		textLabel = new JLabel(bundle.getString("label.add.panel.text"));
-		whereLabel = new JLabel("Dove");
+		textLabel = new JLabel(bundle.getString("addPanel.label.text"));
+		whereLabel = new JLabel(bundle.getString("addPanel.label.where"));
 		posSpinner = new JIntegerSpinner();
 		posSpinner.setEnabled(false);
 		posSpinner.addChangeListener(this);
-		jrbStart = new JRadioButton("Inizio", true);
-		jrbEnd = new JRadioButton("Fine");
-		jrbPos = new JRadioButton("Posizione");
+		jrbStart = new JRadioButton(bundle.getString("addPanel.radioButton.start"), true);
+		jrbEnd = new JRadioButton(bundle.getString("addPanel.radioButton.end"));
+		jrbPos = new JRadioButton(bundle.getString("addPanel.radioButton.pos"));
 		group = new ButtonGroup();
 		group.add(jrbStart);
 		group.add(jrbEnd);

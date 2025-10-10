@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.ln.java.renamer.RnPrefs;
+import org.ln.java.renamer.Costants.FillOption;
 import org.ln.java.renamer.util.ZeroPadder;
 
 /**
@@ -48,14 +49,10 @@ public class IncN extends RnTag {
 	public static List<String> incrementalNumber(RnTag tag, List<String> nameList, boolean plus){
 		List<String> result = new ArrayList<String>();
 		int incr = tag.getStart();
-		System.out.println(RnPrefs.getInstance().getGlobalProperty("FILL_TYPE", "")
-				+"    "+RnPrefs.getInstance().getGlobalProperty("FILL_VALUE", ""));
-		
-		int n = Integer.parseInt(RnPrefs.getInstance().getGlobalProperty("FILL_TYPE", ""));
-		
 		for(int i = 0; i < nameList.size(); i++) {
-			
-			result.add(ZeroPadder.padToTotalDigits(incr, 4));
+			result.add(ZeroPadder.padNumber(incr, 
+					Integer.parseInt(RnPrefs.getInstance().getGlobalProperty("FILL_VALUE")), 
+					FillOption.getByPref()));
 			incr =  plus  ?  incr + tag.getStep()  :  incr - tag.getStep() ;
 		}
 		return result;
