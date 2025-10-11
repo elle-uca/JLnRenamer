@@ -3,8 +3,8 @@ package org.ln.java.renamer.tag;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.ln.java.renamer.RnPrefs;
 import org.ln.java.renamer.Costants.FillOption;
+import org.ln.java.renamer.RnPrefs;
 import org.ln.java.renamer.util.ZeroPadder;
 
 /**

@@ -28,17 +28,18 @@ import net.miginfocom.swing.MigLayout;
 @SuppressWarnings("serial")
 public class MergePanel extends AbstractPanelContent {
 
-	private JLabel sourceLabel;
-	private JLabel targetLabel;
+//	private JLabel sourceLabel;
+//	private JLabel targetLabel;
 	private boolean move = true;
 	private ButtonGroup group;
 	private JRadioButton jrbMove;
 	private JRadioButton jrbCopy;
-	private JTextField sourceField;
-	private JTextField targetField;
+//	private JTextField sourceField;
+//	private JTextField targetField;
 	private JButton go;
-	private JButton fc1;
-	private JButton fc2;
+//	private JButton fc1;
+//	private JButton fc2;
+	private SourceTargetPanel stp;
 
 	public MergePanel(AccordionPanel accordion) {
 		super(accordion);
@@ -50,20 +51,21 @@ public class MergePanel extends AbstractPanelContent {
 	 */
 	@Override
 	void initComponents() {
-		sourceField = new JTextField();
-		targetField = new JTextField();
-		sourceLabel = new JLabel("Source dir");
-		targetLabel = new JLabel("Target dir");
+		stp = new SourceTargetPanel();
+//		sourceField = new JTextField();
+//		targetField = new JTextField();
+//		sourceLabel = new JLabel("Source dir");
+//		targetLabel = new JLabel("Target dir");
 		jrbMove = new JRadioButton("Sposta", true);
 		jrbCopy = new JRadioButton("Copia");
 		group = new ButtonGroup();
 		group.add(jrbMove);
 		group.add(jrbCopy);
-		fc1 = new JButton("...");
-		fc2 = new JButton("...");
+//		fc1 = new JButton("...");
+//		fc2 = new JButton("...");
 		
-		fc1.addActionListener(new FileChooserActionListener());
-		fc2.addActionListener(new FileChooserActionListener());
+//		fc1.addActionListener(new FileChooserActionListener());
+//		fc2.addActionListener(new FileChooserActionListener());
 		
 
 		jrbMove.addActionListener(this);
@@ -77,26 +79,29 @@ public class MergePanel extends AbstractPanelContent {
 				
 				
 				MergeResult simulation;
-				try {
-					simulation = SplitMergeUtils.simulateMerge(sourceField.getText(), targetField.getText());
-					SwingUtilities.invokeLater(() -> SplitMergeUtils.showSimulation(simulation, move));
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+//				try {
+//					simulation = SplitMergeUtils.simulateMerge(sourceField.getText(), targetField.getText());
+//					SwingUtilities.invokeLater(() -> SplitMergeUtils.showSimulation(simulation, move));
+//				} catch (IOException e1) {
+//					// TODO Auto-generated catch block
+//					e1.printStackTrace();
+//				}
 
 			}
 		});
 
 		setLayout(new MigLayout("", "[][grow][]", "20[][][][][]20"));
+		SourceTargetPanel stp = new SourceTargetPanel();
 		
-		add(sourceLabel, 	"cell 0 0");
-		add(sourceField,	"cell 1 0, growx, w :150:");
-		add(fc1, 			"cell 2 0");
+		add(stp, 			"cell 0 1 3 1, growx ");
 		
-		add(targetLabel, 	"cell 0 1");
-		add(targetField, 	"cell 1 1, growx, w :150: ");
-		add(fc2, 			"cell 2 1");
+		
+//		add(sourceField,	"cell 1 0, growx, w :150:");
+//		add(fc1, 			"cell 2 0");
+//		
+//		add(targetLabel, 	"cell 0 1");
+//		add(targetField, 	"cell 1 1, growx, w :150: ");
+//		add(fc2, 			"cell 2 1");
 
 		add(jrbMove, 		"cell 0 2");
 		add(jrbCopy, 		"cell 0 3");
@@ -133,8 +138,8 @@ public class MergePanel extends AbstractPanelContent {
     			return;
     		}
     		File file = fc.getSelectedFile();
-    		sourceField.setText(file.getAbsolutePath());
-    		targetField.setText(file.getAbsolutePath());
+//    		sourceField.setText(file.getAbsolutePath());
+//    		targetField.setText(file.getAbsolutePath());
 
     		RnPrefs.saveLastDir(file.getAbsolutePath());
 		}

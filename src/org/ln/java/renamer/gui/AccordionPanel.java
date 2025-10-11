@@ -8,7 +8,6 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import org.ln.java.renamer.Controller;
-import org.ln.java.renamer.RenamerMethod;
 import org.ln.java.renamer.RnFile;
 import org.ln.java.renamer.gui.panel.AbstractPanelContent;
 import org.ln.java.renamer.gui.panel.SlidingPanel;
