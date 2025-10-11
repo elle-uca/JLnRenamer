@@ -20,7 +20,7 @@ implements ChangeListener, DocumentListener, ActionListener{
 	
 	protected AccordionPanel accordion;
 	protected JTextField renameField;
-	ResourceBundle bundle = Controller.getBundle();
+	protected ResourceBundle bundle = Controller.getBundle();
 	
 	
 	/**

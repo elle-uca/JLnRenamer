@@ -1,148 +1,101 @@
 package org.ln.java.renamer.gui.panel;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.File;
 import java.io.IOException;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
-import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
-import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
 import org.ln.java.renamer.Controller;
 import org.ln.java.renamer.RnPrefs;
 import org.ln.java.renamer.gui.AccordionPanel;
+import org.ln.java.renamer.gui.SourceTargetPanel;
 import org.ln.java.renamer.util.SplitMergeUtils;
 import org.ln.java.renamer.util.SplitMergeUtils.MergeResult;
 
 import net.miginfocom.swing.MigLayout;
 
 /**
- *
- * @author luke
+ * Pannello per eseguire unione (merge) di cartelle con simulazione.
+ * Usa SourceTargetPanel per input directory.
  */
 @SuppressWarnings("serial")
 public class MergePanel extends AbstractPanelContent {
 
-//	private JLabel sourceLabel;
-//	private JLabel targetLabel;
-	private boolean move = true;
-	private ButtonGroup group;
-	private JRadioButton jrbMove;
-	private JRadioButton jrbCopy;
-//	private JTextField sourceField;
-//	private JTextField targetField;
-	private JButton go;
-//	private JButton fc1;
-//	private JButton fc2;
-	private SourceTargetPanel stp;
+    private boolean move = true;
+    private ButtonGroup group;
+    private JRadioButton jrbMove;
+    private JRadioButton jrbCopy;
+    private JButton go;
+    private SourceTargetPanel stp;
 
-	public MergePanel(AccordionPanel accordion) {
-		super(accordion);
-	}
+    public MergePanel(AccordionPanel accordion) {
+        super(accordion);
+    }
 
+    @Override
+    void initComponents() {
+        stp = new SourceTargetPanel();
+        jrbMove = new JRadioButton("Sposta", true);
+        jrbCopy = new JRadioButton("Copia");
 
-	/**
-	 *
-	 */
-	@Override
-	void initComponents() {
-		stp = new SourceTargetPanel();
-//		sourceField = new JTextField();
-//		targetField = new JTextField();
-//		sourceLabel = new JLabel("Source dir");
-//		targetLabel = new JLabel("Target dir");
-		jrbMove = new JRadioButton("Sposta", true);
-		jrbCopy = new JRadioButton("Copia");
-		group = new ButtonGroup();
-		group.add(jrbMove);
-		group.add(jrbCopy);
-//		fc1 = new JButton("...");
-//		fc2 = new JButton("...");
-		
-//		fc1.addActionListener(new FileChooserActionListener());
-//		fc2.addActionListener(new FileChooserActionListener());
-		
+        group = new ButtonGroup();
+        group.add(jrbMove);
+        group.add(jrbCopy);
 
-		jrbMove.addActionListener(this);
-		jrbCopy.addActionListener(this);
-		go = new JButton("Go");
+        go = new JButton("Go");
 
-		go.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				
-				
-				MergeResult simulation;
-//				try {
-//					simulation = SplitMergeUtils.simulateMerge(sourceField.getText(), targetField.getText());
-//					SwingUtilities.invokeLater(() -> SplitMergeUtils.showSimulation(simulation, move));
-//				} catch (IOException e1) {
-//					// TODO Auto-generated catch block
-//					e1.printStackTrace();
-//				}
+        // Listener moderni (Consumer)
+        stp.onSourceChosen(t -> chooseDirectory(true));
+        stp.onTargetChosen(t -> chooseDirectory(false));
 
-			}
-		});
+        jrbMove.addActionListener(this);
+        jrbCopy.addActionListener(this);
 
-		setLayout(new MigLayout("", "[][grow][]", "20[][][][][]20"));
-		SourceTargetPanel stp = new SourceTargetPanel();
-		
-		add(stp, 			"cell 0 1 3 1, growx ");
-		
-		
-//		add(sourceField,	"cell 1 0, growx, w :150:");
-//		add(fc1, 			"cell 2 0");
-//		
-//		add(targetLabel, 	"cell 0 1");
-//		add(targetField, 	"cell 1 1, growx, w :150: ");
-//		add(fc2, 			"cell 2 1");
+        go.addActionListener(e -> runMergeSimulation());
 
-		add(jrbMove, 		"cell 0 2");
-		add(jrbCopy, 		"cell 0 3");
-		
-		add(go, 			"cell 0 4");
-		
-	}   
+        setLayout(new MigLayout("", "[][grow][]", "20[][][]20"));
+        add(stp, 		"cell 0 0 3 1, growx");
+        add(jrbMove, 	"cell 0 1");
+        add(jrbCopy, 	"cell 1 1");
+        add(go, 		"cell 0 2");
+    }
 
-	
-	/**
-	 *
-	 */
-	@Override
-	void updateView() {
-		
-		if(jrbMove.isSelected()) {
-			move = true;
-		}
-		else {
-			move = false;
-		}
-	}
-	
-	
-	public class FileChooserActionListener implements ActionListener{
+    @Override
+    void updateView() {
+        move = jrbMove.isSelected();
+    }
 
-		@Override
-		public void actionPerformed(ActionEvent e) {
-	
-    		JFileChooser fc = Controller.getFileChooser(JFileChooser.DIRECTORIES_ONLY, false);
-    		int returnVal = fc.showOpenDialog(null);
+    /** Mostra JFileChooser e aggiorna il campo corretto */
+    private void chooseDirectory(boolean isSource) {
+        JFileChooser fc = Controller.getFileChooser(JFileChooser.DIRECTORIES_ONLY, false);
+        int returnVal = fc.showOpenDialog(null);
+        if (returnVal != JFileChooser.APPROVE_OPTION)
+            return;
 
-    		if (returnVal != JFileChooser.APPROVE_OPTION) {
-    			return;
-    		}
-    		File file = fc.getSelectedFile();
-//    		sourceField.setText(file.getAbsolutePath());
-//    		targetField.setText(file.getAbsolutePath());
+        String path = fc.getSelectedFile().getAbsolutePath();
+        if (isSource) {
+            stp.setSourceFieldText(path);
+        } else {
+            stp.setTargetFieldText(path);
+        }
 
-    		RnPrefs.saveLastDir(file.getAbsolutePath());
-		}
-	}
+        RnPrefs.saveLastDir(path);
+    }
 
+    /** Esegue la simulazione merge */
+    private void runMergeSimulation() {
+        try {
+            MergeResult simulation = SplitMergeUtils.simulateMerge(
+                    stp.getSourceFieldText(), stp.getTargetFieldText());
+            SwingUtilities.invokeLater(() -> SplitMergeUtils.showSimulation(simulation, move));
+        } catch (IOException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Errore durante la simulazione:\n" + e.getMessage(),
+                    "Errore", JOptionPane.ERROR_MESSAGE);
+        }
+    }
 }
