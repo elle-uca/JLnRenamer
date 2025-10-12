@@ -181,6 +181,7 @@ public class RenamerView extends JFrame{
 		tableScrollPane1.setViewportView(table1);
 		table1.setAutoCreateRowSorter(true);
         table1.getColumnModel().getColumn(3).setCellRenderer(new StatusCellRenderer());
+        table1.getColumnModel().getColumn(1).setCellRenderer(new NewNameCellRenderer());
 
         
 //		tableScrollPane2 = new JScrollPane();

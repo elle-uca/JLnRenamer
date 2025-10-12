@@ -67,7 +67,9 @@ public class MergePanel extends AbstractPanelContent {
         move = jrbMove.isSelected();
     }
 
-    /** Show JFileChooser and update the correct field */
+    /** 
+     * Show JFileChooser and update the correct field 
+     */
     private void chooseDirectory(boolean isSource) {
         JFileChooser fc = Controller.getFileChooser(JFileChooser.DIRECTORIES_ONLY, false);
         int returnVal = fc.showOpenDialog(null);
