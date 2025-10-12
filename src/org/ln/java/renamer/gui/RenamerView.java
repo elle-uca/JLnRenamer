@@ -24,6 +24,7 @@ import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
 import org.ln.java.renamer.Controller;
+import org.ln.java.renamer.gui.panel.AccordionPanel;
 import org.ln.java.renamer.gui.panel.AddPanel;
 import org.ln.java.renamer.gui.panel.CasePanel;
 import org.ln.java.renamer.gui.panel.MergePanel;

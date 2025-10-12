@@ -21,7 +21,6 @@ import javax.swing.SwingConstants;
 import javax.swing.Timer;
 
 import org.ln.java.renamer.Costants;
-import org.ln.java.renamer.gui.AccordionPanel;
 import org.ln.java.renamer.gui.RenamerView;
 
 import net.miginfocom.swing.MigLayout;
@@ -233,7 +232,7 @@ public class SlidingPanel extends JPanel {
 	}
 	/**
 	 * @return
-	 * @see org.ln.java.renamer.gui.AccordionPanel#getView()
+	 * @see org.ln.java.renamer.gui.panel.AccordionPanel#getView()
 	 */
 	public RenamerView getView() {
 		return accordionPanel.getView();

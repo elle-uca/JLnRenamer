@@ -11,16 +11,14 @@ import javax.swing.SwingUtilities;
 
 import org.ln.java.renamer.Controller;
 import org.ln.java.renamer.RnPrefs;
-import org.ln.java.renamer.gui.AccordionPanel;
-import org.ln.java.renamer.gui.SourceTargetPanel;
 import org.ln.java.renamer.util.SplitMergeUtils;
 import org.ln.java.renamer.util.SplitMergeUtils.MergeResult;
 
 import net.miginfocom.swing.MigLayout;
 
 /**
- * Pannello per eseguire unione (merge) di cartelle con simulazione.
- * Usa SourceTargetPanel per input directory.
+ * Panel for merging folders with simulation.
+ * Use SourceTargetPanel for input directory.
  */
 @SuppressWarnings("serial")
 public class MergePanel extends AbstractPanelContent {
@@ -39,16 +37,16 @@ public class MergePanel extends AbstractPanelContent {
     @Override
     void initComponents() {
         stp = new SourceTargetPanel();
-        jrbMove = new JRadioButton("Sposta", true);
-        jrbCopy = new JRadioButton("Copia");
+        jrbMove = new JRadioButton(bundle.getString("mergePanel.radioButton.move"), true);
+        jrbCopy = new JRadioButton(bundle.getString("mergePanel.radioButton.copy"));
 
         group = new ButtonGroup();
         group.add(jrbMove);
         group.add(jrbCopy);
 
-        go = new JButton("Go");
+        go = new JButton(bundle.getString("mergePanel.button.go"));
 
-        // Listener moderni (Consumer)
+        // Consumer Listener 
         stp.onSourceChosen(t -> chooseDirectory(true));
         stp.onTargetChosen(t -> chooseDirectory(false));
 
@@ -69,7 +67,7 @@ public class MergePanel extends AbstractPanelContent {
         move = jrbMove.isSelected();
     }
 
-    /** Mostra JFileChooser e aggiorna il campo corretto */
+    /** Show JFileChooser and update the correct field */
     private void chooseDirectory(boolean isSource) {
         JFileChooser fc = Controller.getFileChooser(JFileChooser.DIRECTORIES_ONLY, false);
         int returnVal = fc.showOpenDialog(null);
@@ -98,4 +96,6 @@ public class MergePanel extends AbstractPanelContent {
                     "Errore", JOptionPane.ERROR_MESSAGE);
         }
     }
+
+	
 }

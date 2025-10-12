@@ -1,13 +1,17 @@
-package org.ln.java.renamer.gui;
+package org.ln.java.renamer.gui.panel;
 
 import java.awt.event.ActionListener;
+import java.util.ResourceBundle;
 import java.util.function.Consumer;
 import javax.swing.*;
+
+import org.ln.java.renamer.Controller;
+
 import net.miginfocom.swing.MigLayout;
 
 /**
- * Pannello riutilizzabile per selezionare cartelle di origine e destinazione.
- * Non apre JFileChooser, ma notifica eventi via listener o Consumer.
+ * Reusable panel to select source and destination folders.
+ * Does not open JFileChooser, but notifies events via listener or Consumer
  */
 @SuppressWarnings("serial")
 public class SourceTargetPanel extends JPanel {
@@ -18,8 +22,9 @@ public class SourceTargetPanel extends JPanel {
     private final JTextField targetField;
     private final JButton fc1;
     private final JButton fc2;
+    protected ResourceBundle bundle = Controller.getBundle();
 
-    // callback opzionali (lambda-friendly)
+    // callback 
     private Consumer<String> onSourceChosen;
     private Consumer<String> onTargetChosen;
 
@@ -28,8 +33,8 @@ public class SourceTargetPanel extends JPanel {
 
         sourceField = new JTextField();
         targetField = new JTextField();
-        sourceLabel = new JLabel("Source dir");
-        targetLabel = new JLabel("Target dir");
+        sourceLabel = new JLabel(bundle.getString("sourceTargetPanel.label.sourceDir"));
+        targetLabel = new JLabel(bundle.getString("sourceTargetPanel.label.targetDir"));
         fc1 = new JButton("...");
         fc2 = new JButton("...");
 
@@ -41,7 +46,6 @@ public class SourceTargetPanel extends JPanel {
         add(targetField, "cell 1 1, growx, w :150:");
         add(fc2, "cell 2 1");
 
-        // listener base che invoca i consumer se presenti
         fc1.addActionListener(e -> {
             if (onSourceChosen != null)
                 onSourceChosen.accept(sourceField.getText());
@@ -52,7 +56,7 @@ public class SourceTargetPanel extends JPanel {
         });
     }
 
-    // --- Getter e Setter campi testo ---
+    // --- Getter e Setter  ---
     public String getSourceFieldText() {
         return sourceField.getText();
     }
@@ -69,13 +73,21 @@ public class SourceTargetPanel extends JPanel {
         targetField.setText(t);
     }
 
-    /** Imposta lo stesso testo su entrambi i campi */
+    /** Set the same text on both fields */
     public void setText(String t) {
         sourceField.setText(t);
         targetField.setText(t);
     }
+    
+    public JButton getFc1() {
+        return fc1;
+    }
 
-    // --- Listener classici ---
+    public JButton getFc2() {
+        return fc2;
+    }
+
+    // --- Classic Listener  ---
     public void addFc1ActionListener(ActionListener l) {
         fc1.addActionListener(l);
     }
@@ -84,13 +96,13 @@ public class SourceTargetPanel extends JPanel {
         fc2.addActionListener(l);
     }
 
-    /** Aggiunge lo stesso listener a entrambi i bottoni */
+    /** Adds the same listener to both buttons */
     public void addFcActionListener(ActionListener l) {
         fc1.addActionListener(l);
         fc2.addActionListener(l);
     }
 
-    // --- Listener "moderni" con Consumer ---
+    // --- Consumer Listener  ---
     public void onSourceChosen(Consumer<String> consumer) {
         this.onSourceChosen = consumer;
     }
@@ -99,12 +111,6 @@ public class SourceTargetPanel extends JPanel {
         this.onTargetChosen = consumer;
     }
 
-    // --- Accesso ai bottoni ---
-    public JButton getFc1() {
-        return fc1;
-    }
+ 
 
-    public JButton getFc2() {
-        return fc2;
-    }
 }

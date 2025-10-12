@@ -15,9 +15,7 @@ import javax.swing.SwingUtilities;
 
 import org.ln.java.renamer.Controller;
 import org.ln.java.renamer.RnPrefs;
-import org.ln.java.renamer.gui.AccordionPanel;
 import org.ln.java.renamer.gui.JIntegerSpinner;
-import org.ln.java.renamer.gui.SourceTargetPanel;
 import org.ln.java.renamer.util.SplitMergeUtils;
 
 import net.miginfocom.swing.MigLayout;

@@ -5,7 +5,6 @@ import javax.swing.JLabel;
 import javax.swing.JRadioButton;
 
 import org.ln.java.renamer.RenamerMethod;
-import org.ln.java.renamer.gui.AccordionPanel;
 import org.ln.java.renamer.gui.JIntegerSpinner;
 
 import net.miginfocom.swing.MigLayout;
@@ -78,7 +77,6 @@ public class AddPanel extends AbstractPanelContent {
 			posSpinner.setEnabled(true);
 			intPos = posSpinner.getIntValue();
 		}
-		
 		accordion.setTableData(RenamerMethod.addMethod(
 				accordion.getTableData(), getRenameText(), intPos));
 	}

@@ -8,7 +8,6 @@ import javax.swing.JRadioButton;
 
 import org.ln.java.renamer.Costants.ModeCase;
 import org.ln.java.renamer.RenamerMethod;
-import org.ln.java.renamer.gui.AccordionPanel;
 
 import net.miginfocom.swing.MigLayout;
 
@@ -77,7 +76,6 @@ public class CasePanel extends AbstractPanelContent {
             	modeCase = button.getModeCase();
             }
         }
-
 		accordion.setTableData(RenamerMethod.transformCase(
 				accordion.getTableData(), modeCase));
 	}

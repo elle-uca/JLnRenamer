@@ -3,7 +3,6 @@ package org.ln.java.renamer.gui.panel;
 import javax.swing.JLabel;
 
 import org.ln.java.renamer.RenamerMethod;
-import org.ln.java.renamer.gui.AccordionPanel;
 import org.ln.java.renamer.gui.JIntegerSpinner;
 
 import net.miginfocom.swing.MigLayout;
@@ -26,9 +25,9 @@ public class RemovePanel extends AbstractPanelContent {
 
 	@Override
 	void initComponents() {
-		posLabel = new JLabel("In posizione");
+		posLabel = new JLabel(bundle.getString("removePanel.label.position"));
 		posSpinner = new JIntegerSpinner();
-		numLabel = new JLabel("Rimuovi");
+		numLabel = new JLabel(bundle.getString("removePanel.label.number"));
 		numSpinner = new JIntegerSpinner();
 		numSpinner.addChangeListener(this);
 		posSpinner.addChangeListener(this);

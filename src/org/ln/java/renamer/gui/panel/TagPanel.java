@@ -10,8 +10,6 @@ import javax.swing.ListSelectionModel;
 
 import org.ln.java.renamer.RnPrefs;
 import org.ln.java.renamer.StringParser;
-import org.ln.java.renamer.gui.AccordionPanel;
-import org.ln.java.renamer.gui.FillOptionsPanel;
 import org.ln.java.renamer.gui.TagListModel;
 import org.ln.java.renamer.tag.RnTag;
 
@@ -24,8 +22,7 @@ public class TagPanel extends AbstractPanelContent {
 	private JList<RnTag> tagList;
 	private JScrollPane tagListScrollPane;
 	private JLabel tagLabel;
-
-	FillOptionsPanel fill;
+	private FillOptionsPanel fill;
 
 	public TagPanel(AccordionPanel accordion) {
 		super(accordion);
@@ -34,7 +31,7 @@ public class TagPanel extends AbstractPanelContent {
 
 	@Override
 	void initComponents() {
-		tagLabel = new JLabel("Nuovo nome");
+		tagLabel = new JLabel(bundle.getString("tagPanel.label.title"));
 		renameField.getDocument().addDocumentListener(this);
 		tagListScrollPane = new JScrollPane();
 		tagList = new JList<RnTag>();
@@ -67,11 +64,13 @@ public class TagPanel extends AbstractPanelContent {
 
 	@Override
 	void updateView() {
-		String str  = renameField.getText();
-		RnPrefs.getInstance().setGlobalProperty("FILL_TYPE", fill.getSelectedOption().name());
-		RnPrefs.getInstance().setGlobalProperty("FILL_VALUE", fill.getStringValue());
-		if(StringParser.isParsable(str)) {
-			accordion.setTableData(StringParser.parse(str, accordion.getTableData())) ;
+		RnPrefs.getInstance().setGlobalProperty(
+				"FILL_TYPE", fill.getSelectedOption().name());
+		RnPrefs.getInstance().setGlobalProperty(
+				"FILL_VALUE", fill.getStringValue());
+		if(StringParser.isParsable(renameField.getText())) {
+			accordion.setTableData(StringParser.parse(
+					renameField.getText(), accordion.getTableData())) ;
 		}
 		
 	}

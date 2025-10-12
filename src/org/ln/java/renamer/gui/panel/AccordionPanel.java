@@ -1,4 +1,4 @@
-package org.ln.java.renamer.gui;
+package org.ln.java.renamer.gui.panel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,8 +9,8 @@ import javax.swing.JTextField;
 
 import org.ln.java.renamer.Controller;
 import org.ln.java.renamer.RnFile;
-import org.ln.java.renamer.gui.panel.AbstractPanelContent;
-import org.ln.java.renamer.gui.panel.SlidingPanel;
+import org.ln.java.renamer.gui.FileRenamerTableModel;
+import org.ln.java.renamer.gui.RenamerView;
 
 
 @SuppressWarnings("serial")
@@ -31,10 +31,10 @@ public class AccordionPanel extends JPanel {
     	SlidingPanel panel = new SlidingPanel(title, contentComponent, this);
     	panel.setCollapseOthers( () -> collapseAllExcept(panel));
     	
-        // ChiudE tutti gli altri pannelli
+        // Close all other panels
         collapseAllExcept(panel);
 
-        // Apre il pannello appena aggiunto con animazione
+        // Opens the newly added panel with animation
         if (!panel.isExpanded()) {
             panel.togglePanel();
         }
@@ -59,8 +59,8 @@ public class AccordionPanel extends JPanel {
     }
     
 	/**
-     * Rimuove un pannello specifico dal menu.
-     * @param panel Il pannello da rimuovere.
+     * Removes a specific panel from the menu
+     * @param panel The panel to be removed
      */
     public void removePanel(SlidingPanel panel) {
         panels.remove(panel);
