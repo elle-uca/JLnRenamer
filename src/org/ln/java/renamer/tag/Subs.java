@@ -2,9 +2,9 @@ package org.ln.java.renamer.tag;
 
 /**
  * <Subs:1:1>
- * Genera una sottostringa del nome originario del file da start.
- * Start non può essere un numero negativo
- * Il secondo parametro è opzionale e stabilisce il limite
+ * Generates a substring of the original file name from start.
+ * Start cannot be a negative number
+ * The second parameter is optional and sets the limit
  *
  *
  * @author  Luca Noale
@@ -30,7 +30,6 @@ public class Subs extends RnTag {
 		newName.clear();
 		for (String string : oldName) {
 			String sub = getSafeSubstring(string, start-1, step);
-		//	System.out.println("sub  "+sub);
 			newName.add(sub);
 		}
 	}
@@ -56,7 +55,8 @@ public class Subs extends RnTag {
 	 */
     public static String getSafeSubstring(String str, int start, int end) {
         if (str == null || str.isEmpty()) {
-            return ""; // Restituisce una stringa vuota per input nullo o vuoto
+            return ""; // Returns an empty string for null or empty input
+
         }
 
         int len = str.length();

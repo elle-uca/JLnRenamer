@@ -142,7 +142,7 @@ public class SlidingPanel extends JPanel {
 	}
 
 	/**
-	 * Mostra il contenuto del pannello e aggiorna l'icona del toggle.
+	 * Show panel contents and update toggle icon
 	 */
 	public void openContent() {
 		contentPanel.setVisible(true);
@@ -152,7 +152,7 @@ public class SlidingPanel extends JPanel {
 
 	}
 	/**
-	 * Nasconde il contenuto del pannello e aggiorna l'icona del toggle.
+	 * Hides the panel contents and updates the toggle icon
 	 */
 	public void closeContent() {
 		contentPanel.setVisible(false);

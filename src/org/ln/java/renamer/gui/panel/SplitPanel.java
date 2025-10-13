@@ -48,16 +48,16 @@ public class SplitPanel extends AbstractPanelContent {
 	 */
 	@Override
 	void initComponents() {
-		renameField.setText("Part_");
-		textLabel = new JLabel("Prefisso dir");
-		numberLabel = new JLabel("Numero file");
-		sizeLabel = new JLabel("Dimensione in MB");
+		renameField.setText(bundle.getString("splitPanel.field.text"));
+		textLabel = new JLabel(bundle.getString("splitPanel.label.text"));
+		numberLabel = new JLabel(bundle.getString("splitPanel.label.number"));
+		sizeLabel = new JLabel(bundle.getString("splitPanel.label.size"));
 		numberSpinner = new JIntegerSpinner(1, 1 ,500 ,1);
 		sizeSpinner = new JIntegerSpinner(1, 1, 500, 1);
 		sizeSpinner.setEnabled(false);
 		stp = new SourceTargetPanel();
-		jrbNumber = new JRadioButton("Per numero", true);
-		jrbSize = new JRadioButton("Per grandezza");
+		jrbNumber = new JRadioButton(bundle.getString("splitPanel.radioButton.number"), true);
+		jrbSize = new JRadioButton(bundle.getString("splitPanel.radioButton.size"));
 		group = new ButtonGroup();
 		group.add(jrbNumber);
 		group.add(jrbSize);
@@ -65,7 +65,7 @@ public class SplitPanel extends AbstractPanelContent {
         stp.onTargetChosen(t -> chooseDirectory(false));		
         jrbNumber.addActionListener(this);
 		jrbSize.addActionListener(this);
-		go = new JButton("GO");
+		go = new JButton(bundle.getString("splitPanel.button.go"));
 
 		go.addActionListener(new ActionListener() {
 			
