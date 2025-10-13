@@ -2,88 +2,92 @@ package org.ln.java.renamer;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.ln.java.renamer.Costants.ModeCase;
+import org.ln.java.renamer.Costants.ReplacementType;
 
 public class RenamerMethod {
 	
 	
 	
-    /**
-     * Inserisce un testo in ogni stringa di una lista, usando un indice a base 1.
-     * Se la posizione è maggiore della lunghezza della stringa, il testo viene appeso alla fine.
-     *
-     * @param list La lista di stringhe da modificare.
-     * @param text Il testo da inserire in ogni stringa.
-     * @param pos La posizione a base 1 (es. 1 per l'inizio, 2 per il secondo carattere...).
-     * @return Una NUOVA lista contenente le stringhe modificate.
-     */
-    public static List<RnFile> addMethod(List<RnFile> list, String text, int pos) {
-        for (RnFile file : list) {
-        	
-        	String str = file.getFrom().getNameExtensionLess();
-            // 1. Converte la posizione da base 1 a base 0 (usata da Java).
-            //    Se l'utente inserisce < 1, si considera come se volesse inserire all'inizio (indice 0).
-            int indiceBaseZero = Math.max(0, pos - 1);
+	/**
+	 * Inserts a text into each string of a list, using a 1-based index.
+	 * If the position is greater than the string length, the text is appended at the end.
+	 *
+	 * @param list The list of strings (files) to modify.
+	 * @param text The text to insert into each string.
+	 * @param pos  The 1-based position (e.g., 1 for the beginning, 2 for after the first character...).
+	 * @return A NEW list containing the modified strings.
+	 */
+	public static List<RnFile> addMethod(List<RnFile> list, String text, int pos) {
+	    for (RnFile file : list) {
+	        
+	        String str = file.getFrom().getNameExtensionLess();
+	        // 1. Convert the position from 1-based to 0-based (used by Java).
+	        //    If the user enters < 1, we treat it as inserting at the beginning (index 0).
+	        int zeroBasedIndex = Math.max(0, pos - 1);
 
-            // 2. Decide la posizione finale. Se l'indice calcolato supera la lunghezza,
-            //    usa la lunghezza stessa, risultando in un'aggiunta alla fine (append).
-            int indiceFinale = Math.min(indiceBaseZero, str.length());
+	        // 2. Determine the final position. If the calculated index exceeds
+	        //    the string length, use the length itself (appends to the end).
+	        int finalIndex = Math.min(zeroBasedIndex, str.length());
 
-            // 3. Esegue l'inserimento nella posizione calcolata.
-            String nuovaStringa = new StringBuilder(str)
-                .insert(indiceFinale, text)
-                .toString();
-            
-            file.setNameDest(nuovaStringa);
-        }
-        return list;
-    }
-    
-    /**
-     * Rimuove un numero 'n' di caratteri da ogni stringa di una lista,
-     * partendo da una posizione 'm' (a base 1).
-     *
-     * @param list La lista di stringhe da modificare.
-     * @param pos La posizione di partenza a base 1 da cui iniziare a rimuovere.
-     * @param number Il numero di caratteri da rimuovere.
-     * @return Una NUOVA lista contenente le stringhe modificate.
-     */
-    public static List<RnFile> removeMethod(List<RnFile> list, int pos, int number) {
-        // Se il numero di caratteri da rimuovere è nullo o negativo, restituisci una copia
-        // della lista originale senza fare nulla.
-        if (number <= 0) {
-            return list;
-        }
+	        // 3. Perform the insertion at the calculated position.
+	        String newString = new StringBuilder(str)
+	            .insert(finalIndex, text)
+	            .toString();
+	        
+	        file.setNameDest(newString);
+	    }
+	    return list;
+	}
 
-        List<String> result = new ArrayList<>();
-        for (RnFile file : list) {
+	/**
+	 * Removes 'n' characters from each string in a list,
+	 * starting from a given 1-based position 'm'.
+	 *
+	 * @param list   The list of strings (files) to modify.
+	 * @param pos    The 1-based starting position from which to begin removing.
+	 * @param number The number of characters to remove.
+	 * @return A NEW list containing the modified strings.
+	 */
+	public static List<RnFile> removeMethod(List<RnFile> list, int pos, int number) {
+	    // If the number of characters to remove is zero or negative,
+	    // return the original list without making any changes.
+	    if (number <= 0) {
+	        return list;
+	    }
 
-        	String str = file.getFrom().getNameExtensionLess();
-            // Converte la posizione da base 1 a base 0.
-            int startIndex = pos - 1;
+	    List<String> result = new ArrayList<>();
+	    for (RnFile file : list) {
 
-            // Se la posizione di partenza non è valida per la stringa corrente,
-            // aggiungi la stringa originale e passa alla successiva.
-            if (startIndex < 0 || startIndex >= str.length()) {
-                result.add(str);
-                continue;
-            }
+	        String str = file.getFrom().getNameExtensionLess();
+	        // Convert the position from 1-based to 0-based.
+	        int startIndex = pos - 1;
 
-            // Calcola l'indice finale della rimozione.
-            // Usa Math.min per assicurarsi di non andare oltre la fine della stringa.
-            int endIndex = Math.min(startIndex + number, str.length());
-            
-            // Esegue la rimozione e aggiunge il risultato alla nuova lista.
-            String nuovaStringa = new StringBuilder(str)
-                .delete(startIndex, endIndex)
-                .toString();
-            
-            file.setNameDest(nuovaStringa);
-        }
+	        // If the start position is invalid for the current string,
+	        // skip modification and keep the original name.
+	        if (startIndex < 0 || startIndex >= str.length()) {
+	            result.add(str);
+	            continue;
+	        }
 
-        return list;
-    }
+	        // Calculate the end index of the removal.
+	        // Use Math.min to ensure we don’t go beyond the end of the string.
+	        int endIndex = Math.min(startIndex + number, str.length());
+	        
+	        // Perform the deletion and store the result.
+	        String newString = new StringBuilder(str)
+	            .delete(startIndex, endIndex)
+	            .toString();
+	        
+	        file.setNameDest(newString);
+	    }
+
+	    return list;
+	}
+
     
     public static List<RnFile> transformCase(List<RnFile> list, ModeCase modeCase) {
         for (RnFile file : list) {
@@ -136,4 +140,85 @@ public class RenamerMethod {
         }
     }
 
+    
+    public static List<RnFile> replaceMethod(List<RnFile> list, String searchString, 
+    		String replacementString, ReplacementType type, boolean isCaseSensitive) {
+        for (RnFile file : list) {
+            file.setNameDest(replaceMethod(file.getFrom().getNameExtensionLess(), 
+            		searchString, replacementString, type, isCaseSensitive));
+        }
+        return list;
+    }
+    
+    /**
+     * Replaces occurrences of a substring, with an option for case-sensitivity.
+     *
+     * @param originalText    The string to search within.
+     * @param searchString    The substring to find.
+     * @param replacementString The substring to replace with.
+     * @param type            The type of replacement (FIRST, LAST, ALL).
+     * @param isCaseSensitive If true, the search is case-sensitive. If false, it is not.
+     * @return The modified string.
+     */
+    public static String replaceMethod(String originalText, String searchString, 
+    		String replacementString, ReplacementType type, boolean isCaseSensitive) {
+        // Input validation to prevent errors
+        if (originalText == null || searchString == null || 
+        		replacementString == null || searchString.isEmpty()) {
+            return originalText;
+        }
+
+        // --- CASE 1: CASE-SENSITIVE SEARCH (distinguishes between upper and lower case) ---
+        if (isCaseSensitive) {
+            switch (type) {
+                case FIRST:
+                    // Using Pattern.quote() to treat the search string as a literal
+                    return originalText.replaceFirst(Pattern.quote(searchString), 
+                    		replacementString);
+                case ALL:
+                    return originalText.replace(searchString, replacementString);
+                case LAST:
+                    int lastIndex = originalText.lastIndexOf(searchString);
+                    if (lastIndex == -1) {
+                        return originalText; // Not found, return original
+                    }
+                    // Rebuild the string manually
+                    return originalText.substring(0, lastIndex) + 
+                    		replacementString + originalText.substring(lastIndex + 
+                    				searchString.length());
+            }
+        }
+
+        // --- CASE 2: CASE-INSENSITIVE SEARCH (ignores upper/lower case) ---
+        else {
+            // Compile the regex pattern with the CASE_INSENSITIVE flag
+            // Pattern.quote() is used to treat the searchString as literal text and not as a regex expression
+            Pattern pattern = Pattern.compile(Pattern.quote(searchString), 
+            		Pattern.CASE_INSENSITIVE);
+            Matcher matcher = pattern.matcher(originalText);
+
+            switch (type) {
+                case FIRST:
+                    return matcher.replaceFirst(replacementString);
+                case ALL:
+                    return matcher.replaceAll(replacementString);
+                case LAST:
+                    int lastIndex = -1;
+                    // Find the starting index of the last match
+                    while (matcher.find()) {
+                        lastIndex = matcher.start();
+                    }
+                    if (lastIndex == -1) {
+                        return originalText; // Not found
+                    }
+                    // Rebuild the string using the found index
+                    // We need to find the actual length of the matched string since case can vary
+                    String matchedSubstring = originalText.substring(
+                    		lastIndex, lastIndex + searchString.length());
+                    return originalText.substring(0, lastIndex) + replacementString + 
+                    		originalText.substring(lastIndex + matchedSubstring.length());
+            }
+        }
+        return originalText; // Default fallback
+    }
 }

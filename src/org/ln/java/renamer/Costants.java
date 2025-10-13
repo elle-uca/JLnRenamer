@@ -15,6 +15,15 @@ public class Costants {
 	public static final String ICON_RIGHT = "/icons/arrow_right.png";
 
 	public static final String ICON_DOWN = "/icons/arrow_down.png";
+	
+	 /**
+     * Enum to define the type of replacement to perform.
+     */
+    public enum ReplacementType {
+        FIRST,
+        LAST,
+        ALL
+    }
 
     /**
      * An enumeration to define the type of padding to apply.

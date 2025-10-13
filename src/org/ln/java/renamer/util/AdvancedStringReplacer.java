@@ -2,16 +2,18 @@ package org.ln.java.renamer.util;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.ln.java.renamer.Costants.ReplacementType;
+
 public class AdvancedStringReplacer {
 
-    /**
-     * Enum to define the type of replacement to perform.
-     */
-    public enum ReplacementType {
-        FIRST,
-        LAST,
-        ALL
-    }
+//    /**
+//     * Enum to define the type of replacement to perform.
+//     */
+//    public enum ReplacementType {
+//        FIRST,
+//        LAST,
+//        ALL
+//    }
 
     /**
      * Replaces occurrences of a substring, with an option for case-sensitivity.
@@ -23,9 +25,11 @@ public class AdvancedStringReplacer {
      * @param isCaseSensitive If true, the search is case-sensitive. If false, it is not.
      * @return The modified string.
      */
-    public static String replace(String originalText, String searchString, String replacementString, ReplacementType type, boolean isCaseSensitive) {
+    public static String replace(String originalText, String searchString, 
+    		String replacementString, ReplacementType type, boolean isCaseSensitive) {
         // Input validation to prevent errors
-        if (originalText == null || searchString == null || replacementString == null || searchString.isEmpty()) {
+        if (originalText == null || searchString == null || 
+        		replacementString == null || searchString.isEmpty()) {
             return originalText;
         }
 
@@ -34,7 +38,8 @@ public class AdvancedStringReplacer {
             switch (type) {
                 case FIRST:
                     // Using Pattern.quote() to treat the search string as a literal
-                    return originalText.replaceFirst(Pattern.quote(searchString), replacementString);
+                    return originalText.replaceFirst(Pattern.quote(searchString), 
+                    		replacementString);
                 case ALL:
                     return originalText.replace(searchString, replacementString);
                 case LAST:
@@ -43,7 +48,9 @@ public class AdvancedStringReplacer {
                         return originalText; // Not found, return original
                     }
                     // Rebuild the string manually
-                    return originalText.substring(0, lastIndex) + replacementString + originalText.substring(lastIndex + searchString.length());
+                    return originalText.substring(0, lastIndex) + 
+                    		replacementString + originalText.substring(lastIndex + 
+                    				searchString.length());
             }
         }
 
@@ -51,7 +58,8 @@ public class AdvancedStringReplacer {
         else {
             // Compile the regex pattern with the CASE_INSENSITIVE flag
             // Pattern.quote() is used to treat the searchString as literal text and not as a regex expression
-            Pattern pattern = Pattern.compile(Pattern.quote(searchString), Pattern.CASE_INSENSITIVE);
+            Pattern pattern = Pattern.compile(Pattern.quote(searchString), 
+            		Pattern.CASE_INSENSITIVE);
             Matcher matcher = pattern.matcher(originalText);
 
             switch (type) {
@@ -70,11 +78,12 @@ public class AdvancedStringReplacer {
                     }
                     // Rebuild the string using the found index
                     // We need to find the actual length of the matched string since case can vary
-                    String matchedSubstring = originalText.substring(lastIndex, lastIndex + searchString.length());
-                    return originalText.substring(0, lastIndex) + replacementString + originalText.substring(lastIndex + matchedSubstring.length());
+                    String matchedSubstring = originalText.substring(
+                    		lastIndex, lastIndex + searchString.length());
+                    return originalText.substring(0, lastIndex) + replacementString + 
+                    		originalText.substring(lastIndex + matchedSubstring.length());
             }
         }
-        
         return originalText; // Default fallback
     }
 
