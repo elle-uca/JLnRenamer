@@ -4,8 +4,8 @@ import java.io.File;
 import java.io.IOException;
 
 import org.ln.java.renamer.Costants.FileStatus;
-import org.ln.java.renamer.Costants.RenameMode;
 import org.ln.java.renamer.util.FileUtils;
+import org.ln.java.renamer.util.FileUtils.RenameMode;
 
 public class RnFile {
 

@@ -14,28 +14,90 @@ import java.util.Map;
 import java.util.Set;
 
 import org.ln.java.renamer.Costants.FileStatus;
-import org.ln.java.renamer.Costants.RenameMode;
 import org.ln.java.renamer.RnFile;
 
 public class FileUtils {
 
+	// private final RenameManager manager = new RenameManager();
 
+	public enum RenameMode {
+		FULL,        // rinomina tutto (nome + estensione)
+		NAME_ONLY,   // rinomina solo il nome, mantiene estensione
+		EXT_ONLY     // rinomina solo l'estensione, mantiene il nome
+	}
+	
+	
+	 /**
+     * Rinomina una lista di file aggiungendo un prefisso.
+     * Tutte le operazioni vengono registrate come un singolo "set" annullabile.
+     *
+     * @param filesToRename la lista di file da rinominare
+     * @param prefix il prefisso da aggiungere al nome di ogni file
+     */
+//    public List<RnFile> addPrefixToAll(List<RnFile> filesToRename, String prefix) {
+//        // 1. Inizia un nuovo set di operazioni, pulendo la cronologia precedente.
+//        manager.startNewRenameSet();
+//        System.out.println("--- Inizio operazione batch: Aggiunta prefisso '" + prefix + "' ---");
+//
+//        // 2. Itera su tutti i file ed esegui la rinomina
+//        for (File currentFile : filesToRename) {
+//            try {
+//                String newName = prefix + currentFile.getName();
+//                
+//                // Usa la funzione safeRename, che registrerà l'operazione nel manager
+//                safeRename(
+//                    currentFile, 
+//                    newName, 
+//                    RenameMode.NAME_ONLY, 
+//                    this.manager
+//                );
+//
+//            } catch (IOException e) {
+//                System.err.println("Errore durante la rinomina di " + currentFile.getName() + ": " + e.getMessage());
+//                // In un'applicazione reale, potresti decidere di fermarti o continuare
+//            }
+//        }
+//        System.out.println("--- Operazione batch completata ---");
+//    }
+	
+    
+    
+//	public static List<RnFile> filesRenamer(List<RnFile> list) {
+//		//RenameManager renameManager = new RenameManager();
+//		List<RnFile> renameList = new ArrayList<RnFile>();
+//
+//
+//			for (RnFile rnFile : list) {
+//				File file;
+//				try {
+//					file = FileUtils.safeRename(rnFile.getFrom(), 
+//							rnFile.getNameDest(), RenameMode.NAME_ONLY, renameManager);
+//					RnFile rn = new RnFile(new AdFile(file.getPath()));
+//					renameList.add(rn);
+//				} catch (IOException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
+//			}
+//			return list;
+//	}
+	
+	   /**
+     * Rinomina file o directory e registra l'operazione per un eventuale annullamento.
+     *
+     * @param fileOrDir   file o cartella da rinominare
+     * @param newName     nuovo nome o estensione
+     * @param mode        modalità di rinomina
+     * @param manager     il gestore della cronologia dove registrare l'operazione
+     * @return            il nuovo File rinominato
+     * @throws IOException se ci sono errori di I/O
+     */
+    public static File safeRename(File fileOrDir, String newName, RenameMode mode) throws IOException {
+        Path sourcePath = fileOrDir.toPath();
+        String finalName;
 
-	/**
-	 * Rinomina file o directory in base alla modalità scelta.
-	 *
-	 * @param fileOrDir file o cartella da rinominare
-	 * @param newName   nuovo nome o nuova estensione (a seconda della modalità)
-	 * @param mode      modalità di rinomina (FULL, NAME_ONLY, EXT_ONLY)
-	 * @return          nuovo File rinominato
-	 * @throws IOException se ci sono errori di I/O
-	 */
-	public static File safeRename(File fileOrDir, String newName, RenameMode mode) throws IOException {
-		Path source = fileOrDir.toPath();
-		String finalName;
-
-		if (fileOrDir.isDirectory()) {
-			// Per le directory ignoriamo le estensioni
+        // ... (logica di calcolo di finalName, identica alla tua) ...
+        if (fileOrDir.isDirectory()) {
 			finalName = newName;
 		} else {
 			String name = fileOrDir.getName();
@@ -45,17 +107,13 @@ public class FileUtils {
 
 			switch (mode) {
 			case FULL:
-				finalName = newName; // usa tutto il nuovo nome (con eventuale estensione)
+				finalName = newName;
 				break;
 			case NAME_ONLY:
-				// cambia solo il nome, mantiene l'estensione attuale
 				finalName = newName + currentExt;
 				break;
 			case EXT_ONLY:
-				// cambia solo l'estensione (newName deve iniziare con "." tipo ".bak")
-				if (!newName.startsWith(".")) {
-					newName = "." + newName;
-				}
+				if (!newName.startsWith(".")) newName = "." + newName;
 				finalName = currentBase + newName;
 				break;
 			default:
@@ -63,28 +121,36 @@ public class FileUtils {
 			}
 		}
 
-		Path target = source.resolveSibling(finalName);
+        Path targetPath = sourcePath.resolveSibling(finalName);
 
-		// Gestione conflitti (aggiunge _1, _2, ecc.)
-		int counter = 1;
-		String base = finalName;
-		String ext = "";
-		int dot = finalName.lastIndexOf(".");
+        // Gestione conflitti (identica alla tua)
+        int counter = 1;
+        String base = finalName;
+        String ext = "";
+        int dot = finalName.lastIndexOf(".");
 		if (dot != -1 && fileOrDir.isFile()) {
 			base = finalName.substring(0, dot);
 			ext = finalName.substring(dot);
 		}
 
-		while (Files.exists(target)) {
-			target = source.resolveSibling(base + "_" + counter + ext);
-			counter++;
-		}
+        while (Files.exists(targetPath)) {
+            targetPath = sourcePath.resolveSibling(base + "_" + counter + ext);
+            counter++;
+        }
 
-		// Rinomina realmente
-		Files.move(source, target, StandardCopyOption.REPLACE_EXISTING);
+        // Esegue la rinomina
+        Files.move(sourcePath, targetPath, StandardCopyOption.REPLACE_EXISTING);
+        
+        File newFile = targetPath.toFile();
 
-		return target.toFile();
-	}
+        // **Aggiunta importante: registra l'operazione**
+//        if (manager != null) {
+//            manager.addOperation(fileOrDir, newFile);
+//        }
+
+        return newFile;
+    }
+
 
 	/**
 	 * @param directory

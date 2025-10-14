@@ -75,11 +75,7 @@ public class Costants {
 
 	}
 
-	public enum RenameMode {
-		FULL,        // rinomina tutto (nome + estensione)
-		NAME_ONLY,   // rinomina solo il nome, mantiene estensione
-		EXT_ONLY     // rinomina solo l'estensione, mantiene il nome
-	}
+
 
 	public enum ModeCase {
 		UPPER ("TUTTO MAIUSCOLO"),         

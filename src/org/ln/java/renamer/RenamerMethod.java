@@ -141,14 +141,14 @@ public class RenamerMethod {
     }
 
     
-    public static List<RnFile> replaceMethod(List<RnFile> list, String searchString, 
-    		String replacementString, ReplacementType type, boolean isCaseSensitive) {
-        for (RnFile file : list) {
-            file.setNameDest(replaceMethod(file.getFrom().getNameExtensionLess(), 
-            		searchString, replacementString, type, isCaseSensitive));
-        }
-        return list;
-    }
+//    public static List<RnFile> replaceMethod(List<RnFile> list, String searchString, 
+//    		String replacementString, ReplacementType type, boolean isCaseSensitive) {
+//        for (RnFile file : list) {
+//            file.setNameDest(replaceMethod(file.getFrom().getNameExtensionLess(), 
+//            		searchString, replacementString, type, isCaseSensitive));
+//        }
+//        return list;
+//    }
     
     /**
      * Replaces occurrences of a substring, with an option for case-sensitivity.

@@ -1,5 +1,7 @@
 package org.ln.java.renamer.gui.panel;
 
+import java.util.List;
+
 import javax.swing.ButtonGroup;
 import javax.swing.JLabel;
 import javax.swing.JRadioButton;
@@ -7,6 +9,7 @@ import javax.swing.JTextField;
 
 import org.ln.java.renamer.Costants.ReplacementType;
 import org.ln.java.renamer.RenamerMethod;
+import org.ln.java.renamer.RnFile;
 
 import net.miginfocom.swing.MigLayout;
 
@@ -68,9 +71,14 @@ public class ReplacePanel extends AbstractPanelContent {
 
 	@Override
 	void updateView() {
-		accordion.setTableData(RenamerMethod.replaceMethod(
-				accordion.getTableData(), textField.getText(), replaceField.getText(),
-				ReplacementType.FIRST, jrbCase.isSelected()));
+		List<RnFile> list = accordion.getTableData();
+        for (RnFile file : list) {
+            file.setNameDest(RenamerMethod.replaceMethod(file.getFrom().getNameExtensionLess(), 
+            		textField.getText(), replaceField.getText(), 
+            		ReplacementType.FIRST, jrbCase.isSelected()));
+        }
+		accordion.setTableData(list);
 	}
 
+	
 }

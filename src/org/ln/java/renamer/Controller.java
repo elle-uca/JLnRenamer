@@ -141,13 +141,15 @@ public class Controller {
 		public void actionPerformed(ActionEvent e) {
 			List<RnFile> list = view.getTableModel().getData();
 			Map<RnFile, String> newNames = new HashMap<>();
+			
+			
 			for (RnFile rnFile : list) {
 				newNames.put(rnFile, rnFile.getNameDest());
 			}
 			List<RnFile> renameList = new ArrayList<RnFile>();
 			if (!FileUtils.checkConflicts(list.getFirst().getFrom().getParentFile(), 
 					newNames)) {
-
+				//renameList = FileUtils.filesRenamer(list);
 				for (RnFile rnFile : list) {
 					File file = rnFile.safeRename();
 					RnFile rn = new RnFile(new AdFile(file.getPath()));
