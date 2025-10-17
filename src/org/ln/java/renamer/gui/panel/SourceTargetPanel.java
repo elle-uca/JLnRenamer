@@ -3,7 +3,11 @@ package org.ln.java.renamer.gui.panel;
 import java.awt.event.ActionListener;
 import java.util.ResourceBundle;
 import java.util.function.Consumer;
-import javax.swing.*;
+
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 import org.ln.java.renamer.Controller;
 
