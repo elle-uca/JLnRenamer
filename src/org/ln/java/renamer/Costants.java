@@ -16,6 +16,10 @@ public class Costants {
 
 	public static final String ICON_DOWN = "/icons/arrow_down.png";
 	
+	public static final String PROPERTIES_LANG_PATH = "i18n.languages";
+	
+	
+	
 	 /**
      * Enum to define the type of replacement to perform.
      */

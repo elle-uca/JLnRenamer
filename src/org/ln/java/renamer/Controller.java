@@ -45,7 +45,8 @@ public class Controller {
 	
 
 	public static ResourceBundle getBundle() {
-		return ResourceBundle.getBundle("languages", Locale.of("it"));
+		return ResourceBundle.getBundle(Costants.PROPERTIES_LANG_PATH, 
+				Locale.of("it"));//LOCALE DA CONFIG
 	}
 
 	/**

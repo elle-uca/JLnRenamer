@@ -75,7 +75,7 @@ public class ReplacePanel extends AbstractPanelContent {
         for (RnFile file : list) {
             file.setNameDest(RenamerMethod.replaceMethod(file.getFrom().getNameExtensionLess(), 
             		textField.getText(), replaceField.getText(), 
-            		ReplacementType.FIRST, jrbCase.isSelected()));
+            		ReplacementType.FIRST, jrbCase.isSelected()));// type da scelta utente
         }
 		accordion.setTableData(list);
 	}

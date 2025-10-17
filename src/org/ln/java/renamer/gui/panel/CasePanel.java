@@ -1,6 +1,7 @@
 package org.ln.java.renamer.gui.panel;
 
 import java.util.Enumeration;
+import java.util.List;
 
 import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
@@ -8,6 +9,7 @@ import javax.swing.JRadioButton;
 
 import org.ln.java.renamer.Costants.ModeCase;
 import org.ln.java.renamer.RenamerMethod;
+import org.ln.java.renamer.RnFile;
 
 import net.miginfocom.swing.MigLayout;
 
@@ -76,8 +78,12 @@ public class CasePanel extends AbstractPanelContent {
             	modeCase = button.getModeCase();
             }
         }
-		accordion.setTableData(RenamerMethod.transformCase(
-				accordion.getTableData(), modeCase));
+		
+		List<RnFile> list = accordion.getTableData();
+        for (RnFile file : list) {
+            file.setNameDest(RenamerMethod.transformCase(file.getFrom().getNameExtensionLess(), modeCase));
+        }
+		accordion.setTableData(list);
 	}
 
 

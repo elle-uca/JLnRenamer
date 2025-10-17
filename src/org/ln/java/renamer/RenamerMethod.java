@@ -89,12 +89,12 @@ public class RenamerMethod {
 	}
 
     
-    public static List<RnFile> transformCase(List<RnFile> list, ModeCase modeCase) {
-        for (RnFile file : list) {
-            file.setNameDest(transformCase(file.getFrom().getNameExtensionLess(), modeCase));
-        }
-        return list;
-    }
+//    public static List<RnFile> transformCase(List<RnFile> list, ModeCase modeCase) {
+//        for (RnFile file : list) {
+//            file.setNameDest(transformCase(file.getFrom().getNameExtensionLess(), modeCase));
+//        }
+//        return list;
+//    }
     
     public static String transformCase(String input, ModeCase modeCase) {
         if (input == null) return null;
@@ -141,14 +141,6 @@ public class RenamerMethod {
     }
 
     
-//    public static List<RnFile> replaceMethod(List<RnFile> list, String searchString, 
-//    		String replacementString, ReplacementType type, boolean isCaseSensitive) {
-//        for (RnFile file : list) {
-//            file.setNameDest(replaceMethod(file.getFrom().getNameExtensionLess(), 
-//            		searchString, replacementString, type, isCaseSensitive));
-//        }
-//        return list;
-//    }
     
     /**
      * Replaces occurrences of a substring, with an option for case-sensitivity.

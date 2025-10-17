@@ -8,12 +8,13 @@ import java.util.Properties;
 import java.util.prefs.Preferences;
 
 /**
- * Gestione centralizzata delle preferenze del programma.
- * Combina:
- * - un file .properties globale (config comune)
- * - Preferences Java per utente locale
+ * Centralized management of program preferences.
+ * Combine:
+ * - a global .properties file (common config)
+ * - Java Preferences for Local User
  *
- * Accesso statico ovunque tramite RenamerPreferences.get() o metodi statici di comodo.
+ * Static access anywhere via RenamerPreferences.get() 
+ * or convenient static methods.
  */
 public class RnPrefs {
 
@@ -31,7 +32,7 @@ public class RnPrefs {
         loadGlobalConfig();
     }
 
-    /** Ottieni l'istanza unica (thread-safe lazy init) */
+    /** Get the unique instance (thread-safe lazy init) */
     public static synchronized RnPrefs getInstance() {
         if (instance == null) {
             instance = new RnPrefs();
@@ -40,7 +41,7 @@ public class RnPrefs {
     }
 
     // ---------------------------
-    // CONFIGURAZIONE GLOBALE (.properties)
+    // GLOBAL CONFIGURATION (.properties)
     // ---------------------------
     private void loadGlobalConfig() {
         File file = new File(Costants.CONFIG_FILE);
@@ -79,7 +80,7 @@ public class RnPrefs {
     }
 
     // ---------------------------
-    // PREFERENZE UTENTE (Preferences API)
+    // USER PREFERENCES (Preferences API)
     // ---------------------------
     public void saveWindowSize(int width, int height) {
         userPrefs.putInt("window.width", width);
@@ -109,7 +110,7 @@ public class RnPrefs {
     }
 
     // ---------------------------
-    // METODI STATICI DI COMODO
+    // STATIC METHODS OF CONVENIENCE
     // ---------------------------
     public static String getProp(String key, String def) {
         return getInstance().getGlobalProperty(key, def);
