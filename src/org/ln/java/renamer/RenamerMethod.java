@@ -89,12 +89,7 @@ public class RenamerMethod {
 	}
 
     
-//    public static List<RnFile> transformCase(List<RnFile> list, ModeCase modeCase) {
-//        for (RnFile file : list) {
-//            file.setNameDest(transformCase(file.getFrom().getNameExtensionLess(), modeCase));
-//        }
-//        return list;
-//    }
+
     
     public static String transformCase(String input, ModeCase modeCase) {
         if (input == null) return null;

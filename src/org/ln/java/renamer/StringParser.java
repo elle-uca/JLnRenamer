@@ -119,7 +119,8 @@ public class StringParser {
 	 * @return
 	 */
 	public static boolean isParsable(String str) {
-		if(str == null || str.equals("") || (CountCharsInString(str, '<') != CountCharsInString(str, '>'))) {
+		if(str == null || str.equals("") || (CountCharsInString(str, '<') 
+				!= CountCharsInString(str, '>'))) {
 			return false;
 		}
 		return true;

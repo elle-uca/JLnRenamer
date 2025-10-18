@@ -3,18 +3,22 @@ package org.ln.java.renamer;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.Set;
 
 import javax.swing.JFileChooser;
 
+import org.ln.java.renamer.Costants.FileStatus;
+import org.ln.java.renamer.FileRenameManager.RenameMode;
 import org.ln.java.renamer.gui.RenamerView;
-import org.ln.java.renamer.util.FileUtils;
 
 public class Controller {
 
@@ -129,7 +133,7 @@ public class Controller {
 		for (RnFile rnFile : list) {
 			newNames.put(rnFile, rnFile.getNameDest());
 		}
-		FileUtils.checkConflicts(list.getFirst().getFrom().getParentFile(), 
+		checkConflicts(list.getFirst().getFrom().getParentFile(), 
 				newNames);
 	}
 
@@ -147,18 +151,65 @@ public class Controller {
 			for (RnFile rnFile : list) {
 				newNames.put(rnFile, rnFile.getNameDest());
 			}
-			List<RnFile> renameList = new ArrayList<RnFile>();
-			if (!FileUtils.checkConflicts(list.getFirst().getFrom().getParentFile(), 
+			// definire politica di gestione conflitto
+			if (checkConflicts(list.getFirst().getFrom().getParentFile(), 
 					newNames)) {
-				//renameList = FileUtils.filesRenamer(list);
-				for (RnFile rnFile : list) {
-					File file = rnFile.safeRename();
-					RnFile rn = new RnFile(new AdFile(file.getPath()));
-					renameList.add(rn);
-				}
+				return;
 			}
+			List<RnFile> renameList = new ArrayList<RnFile>();
+			
+			try {
+				renameList = FileRenameManager.batchRename(list, RenameMode.NAME_ONLY);
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
 			view.getTableModel().setData(renameList);
 		}
+	}
+	
+	
+	
+	/**
+	 * @param directory
+	 * @param newNames
+	 * @return
+	 */
+	public static boolean checkConflicts(File directory, Map<RnFile, String> newNames) {
+		File[] files = directory.listFiles();
+		// Nomi già esistenti
+		Set<String> existingNames = new HashSet<>();
+		for (File f : files) {
+			existingNames.add(f.getName());
+		}
+
+		// Controllo conflitti
+		Set<String> usedNewNames = new HashSet<>();
+		boolean conflictFound = false;
+
+		for (Map.Entry<RnFile, String> entry : newNames.entrySet()) {
+			File oldFile = entry.getKey().getFrom();
+			String newName = entry.getValue();
+			// System.out.println("====== vecchio nome " + oldFile.getName() );
+			// System.out.println("====== nuovo nome " + newName );
+
+			// 1. conflitto con file esistenti (ma non se è lo stesso file)
+			if (existingNames.contains(newName) && !oldFile.getName().equals(newName)) {
+				// System.out.println("❌ Conflitto: " + newName + " esiste già nella cartella.");
+				conflictFound = true;
+			}
+
+			// 2. duplicati nella lista dei nuovi nomi
+			if (!usedNewNames.add(newName)) {
+				entry.getKey().setFileStatus(FileStatus.KO);
+				// System.out.println("❌ Conflitto: il nuovo nome " + newName + " è duplicato.");
+				conflictFound = true;
+			}else {
+				entry.getKey().setFileStatus(FileStatus.OK);
+			}
+		}
+		return conflictFound;
 	}
 
 }

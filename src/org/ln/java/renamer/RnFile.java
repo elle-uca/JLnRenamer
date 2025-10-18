@@ -1,11 +1,6 @@
 package org.ln.java.renamer;
 
-import java.io.File;
-import java.io.IOException;
-
 import org.ln.java.renamer.Costants.FileStatus;
-import org.ln.java.renamer.util.FileUtils;
-import org.ln.java.renamer.util.FileUtils.RenameMode;
 
 public class RnFile {
 
@@ -87,23 +82,6 @@ public class RnFile {
 	}
 
 
-	/**
-	 * 
-	 * 
-	 * 
-	 * 
-	 * @return
-	 */
-	public File safeRename() {
-		File result = null;
-		try {
-			result = FileUtils.safeRename(from, nameDest, RenameMode.NAME_ONLY);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return result;
-	}
 
 	/**
 	 * @return
@@ -127,8 +105,6 @@ public class RnFile {
 	public String toString() {
 		return "RnFiles [from=" + from.toString() + ", to=" + getNameDest() + "]";
 	}
-
-
 
 
 }
