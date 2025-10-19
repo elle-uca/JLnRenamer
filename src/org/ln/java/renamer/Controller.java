@@ -191,8 +191,6 @@ public class Controller {
 		for (Map.Entry<RnFile, String> entry : newNames.entrySet()) {
 			File oldFile = entry.getKey().getFrom();
 			String newName = entry.getValue();
-			// System.out.println("====== vecchio nome " + oldFile.getName() );
-			// System.out.println("====== nuovo nome " + newName );
 
 			// 1. conflitto con file esistenti (ma non se è lo stesso file)
 			if (existingNames.contains(newName) && !oldFile.getName().equals(newName)) {

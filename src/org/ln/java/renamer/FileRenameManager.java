@@ -35,13 +35,13 @@ public class FileRenameManager {
 
 	
 	/**
-	 * Rinomina una lista di file o directory come processo unico.
-	 * Se una rinomina fallisce, ripristina quelle già fatte.
+	 * Renames a list of files or directories as a single operation.
+	 * If one rename fails, previously renamed items are rolled back.
 	 *
-	 * @param files     lista di file o directory da rinominare
-	 * @param newNames  lista di nuovi nomi (stessa dimensione di files)
-	 * @param mode      modalità di rinomina (FULL, NAME_ONLY, EXT_ONLY)
-	 * @throws IOException in caso di errore di I/O
+	 * @param files     list of files or directories to rename
+	 * @param newNames  list of new names (same size as files)
+	 * @param mode      rename mode (FULL, NAME_ONLY, EXT_ONLY)
+	 * @throws IOException if an I/O error occurs
 	 */
 	public static List<RnFile> batchRename(List<RnFile> files, RenameMode mode) throws IOException {
 		if (files.size() < 1) {
@@ -76,10 +76,10 @@ public class FileRenameManager {
 	}
 
 	/**
-	 * Annulla l'ultima operazione batch di rinomina.
-	 * Se non ci sono operazioni precedenti, non fa nulla.
+	 * Undoes the last batch rename operation.
+	 * If there are no previous operations, does nothing.
 	 *
-	 * @throws IOException in caso di errore di I/O
+	 * @throws IOException if an I/O error occurs
 	 */
 	public static void undoLastRename() throws IOException {
 		if (history.isEmpty()) {
@@ -100,15 +100,15 @@ public class FileRenameManager {
 		System.out.println("Ultima operazione annullata.");
 	}
 
-
+	
 	/**
-	 * Rinomina file o directory.
-	 *
-	 * @param fileOrDir   file o cartella da rinominare
-	 * @param newName     nuovo nome o estensione
-	 * @param mode        modalità di rinomina
-	 * @return            il nuovo File rinominato
-	 * @throws IOException se ci sono errori di I/O
+	 * Rename file or directory.
+	 * 
+	 * @param fileOrDir	file or directory to rename
+	 * @param newName	new name or extension
+	 * @param mode		rename mode
+	 * @return
+	 * @throws IOException if an I/O error occurs
 	 */
 	public static File safeRename(File fileOrDir, String newName, RenameMode mode) throws IOException {
 		Path sourcePath = fileOrDir.toPath();

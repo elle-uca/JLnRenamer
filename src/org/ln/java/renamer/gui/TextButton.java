@@ -12,7 +12,6 @@ public class TextButton extends JButton {
 
 	public TextButton(String text) {
 		super(text);
-
 		setBorderPainted(false);
 		setContentAreaFilled(false);
 		setFocusPainted(false);

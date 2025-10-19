@@ -5,8 +5,8 @@ import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 
 /**
- * Una specializzazione di JSpinner che lavora con valori interi.
- * Fornisce un comodo metodo getIntValue() per evitare cast espliciti.
+ * A specialization of JSpinner that works with integer values.
+ * Provides a convenient getIntValue() method to avoid explicit casts.
  */
 @SuppressWarnings("serial")
 public class JIntegerSpinner extends JSpinner {
@@ -30,13 +30,13 @@ public class JIntegerSpinner extends JSpinner {
     }
 
     /**
-     * Costruisce uno JIntegerSpinner con un valore iniziale, un minimo, un massimo
-     * e uno step (passo di incremento/decremento).
+     * Constructs a JIntegerSpinner with an initial value, a minimum, a maximum,
+     * and a step (increment/decrement value).
      *
-     * @param value Il valore iniziale e corrente del spinner.
-     * @param min   Il valore minimo consentito.
-     * @param max   Il valore massimo consentito.
-     * @param step  Il valore di cui aumentare o diminuire ad ogni scatto.
+     * @param value the initial and current value of the spinner
+     * @param min   the minimum allowed value
+     * @param max   the maximum allowed value
+     * @param step  the amount to increase or decrease at each step
      */
     public JIntegerSpinner(int value, int min, int max, int step) {
         super(new SpinnerNumberModel(value, min, max, step));
