@@ -1,0 +1,15 @@
+/bin/
+
+# Compiled class files
+*.class
+
+# Maven target directory
+/target/
+
+# Logs
+*.log
+
+# Eclipse project files
+.classpath
+.project
+.settings/
