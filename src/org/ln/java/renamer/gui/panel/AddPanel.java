@@ -53,14 +53,14 @@ public class AddPanel extends AbstractPanelContent {
 		jrbEnd.addActionListener(this);
 		jrbPos.addActionListener(this);
 
-		setLayout(new MigLayout("", "[][][grow]", "20[][][]20"));
-		add(textLabel, 	"cell 0 0");
-		add(renameField,"cell 1 0 2 1, growx, wrap");
-		add(whereLabel, "cell 0 1 1 2");
-		add(jrbStart, 	"cell 1 1");
-		add(jrbEnd, 	"cell 2 1, wrap");
-		add(jrbPos, 	"cell 1 2 ");
-		add(posSpinner, "cell 2 2, growx ");
+		setLayout(new MigLayout("", "[][][grow]", "20[][][][]20"));
+		add(textLabel, 	"cell 0 0 3 1");
+		add(renameField,"cell 0 1 3 1, growx, wrap");
+		add(whereLabel, "cell 0 2 1 2");
+		add(jrbStart, 	"cell 1 2");
+		add(jrbEnd, 	"cell 2 2, wrap");
+		add(jrbPos, 	"cell 1 3 ");
+		add(posSpinner, "cell 2 3, growx ");
 	}   
 
 	/**
