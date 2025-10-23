@@ -32,29 +32,53 @@ public class FileRenamerTableModel extends AbstractTableModel{
 		fireTableDataChanged();
 	} 
  
-	
 	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) {
 	    if (rowIndex >= data.size()) {
-	        switch (columnIndex) {
-	            case 4: return Boolean.FALSE; // checkbox spento di default
-	            default: return "";           // stringa vuota per le altre colonne
-	        }
+	        return switch (columnIndex) {
+	            case 4 -> Boolean.FALSE; // checkbox spento di default
+	            default -> "";           // stringa vuota per le altre colonne
+	        };
 	    }
 
 	    RnFile file = data.get(rowIndex);
 
-	    switch (columnIndex) {
-	        case 0: return file.getFrom().getName();
-	        case 1: return (file.getNameDest() == null || file.getNameDest().isEmpty())
-	                        ? file.getFrom().getName()
-	                        : file.getNameDest();
-	        case 2: return file.getFrom().getParent();
-	        case 3: return file.getFileStatus();
-	        case 4: return file.getSelected();
-	        default: return "";
-	    }
+	    return switch (columnIndex) {
+	        case 0 -> file.getFrom().getName();
+	        case 1 -> (file.getNameDest() == null || file.getNameDest().isEmpty())
+	                    ? file.getFrom().getName()
+	                    : file.getNameDest();
+	        case 2 -> file.getFrom().getParent();
+	        case 3 -> file.getFileStatus();
+	        case 4 -> file.getSelected();
+	        default -> "";
+	    };
 	}
+
+	
+//	@Override
+//	public Object getValueAt(int rowIndex, int columnIndex) {
+//	    if (rowIndex >= data.size()) {
+//	        switch (columnIndex) {
+//	            case 4: return Boolean.FALSE; // checkbox spento di default
+//	            default: return "";           // stringa vuota per le altre colonne
+//	        }
+//	    }
+//
+//	    RnFile file = data.get(rowIndex);
+//
+//	    switch (columnIndex) {
+//	        case 0: return file.getFrom().getName();
+//	        case 1: return (file.getNameDest() == null || file.getNameDest().isEmpty())
+//	                        ? file.getFrom().getName()
+//	                        : file.getNameDest();
+//	        case 2: return file.getFrom().getParent();
+//	        case 3: return file.getFileStatus();
+//	        case 4: return file.getSelected();
+//	        default: return "";
+//	    }
+//	}
+	
 	/**
 	 * @return the data
 	 */

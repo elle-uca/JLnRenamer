@@ -63,6 +63,8 @@ public class RenamerView extends JFrame{
 
 
 	public RenamerView() {
+
+		setTitle("NOOR Tools (Not Only a Ordinary Renamer) by Luke");   	
 		controller = new Controller(this);
 		splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, 
 				createMethodPanel(), createListPanel());
@@ -259,41 +261,44 @@ public class RenamerView extends JFrame{
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			//JButton b = (JButton) e.getSource();
-			
-//			System.out.println("Dimensione preferita: " + b.getPreferredSize());
-//			System.out.println("Dimensione effettiva: " + b.getSize());
-
-			
 			String name = ((JButton) e.getSource()).getText();
-
+			
 			switch (name) {
-			case ("Aggiungi"):
-				accordion.addPanel(name, new AddPanel(accordion));
-			break;
-			case ("Nuovo nome"):
-				accordion.addPanel(name, new TagPanel(accordion));
-			break;
-			case ("Rimuovi"):
-				accordion.addPanel(name, new RemovePanel(accordion));
-			break;
-			case ("Replace"):
-				accordion.addPanel(name, new ReplacePanel(accordion));
-			break;
-			case ("Case"):
-				accordion.addPanel(name, new CasePanel(accordion));
-			break;
-			case ("Split"):
-				accordion.addPanel(name, new SplitPanel(accordion));
-			break;
-			case ("Merge"):
-				accordion.addPanel(name, new MergePanel(accordion));
-			break;			
-			}
+		    case "Aggiungi" -> accordion.addPanel(name, new AddPanel(accordion));
+		    case "Nuovo nome" -> accordion.addPanel(name, new TagPanel(accordion));
+		    case "Rimuovi" -> accordion.addPanel(name, new RemovePanel(accordion));
+		    case "Replace" -> accordion.addPanel(name, new ReplacePanel(accordion));
+		    case "Case" -> accordion.addPanel(name, new CasePanel(accordion));
+		    case "Split" -> accordion.addPanel(name, new SplitPanel(accordion));
+		    case "Merge" -> accordion.addPanel(name, new MergePanel(accordion));
+		    default -> throw new IllegalArgumentException("Operazione non riconosciuta: " + name);
+		}
+
+//			switch (name) {
+//			case ("Aggiungi"):
+//				accordion.addPanel(name, new AddPanel(accordion));
+//			break;
+//			case ("Nuovo nome"):
+//				accordion.addPanel(name, new TagPanel(accordion));
+//			break;
+//			case ("Rimuovi"):
+//				accordion.addPanel(name, new RemovePanel(accordion));
+//			break;
+//			case ("Replace"):
+//				accordion.addPanel(name, new ReplacePanel(accordion));
+//			break;
+//			case ("Case"):
+//				accordion.addPanel(name, new CasePanel(accordion));
+//			break;
+//			case ("Split"):
+//				accordion.addPanel(name, new SplitPanel(accordion));
+//			break;
+//			case ("Merge"):
+//				accordion.addPanel(name, new MergePanel(accordion));
+//			break;			
+//			}
 		}
 	}
-
-
 
 
 	public static void main(String args[]) {

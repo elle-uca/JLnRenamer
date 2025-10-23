@@ -29,57 +29,79 @@ public class Costants {
         ALL
     }
 
-    /**
-     * An enumeration to define the type of padding to apply.
-     *
-     */
-	public enum FillOption {
-		NO_FILL("Nessun riempimento"),
-		FILL_TO_ZERO("Riempi con zeri"),
-		FILL_TO_NUMBER("Riempi fino a");
-
-		private final String displayName;
+ 
 
 
-		private FillOption(String displayName) {
-			this.displayName = displayName;
-		}
 
-		@Override
-		public String toString() {
-			return displayName; 
-		}
-
-		public  static FillOption getByPref() {
-			return fromString(RnPrefs.getInstance().getGlobalProperty("FILL_TYPE"));
-
-		}
-		/**
-		 * Questo metodo è case-insensitive (non fa distinzione tra maiuscole e minuscole)
-		 * e restituisce un valore di default se la stringa non corrisponde a nessuna costante.
-		 *
-		 * @param text Il nome della costante da cercare (es. "TOTAL_DIGITS").
-		 * @param defaultType Il valore da restituire se 'text' non è valido o è nullo.
-		 * @return Il PaddingType corrispondente o il valore di default.
-		 */
-		public static FillOption fromString(String text) {
-			if (text == null) {
-				return NO_FILL;
-			}
-
-			try {
-				// valueOf() cerca una corrispondenza esatta (case-sensitive)
-				// quindi convertiamo il testo in maiuscolo per renderlo flessibile.
-				return FillOption.valueOf(text.trim().toUpperCase());
-			} catch (IllegalArgumentException e) {
-				// Se la stringa non corrisponde a nessuna costante dell'enum...
-				return NO_FILL;
-			}
-		} 
-
-	}
-
-
+//	/**
+//	 * Enum che definisce le diverse modalità di trasformazione del testo.
+//	 * Ogni costante implementa la propria logica di trasformazione.
+//	 */
+//	public enum ModeCase {
+//
+//	    UPPER {
+//	        @Override
+//	        public String transform(String input) {
+//	            return input.toUpperCase();
+//	        }
+//	    },
+//
+//	    LOWER {
+//	        @Override
+//	        public String transform(String input) {
+//	            return input.toLowerCase();
+//	        }
+//	    },
+//
+//	    TITLE_CASE {
+//	        @Override
+//	        public String transform(String input) {
+//	            // Questa logica rimane invariata
+//	            return Arrays.stream(input.toLowerCase().split("\\s+"))
+//	                    .filter(word -> !word.isBlank())
+//	                    .map(word -> Character.toUpperCase(word.charAt(0)) + word.substring(1))
+//	                    .collect(Collectors.joining(" "));
+//	        }
+//	    },
+//
+//	    CAPITALIZE_FIRST {
+//	        @Override
+//	        public String transform(String input) {
+//	            // Questa logica rimane invariata
+//	            return input.isEmpty()
+//	                    ? input
+//	                    : Character.toUpperCase(input.charAt(0)) + input.substring(1).toLowerCase();
+//	        }
+//	    },
+//
+//	    TOGGLE_CASE {
+//	        @Override
+//	        public String transform(String input) {
+//	            // Ottimizzato: StringBuilder è molto più efficiente 
+//	            // per la manipolazione di singoli caratteri rispetto a uno stream.
+//	            var sb = new StringBuilder(input.length());
+//	            for (char ch : input.toCharArray()) {
+//	                if (Character.isUpperCase(ch)) {
+//	                    sb.append(Character.toLowerCase(ch));
+//	                } else if (Character.isLowerCase(ch)) {
+//	                    sb.append(Character.toUpperCase(ch));
+//	                } else {
+//	                    sb.append(ch);
+//	                }
+//	            }
+//	            return sb.toString();
+//	        }
+//	    };
+//
+//	    /**
+//	     * Metodo astratto che applica la trasformazione specifica di questo caso.
+//	     *
+//	     * @param input La stringa da trasformare.
+//	     * @return La stringa trasformata.
+//	     */
+//	    public abstract String transform(String input);
+//	}
+	
 
 	public enum ModeCase {
 		UPPER ("TUTTO MAIUSCOLO"),         

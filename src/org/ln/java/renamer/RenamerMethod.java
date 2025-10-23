@@ -1,9 +1,11 @@
 package org.ln.java.renamer;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 import org.ln.java.renamer.Costants.ModeCase;
 import org.ln.java.renamer.Costants.ReplacementType;
@@ -91,51 +93,141 @@ public class RenamerMethod {
     
 
     
-    public static String transformCase(String input, ModeCase modeCase) {
-        if (input == null) return null;
+//    public static String transformCase(String input, ModeCase modeCase) {
+//        if (input == null) return null;
+//
+//        switch (modeCase) {
+//            case UPPER:
+//                return input.toUpperCase();
+//
+//            case LOWER:
+//                return input.toLowerCase();
+//
+//            case TITLE_CASE:
+//                String[] words = input.toLowerCase().split("\\s+");
+//                StringBuilder sb = new StringBuilder();
+//                for (String word : words) {
+//                    if (!word.isEmpty()) {
+//                        sb.append(Character.toUpperCase(word.charAt(0)))
+//                          .append(word.substring(1))
+//                          .append(" ");
+//                    }
+//                }
+//                return sb.toString().trim();
+//
+//            case CAPITALIZE_FIRST:
+//                return Character.toUpperCase(input.charAt(0)) 
+//                        + input.substring(1).toLowerCase();
+//
+//            case TOGGLE_CASE:
+//                StringBuilder toggled = new StringBuilder();
+//                for (char c : input.toCharArray()) {
+//                    if (Character.isUpperCase(c)) {
+//                        toggled.append(Character.toLowerCase(c));
+//                    } else if (Character.isLowerCase(c)) {
+//                        toggled.append(Character.toUpperCase(c));
+//                    } else {
+//                        toggled.append(c);
+//                    }
+//                }
+//                return toggled.toString();
+//
+//            default:
+//                throw new IllegalArgumentException("Modalità non valida: " + modeCase);
+//        }
+//    }
 
-        switch (modeCase) {
-            case UPPER:
-                return input.toUpperCase();
+//	public static String transformCase(String input, ModeCase modeCase) {
+//	    if (input == null) return null;
+//
+//	    return switch (modeCase) {
+//	        case UPPER -> input.toUpperCase();
+//	        case LOWER -> input.toLowerCase();
+//
+//	        case TITLE_CASE -> {
+//	            var words = input.toLowerCase().split("\\s+");
+//	            var sb = new StringBuilder();
+//	            for (var word : words) {
+//	                if (!word.isBlank()) {
+//	                    sb.append(Character.toUpperCase(word.charAt(0)))
+//	                      .append(word.substring(1))
+//	                      .append(' ');
+//	                }
+//	            }
+//	            yield sb.toString().trim();
+//	        }
+//
+//	        case CAPITALIZE_FIRST -> 
+//	            input.isEmpty()
+//	                ? input
+//	                : Character.toUpperCase(input.charAt(0)) + input.substring(1).toLowerCase();
+//
+//	        case TOGGLE_CASE -> {
+//	            var toggled = new StringBuilder();
+//	            for (var c : input.toCharArray()) {
+//	                if (Character.isUpperCase(c)) toggled.append(Character.toLowerCase(c));
+//	                else if (Character.isLowerCase(c)) toggled.append(Character.toUpperCase(c));
+//	                else toggled.append(c);
+//	            }
+//	            yield toggled.toString();
+//	        }
+//
+//	        default -> throw new IllegalArgumentException("Modalità non valida: " + modeCase);
+//	    };
+//	}
 
-            case LOWER:
-                return input.toLowerCase();
 
-            case TITLE_CASE:
-                String[] words = input.toLowerCase().split("\\s+");
-                StringBuilder sb = new StringBuilder();
-                for (String word : words) {
-                    if (!word.isEmpty()) {
-                        sb.append(Character.toUpperCase(word.charAt(0)))
-                          .append(word.substring(1))
-                          .append(" ");
-                    }
-                }
-                return sb.toString().trim();
+	/**
+	 * Transforms the case of the provided input string based on the specified {@link ModeCase}.
+	 * <p>
+	 * This method supports several transformations:
+	 * <ul>
+	 * <li>{@code UPPER}: Converts the entire string to uppercase.</li>
+	 * <li>{@code LOWER}: Converts the entire string to lowercase.</li>
+	 * <li>{@code TITLE_CASE}: Converts the string to title case, where the first
+	 * letter of each word is capitalized (e.g., "hello world" -> "Hello World").</li>
+	 * <li>{@code CAPITALIZE_FIRST}: Capitalizes only the first letter of the entire
+	 * string and converts the rest to lowercase (e.g., "hELLO wORLD" -> "Hello world").</li>
+	 * <li>{@code TOGGLE_CASE}: Inverts the case of each letter (e.g., "Hello" -> "hELLO").</li>
+	 * </ul>
+	 * <p>
+	 * If the input string is {@code null}, this method returns {@code null}.
+	 *
+	 * @param input    The string to be transformed. Can be {@code null}.
+	 * @param modeCase The enum constant specifying the desired case transformation.
+	 * @return The new string with the applied case transformation, or {@code null} if the input was {@code null}.
+	 * @throws IllegalArgumentException if the provided {@code modeCase} is not a valid or supported constant.
+	 */
+	public static String transformCase(String input, ModeCase modeCase) {
+	    if (input == null) return null;
 
-            case CAPITALIZE_FIRST:
-                return Character.toUpperCase(input.charAt(0)) 
-                        + input.substring(1).toLowerCase();
+	    return switch (modeCase) {
+	        case UPPER -> input.toUpperCase();
+	        case LOWER -> input.toLowerCase();
 
-            case TOGGLE_CASE:
-                StringBuilder toggled = new StringBuilder();
-                for (char c : input.toCharArray()) {
-                    if (Character.isUpperCase(c)) {
-                        toggled.append(Character.toLowerCase(c));
-                    } else if (Character.isLowerCase(c)) {
-                        toggled.append(Character.toUpperCase(c));
-                    } else {
-                        toggled.append(c);
-                    }
-                }
-                return toggled.toString();
+	        case TITLE_CASE -> Arrays.stream(input.toLowerCase().split("\\s+"))
+	                .filter(word -> !word.isBlank())
+	                .map(word -> Character.toUpperCase(word.charAt(0)) + word.substring(1))
+	                .collect(Collectors.joining(" "));
 
-            default:
-                throw new IllegalArgumentException("Modalità non valida: " + modeCase);
-        }
-    }
+	        case CAPITALIZE_FIRST -> 
+	            input.isEmpty()
+	                ? input
+	                : Character.toUpperCase(input.charAt(0)) + input.substring(1).toLowerCase();
 
-    
+	        case TOGGLE_CASE -> input.chars()
+	                .mapToObj(c -> {
+	                    char ch = (char) c;
+	                    if (Character.isUpperCase(ch)) return String.valueOf(Character.toLowerCase(ch));
+	                    if (Character.isLowerCase(ch)) return String.valueOf(Character.toUpperCase(ch));
+	                    return String.valueOf(ch);
+	                })
+	                .collect(Collectors.joining());
+
+	        default -> throw new IllegalArgumentException("Modalità non valida: " + modeCase);
+	    };
+	}
+
     
     /**
      * Replaces occurrences of a substring, with an option for case-sensitivity.
