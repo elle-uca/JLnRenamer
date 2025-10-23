@@ -1,9 +1,14 @@
 package org.ln.java.renamer.tool;
 
-import javax.swing.*;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+
+import javax.swing.JButton;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 
 public class EsempioSalvataggioFile {
 
