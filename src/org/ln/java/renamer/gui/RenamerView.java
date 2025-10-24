@@ -22,6 +22,8 @@ import javax.swing.JSplitPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 import org.ln.java.renamer.Controller;
 import org.ln.java.renamer.gui.panel.AccordionPanel;
@@ -190,7 +192,10 @@ public class RenamerView extends JFrame{
 		table1.setAutoCreateRowSorter(true);
         table1.getColumnModel().getColumn(3).setCellRenderer(new StatusCellRenderer());
         table1.getColumnModel().getColumn(1).setCellRenderer(new NewNameCellRenderer());
-
+        TableRowSorter<TableModel> sorter = new TableRowSorter<>(table1.getModel());
+        sorter.setComparator(0, new NaturalOrderComparator()); // colonna Name
+        sorter.setComparator(1, new NaturalOrderComparator()); // colonna New Name
+        table1.setRowSorter(sorter);
         
 //		tableScrollPane2 = new JScrollPane();
 //		table2 = new JTable();
