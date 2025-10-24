@@ -115,28 +115,47 @@ public class FileRenamerTableModel extends AbstractTableModel{
     	}
     }
     
+//    @Override
+//    public Class<?> getColumnClass(int columnIndex) {
+//        switch (columnIndex) {
+//            case 4:
+//                return Boolean.class; // checkbox
+//            default:
+//                return String.class;  // tutte le altre colonne come testo
+//        }
+//    }
+
     @Override
     public Class<?> getColumnClass(int columnIndex) {
-        switch (columnIndex) {
-            case 4:
-                return Boolean.class; // checkbox
-            default:
-                return String.class;  // tutte le altre colonne come testo
-        }
+        return switch (columnIndex) {
+            case 4 -> Boolean.class;  // checkbox
+            default -> String.class; // all other columns as text
+        };
     }
-
-
+    
     @Override
     public String getColumnName(int column) {
-        switch (column) {
-            case 0: return "Name";       // String
-            case 1: return "New Name";   // String
-            case 2: return "Path";       // String
-            case 3: return "Errore";     // String
-            case 4: return "Selected";   // Boolean
-        }
-        return "";
+        return switch (column) {
+            case 0 -> "Name";
+            case 1 -> "New Name";
+            case 2 -> "Path";
+            case 3 -> "Errore";
+            case 4 -> "Selected";
+            default -> ""; // Obbligatorio e copre tutti gli altri casi
+        };
     }
+
+//    @Override
+//    public String getColumnName(int column) {
+//        switch (column) {
+//            case 0: return "Name";       // String
+//            case 1: return "New Name";   // String
+//            case 2: return "Path";       // String
+//            case 3: return "Errore";     // String
+//            case 4: return "Selected";   // Boolean
+//        }
+//        return "";
+//    }
     
     
 

@@ -81,7 +81,8 @@ public class CasePanel extends AbstractPanelContent {
 		
 		List<RnFile> list = accordion.getTableData();
         for (RnFile file : list) {
-            file.setNameDest(RenamerMethod.transformCase(file.getFrom().getNameExtensionLess(), modeCase));
+           file.setNameDest(RenamerMethod.transformCase(file.getFrom().getNameExtensionLess(), modeCase));
+           // file.setNameDest(RenamerMethod.transformCase(file.getFrom().getName(), modeCase));
         }
 		accordion.setTableData(list);
 	}
