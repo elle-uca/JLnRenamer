@@ -11,6 +11,7 @@ import org.ln.java.renamer.Costants;
  *
  * @author  Luca Noale
  */
+
 public class Word extends RnTag {
 
 	//final static String DELIMITERS = ".-_()[]";
