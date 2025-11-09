@@ -64,14 +64,12 @@ public class TagPanel extends AbstractPanelContent {
 
 	@Override
 	void updateView() {
-		RnPrefs.getInstance().setGlobalProperty(
-				"FILL_TYPE", fill.getSelectedOption().name());
-		RnPrefs.getInstance().setGlobalProperty(
-				"FILL_VALUE", fill.getStringValue());
-		if(StringParser.isParsable(renameField.getText())) {
-			accordion.setTableData(StringParser.parse(
-					renameField.getText(), accordion.getTableData())) ;
-		}
+		String text = renameField.getText();
+	    if (StringParser.isParsable(text)) {
+	        accordion.setTableData(
+	            StringParser.parse(text, accordion.getTableData())
+	        );
+	    }
 		
 	}
 
