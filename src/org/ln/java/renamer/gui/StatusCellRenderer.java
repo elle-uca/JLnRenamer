@@ -30,7 +30,6 @@ public class StatusCellRenderer extends DefaultTableCellRenderer {
                 //c.setForeground(Color.BLACK);
             }
         }
-    
-        return c;
+         return c;
     }
 }
